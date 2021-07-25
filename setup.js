@@ -45,12 +45,12 @@ async function continueSetup() {
         const auth = await inquirer.prompt([{
             type: 'input',
             name: 'auth',
-            message: 'What is your Salad Auth Token?',
+            message: 'What is your Salad Access Token?',
             validate: function (input) {
                 if (input.length > 0) {
                     return true;
                 }
-                return "Your Salad Auth Token is required for automatic mode. If you don't want this, restart SaladBind and select manual.";
+                return "Your Salad Access Token is required for automatic mode. If you don't want this, restart SaladBind and select manual.";
             }
         }]);
         ora("Getting miner details...").start();
