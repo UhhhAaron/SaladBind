@@ -2,7 +2,7 @@
 
 ## About
 
-**This application is not affiliated with Salad Technologies.** It is made by community members.
+**This application is not affiliated with Salad Technologies.** It is made by Vukky Limited, for the entire Salad community.
 
 BIND-ing the good features from other projects together! (and fucking nuking the bad ones)
 
@@ -14,6 +14,6 @@ Oh, and did we mention the insane data savings? SaladBind downloads miners on de
 
 Oh, *and* did we mention it's not for-profit? We don't have hidden fees and pools.
 
-Welcome to the next generation of Salad CLIs.
+Welcome to the next generation of Salad CLIs!
 
 ## Installation
