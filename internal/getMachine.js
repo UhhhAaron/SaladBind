@@ -29,9 +29,6 @@ async function getInfo(sAccessToken, sIdRefreshToken){
     return poo;
 };
 
-(async () => {
-console.log(await getInfo());
-})();
 module.exports = {
     getInfo
 };
