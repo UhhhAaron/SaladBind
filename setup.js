@@ -70,7 +70,7 @@ async function continueSetup(clear) {
             }
         ]);
         const spinner = ora("Getting miner details...").start();
-        let minerDetails = await require("./internal/getMachine").getInfo();
+        let minerDetails = await require("./internal/getMachine").getInfo(auth.auth, auth.refresh); //vukky its not gonna work
         fs.writeFileSync("./data/config.json", JSON.stringify({"minerId": minerDetails.minerId}));
         spinner.stop();
     } else {
