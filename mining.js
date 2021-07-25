@@ -5,6 +5,9 @@ const fs = require('fs');
 let spinner;
 
 async function run() {
+    if (!fs.existsSync("./data/miners")){
+        fs.mkdirSync("./data/miners");
+    }
     console.clear();
     console.log(chalk.bold.cyan(`Configure your miner`))
     const pool = await inquirer.prompt([{
