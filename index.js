@@ -4,6 +4,7 @@ const packageJson = require('./package.json');
 const fs = require('fs');
 const inquirer = require('inquirer');
 const fetch = require("node-fetch");
+const open = require("open");
 
 console.clear();
 process.title = "SaladBind";
@@ -64,6 +65,10 @@ async function menu() {
                     value: 'config'
                 },
                 {
+                    name: 'Join the SaladBind Discord',
+                    value: 'discord'
+                },
+                {
                     name: 'Exit SaladBind',
                     value: 'exit'
                 }
@@ -74,6 +79,14 @@ async function menu() {
     switch (answers.menu) {
         case 'config':
             require("./setup").run();
+        break;
+        case 'discord':
+            open("https://discord.gg/HfBAtQ2afz");
+            console.log("\nOpened the invite in your browser!");
+            setTimeout(() => {
+                menu();
+            }, 2500);
+            break;
         break;
         case 'exit':
             console.clear();
