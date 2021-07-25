@@ -77,7 +77,25 @@ async function continueSetup(clear) {
         fs.writeFileSync("./data/config.json", JSON.stringify({"minerId": minerDetails.minerId}));
         spinner.stop();
     } else {
-        //manual
+        const worker = await inquirer.prompt([
+            {
+                type: 'input',
+                name: 'id',
+                message: 'What is your Salad worker ID? (both NiceHash\'s Rig ID and Ethermine\'s Worker ID work)',
+                validate: function (input) {
+                    if (input.length == 15) {
+                        return true;
+                    }
+                    return `If you don't want to manually enter your Worker ID you can use automatic mode. ${chalk.yellow.bold("You may be seeing this if you entered the Worker ID incorrectly!")}`;
+                }
+            }
+        ]);
+        const spinner = ora("Saving...").start();
+        if (!fs.existsSync("./data")){
+            fs.mkdirSync("./data");
+        }
+        fs.writeFileSync("./data/config.json", JSON.stringify({"minerId": worker.id}));
+        spinner.stop();
     }
     console.clear();
     console.log(chalk.bold.greenBright(`Congratulations!! :D`))
