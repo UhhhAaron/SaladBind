@@ -42,7 +42,7 @@ const updateCheck = new Promise((resolve, reject) => {
             console.log("Welcome to SaladBind! Let's set things up now :)\n");
             require("./setup").run(false);
         } else {
-            menu(); //maybe?
+            menu();
         }
     })
 })();
@@ -86,12 +86,13 @@ async function menu() {
             setTimeout(() => {
                 menu();
             }, 2500);
-            break;
         break;
         case 'exit':
             console.clear();
             process.exit(0);
-        break;
+        default:
+            menu();
+            break;
     }
 }
 
