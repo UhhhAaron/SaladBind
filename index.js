@@ -77,9 +77,12 @@ async function menu() {
     ];
     const answers = await inquirer.prompt(questions);
     switch (answers.menu) {
+        case 'mining':
+            require("./mining").run();
+            break;
         case 'config':
             require("./setup").run();
-        break;
+            break;
         case 'discord':
             open("https://discord.gg/HfBAtQ2afz");
             console.log("\nOpened the invite in your browser!");
