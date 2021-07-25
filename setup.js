@@ -4,7 +4,7 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 
 function run(clear) {
-    if(!clear || clear == true) {
+    if(clear == undefined || clear == true) {
         console.clear();
         console.log(chalk.bold.cyan(`Configure SaladBind`))
     }
@@ -22,18 +22,20 @@ function run(clear) {
             }
         });
     } else {
-        continueSetup();
+        continueSetup(clear);
     }
 }
-async function continueSetup() {
-    console.clear();
-    console.log(chalk.bold.cyan(`Configure SaladBind`))
+async function continueSetup(clear) {
+    if(clear == undefined || clear == true) {
+        console.clear();
+        console.log(chalk.bold.cyan(`Configure SaladBind`))
+    }
     const useapi = await inquirer.prompt([{
         type: 'list',
         name: "useapi",
         message: "How would you like to provide your mining details?",
         choices: [{
-            name: `Automatic ${chalk.yellow("(Salad Auth token required!)")}`,
+            name: `Automatic ${chalk.yellow("(Salad Auth tokens required!)")}`,
             value: "api"
         }, {
             name: `Manual`,
@@ -42,18 +44,35 @@ async function continueSetup() {
     }]);
     if (useapi.useapi == "api") {
         //auth
-        const auth = await inquirer.prompt([{
-            type: 'input',
-            name: 'auth',
-            message: 'What is your Salad Access Token?',
-            validate: function (input) {
-                if (input.length > 0) {
-                    return true;
+        console.log(chalk.green("We need the tokens to get your Wallet and Rig ID automatically.\nThey will not be stored!"))
+        const auth = await inquirer.prompt([
+            {
+                type: 'input',
+                name: 'auth',
+                message: 'What is your Salad Access Token?',
+                validate: function (input) {
+                    if (input.length == 778) {
+                        return true;
+                    }
+                    return `Your Salad Access Token is required for automatic mode. If you don't want this, restart SaladBind and select manual. ${chalk.yellow.bold("You may be seeing this if you entered the token incorrectly!")}`;
                 }
-                return "Your Salad Access Token is required for automatic mode. If you don't want this, restart SaladBind and select manual.";
+            },
+            {
+                type: 'input',
+                name: 'refresh',
+                message: 'What is your Salad Refresh Token?',
+                validate: function (input) {
+                    if (input.length == 36) {
+                        return true;
+                    }
+                    return `Your Salad Refresh Token is required for automatic mode. If you don't want this, restart SaladBind and select manual. ${chalk.yellow.bold("You may be seeing this if you entered the token incorrectly!")}`;
+                }
             }
-        }]);
-        ora("Getting miner details...").start();
+        ]);
+        const spinner = ora("Getting miner details...").start();
+        let minerDetails = await require("./internal/getMachine").getInfo();
+        fs.writeFileSync("./data/config.json", JSON.stringify({"minerId": minerDetails.minerId}));
+        spinner.stop();
     } else {
         //manual
     }
