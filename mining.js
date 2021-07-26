@@ -37,7 +37,7 @@ async function run() {
                 value: "xmrig"
             }]
         }]);
-        spinner = ora(`Downloading ${miner.miner}.exe`).start();
+        spinner = ora(`Downloading ${miner.miner}`).start();
     }, 2500);
 }
 
