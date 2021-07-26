@@ -6,7 +6,7 @@ const fetch = require("node-fetch");
 const si = require("systeminformation");
 const https = require('https');
 const path = require('path');
-var yauzl = require("yauzl");
+const extract = require('extract-zip')
 let spinner;
 
 
@@ -15,35 +15,8 @@ async function extractFile(location, folderName, fileExtension) {
     if (!fs.existsSync(location)){
 		fs.mkdirSync(location);
 	}
-    switch(fileExtension) {
-        case ".zip":
-            yauzl.open(location, {lazyEntries: true}, function(err, zipfile) {
-                if (err) {
-                    console.log(err);
-                    return;
-                }
-                zipfile.readEntry();
-                zipfile.on("entry", function(entry) {
-                    if (entry.fileName.substr(-1) === "/") {
-                        return;
-                    }
-                    zipfile.openReadStream(entry, function(err, readStream) {
-                        if (err) {
-                            console.log(err);
-                            return;
-                        }
-                        readStream.pipe(fs.createWriteStream(path.join(folderName, entry.fileName)));
-                    });
-                });
-                zipfile.on("end", function() {
-                    console.log("Done");
-                });
-            }); //eof yauzl  so does this    function 	UH I ODnt Know. ePIC LETS TRY IT
-            break;
-        case ".tar.gz":
-        case ".tgz":
-            break;
-    }
+    await extract(require('path').resolve(location), { dir: path.resolve(`./data/miners/${folderName}`) });
+	spinner.succeed(chalk.bold.green(`Extracted ${folderName}`));
 }
 const downloadFile = async function(url, location, name) {
     return new Promise(async (resolve, reject) => {
@@ -73,14 +46,14 @@ async function run() {
 	console.clear();
 	console.log(chalk.bold.cyan(`Configure your miner`))
 	spinner = ora("Loading miner list").start();
-	fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/miners.json?token=ALJSKC2Y3UFDZVBCNYR5PX3A73TYQ') //fuck you token
+	fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/miners.json?token=ALJSKC27NQQ2YU43LJOK2B3A73WMI') //fuck you token
 		.then(res => res.json())
 		.then(async data => {
 			spinner.stop();
 			let minerList = [];
 			let temp = await si.osInfo()
 			let temp2 = await si.graphics()
-			let userPlatform = temp.platform;
+			let userPlatform = "linux" //temp.platform;
 			let GPUs = [];  
 			for (let i = 0; i < temp2.controllers.length; i++) {
 				let compatibleAlgos = []
