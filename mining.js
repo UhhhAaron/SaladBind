@@ -32,7 +32,7 @@ async function run() {
     console.clear();
     console.log(chalk.bold.cyan(`Configure your miner`))
     spinner = ora("Loading miner list").start();
-    fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/miners.json?token=ALJSKC46CWCMWQVLIWLDD3LA72YIY')
+    fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/miners.json?token=ALJSKC4Y47KW2EIR7TCUDFDA722W4')
         .then(res => res.json())
         .then(async data => {
             spinner.stop();
@@ -41,13 +41,21 @@ async function run() {
             let temp2 = await si.graphics()
             let userPlatform = temp.platform;
             let GPUs = [];
-            console.log(temp2)
+            console.log(temp2.controllers[0].vram)
             for (let i = 0; i < temp2.controllers.length; i++) {
-                GPUs.push({"algos": null, "vram": temp2.controllers[i].vram});
+                let compatibleAlgos = []
+                for (let j = 0; j < Object.keys(data.algos).length; j++) {
+                    if(temp2.controllers[i].vram > data.algos[Object.keys(data.algos)[i]]) {
+                        compatibleAlgos.push(Object.keys(data.algos)[i])
+                    }
+                }
+                GPUs.push({"algos": compatibleAlgos, "vendor": temp2.controllers[i].vendor});
             }
+            console.log(GPUs);
             for (let i = 0; i < Object.keys(data.miners).length; i++) {
                 const minerSupportsOS = data.miners[Object.keys(data.miners)[i]].supported_os.includes(userPlatform)
-                if(minerSupportsOS) {
+                const minerSupportsGPU = GPUs.filter(gpu => data.miners[Object.keys(data.miners)[i]].algos.includes(gpu.algos) && data.miners[Object.keys(data.miners)[i]].supported_gpus.includes(gpu.vendor.toLowerCase())).length > 0
+                if(minerSupportsOS && minerSupportsGPU) {
                     minerList.push({
                         name: data.miners[Object.keys(data.miners)[i]].miner,
                         value: data.miners[Object.keys(data.miners)[i]]
@@ -60,19 +68,20 @@ async function run() {
                 setTimeout(() => {
                     require("./index").menu();
                 }, 6000);
+            } else {
+                const miner = await inquirer.prompt({
+                    type: "list",
+                    name: "miner",
+                    message: "Choose a miner",
+                    choices: minerList
+                });
+                spinner = ora(`Downloading ${miner.miner.miner}-${miner.miner.version}`).start();
+                var downloadURL = miner.miner.download[userPlatform];
+                const fileExtension = path.extname(downloadURL);
+                const fileName = `${miner.miner.miner}-${miner.miner.version}`
+                const fileLocation = `./data/miners/${fileName}${fileExtension}`; 
+                await downloadFile(downloadURL, fileLocation, fileName);
             }
-            const miner = await inquirer.prompt({
-                type: "list",
-                name: "miner",
-                message: "Choose a miner",
-                choices: minerList
-            });
-            spinner = ora(`Downloading ${miner.miner.miner}-${miner.miner.version}`).start();
-            var downloadURL = miner.miner.download[userPlatform];
-            const fileExtension = path.extname(downloadURL);
-            const fileName = `${miner.miner.miner}-${miner.miner.version}`
-            const fileLocation = `./data/miners/${fileName}${fileExtension}`; 
-            await downloadFile(downloadURL, fileLocation, fileName);
         })
         .catch(err => {
             spinner.fail(chalk.bold.red(`Could not start a miner. Please try again later.`));

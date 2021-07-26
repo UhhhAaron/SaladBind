@@ -1,9 +1,9 @@
 {
     "algos": {
-        "ethash": "4.3GB",
-        "etchash": "2.7GB",
-        "kawpow": "2.9GB",
-        "beamv3": "3GB"
+        "ethash": 4300,
+        "etchash": 2700,
+        "kawpow": 2900,
+        "beamv3": 3000
     },
     "miners": {
         "phoenixminer": {
