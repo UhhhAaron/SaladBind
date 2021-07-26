@@ -6,23 +6,64 @@ const fetch = require("node-fetch");
 const si = require("systeminformation");
 const https = require('https');
 const path = require('path');
+var yauzl = require("yauzl");
 let spinner;
 
 
-async function downloadFile(url, location, name) {
-	const stream = fs.createWriteStream(location);
-	const request = await https.get(url, function(response) {
-		if(parseInt(response.statusCode) >= 200 && parseInt(response.statusCode) < 300) { 
-			response.pipe(stream);
-			stream.on('finish', function() {
-				stream.close(function(){
-					spinner.succeed(chalk.bold.green(`Downloaded ${name}`));
+
+async function extractFile(location, folderName, fileExtension) {
+    if (!fs.existsSync(location)){
+		fs.mkdirSync(location);
+	}
+    switch(fileExtension) {
+        case ".zip":
+            yauzl.open(location, {lazyEntries: true}, function(err, zipfile) {
+                if (err) {
+                    console.log(err);
+                    return;
+                }
+                zipfile.readEntry();
+                zipfile.on("entry", function(entry) {
+                    if (entry.fileName.substr(-1) === "/") {
+                        return;
+                    }
+                    zipfile.openReadStream(entry, function(err, readStream) {
+                        if (err) {
+                            console.log(err);
+                            return;
+                        }
+                        readStream.pipe(fs.createWriteStream(path.join(folderName, entry.fileName)));
+                    });
+                });
+                zipfile.on("end", function() {
+                    console.log("Done");
+                });
+            }); //eof yauzl  so does this    function 	UH I ODnt Know. ePIC LETS TRY IT
+            break;
+        case ".tar.gz":
+        case ".tgz":
+            break;
+    }
+}
+const downloadFile = async function(url, location, name) {
+    return new Promise(async (resolve, reject) => {
+        const stream = fs.createWriteStream(location);
+        const request = https.get(url, function(response) {
+            if(parseInt(response.statusCode) >= 200 && parseInt(response.statusCode) < 300) { 
+                response.pipe(stream);
+                stream.on('finish', function() {
+                    stream.close(function(){
+                        spinner.succeed(chalk.bold.green(`Downloaded ${name}`));
+                        resolve();
+                    }); // confusdion?
+                });
+            } else {
+                downloadFile(response.headers.location, location, name).then(() => {
+					resolve();
 				});
-			});
-		} else {
-			downloadFile(response.headers.location, location, name);
-		}
-	});
+			} // im confused on what happened there
+        });
+    });
 }
 
 async function run() {
@@ -32,7 +73,7 @@ async function run() {
 	console.clear();
 	console.log(chalk.bold.cyan(`Configure your miner`))
 	spinner = ora("Loading miner list").start();
-	fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/miners.json') //fuck you token
+	fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/miners.json?token=ALJSKC2Y3UFDZVBCNYR5PX3A73TYQ') //fuck you token
 		.then(res => res.json())
 		.then(async data => {
 			spinner.stop();
@@ -56,12 +97,11 @@ async function run() {
 				let minerData = data.miners[Object.keys(data.miners)[i]];
 				const minerSupportsOS = minerData.supported_os.includes(userPlatform)
 				const algosSupportsGPU = minerData.algos.filter(algo => GPUs.filter(gpu => gpu.algos.includes(algo)).length > 0).length > 0
-				
 				const minerSupportsGPU = GPUs.filter(gpu => minerData.supported_gpus.includes(gpu.vendor)).length > 0
 				if(minerSupportsOS && minerSupportsGPU && algosSupportsGPU) {
 					if (GPUs.filter(gpu => minerData.algos.filter(algo => gpu.algos.includes(algo)).length > 0).length != GPUs.length) {
 						minerList.push({
-							name: minerData.miner + ` ${chalk.yellow("Not supported by some of your GPUs")}`,
+							name: `${minerData.miner} ${chalk.yellow("(Not supported by some of your GPUs)")}`,
 							value: minerData
 						});
 					} else {
@@ -90,7 +130,10 @@ async function run() {
 				const fileExtension = path.extname(downloadURL);
 				const fileName = `${miner.miner.miner}-${miner.miner.version}`
 				const fileLocation = `./data/miners/${fileName}${fileExtension}`; 
-				await downloadFile(downloadURL, fileLocation, fileName);
+                downloadFile(downloadURL, fileLocation, fileName).then(async () => {
+                    spinner = ora(`Extracting ${miner.miner.miner}-${miner.miner.version}`).start();
+                    await extractFile(fileLocation, fileName, fileExtension)
+				});
 			}
 		})
 		.catch(err => {
