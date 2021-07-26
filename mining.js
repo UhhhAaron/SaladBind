@@ -32,7 +32,7 @@ async function run() {
     console.clear();
     console.log(chalk.bold.cyan(`Configure your miner`))
     spinner = ora("Loading miner list").start();
-    fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/miners.json?token=ALJSKC4MSWXYH62P467FD4LA72XFC')
+    fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/miners.json?token=ALJSKC46CWCMWQVLIWLDD3LA72YIY')
         .then(res => res.json())
         .then(async data => {
             spinner.stop();
@@ -44,7 +44,7 @@ async function run() {
             console.log(temp2)
             for (let i = 0; i < temp2.controllers.length; i++) {
                 GPUs.push({"algos": null, "vram": temp2.controllers[i].vram});
-            } ///aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+            }
             for (let i = 0; i < Object.keys(data.miners).length; i++) {
                 const minerSupportsOS = data.miners[Object.keys(data.miners)[i]].supported_os.includes(userPlatform)
                 if(minerSupportsOS) {
