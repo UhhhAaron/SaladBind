@@ -29,9 +29,10 @@ const updateCheck = new Promise((resolve, reject) => {
         })
         .catch(err => {
             spinner.fail(chalk.bold.red(`Could not check for updates. Please try again later.`));
+            console.log(err);
             setTimeout(() => {
                 resolve();
-            },2500);
+            },3500);
         });
 });
 

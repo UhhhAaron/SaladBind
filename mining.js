@@ -29,13 +29,14 @@ async function run() {
                 message: "Choose a miner",
                 choices: minerList
             });
-            ora(`Downloading ${data[miner].name}`).start();
+            ora(`Downloading ${miner.miner.miner} ${miner.miner.version}`).start();
         })
         .catch(err => {
             spinner.fail(chalk.bold.red(`Could not load miner list. Please try again later.`));
+            console.log(err);
             setTimeout(() => {
                 require("./index").menu();
-            }, 2500);
+            }, 3500);
         });
 }
 

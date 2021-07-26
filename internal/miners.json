@@ -21,7 +21,8 @@
         },
         "supported_gpus": ["nvidia"],
         "supported_os": ["win", "linux"],
-        "fee": 1.0
+        "fee": 1.0,
+        "version": "0.21.4"
     },
     "xmrig": {
         "miner": "XMRig-GPU",
@@ -31,7 +32,8 @@
         },
         "supported_gpus": ["nvidia", "amd"],
         "supported_os": ["win", "linux"],
-        "fee": 1.0
+        "fee": 1.0,
+        "version": "l"
     },
     "nbminer": {
         "miner": "NBMiner",
@@ -44,7 +46,8 @@
         },
         "supported_gpus": ["nvidia", "amd"],
         "supported_os": ["win", "linux"],
-        "fee": 2.0
+        "fee": 2.0,
+        "version": "38.1"
     }
     
 }
