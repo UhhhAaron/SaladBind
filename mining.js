@@ -32,24 +32,34 @@ async function run() {
     console.clear();
     console.log(chalk.bold.cyan(`Configure your miner`))
     spinner = ora("Loading miner list").start();
-    fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/miners.json')
+    fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/miners.json?token=ALJSKC4MSWXYH62P467FD4LA72XFC')
         .then(res => res.json())
         .then(async data => {
             spinner.stop();
             let minerList = [];
             let temp = await si.osInfo()
+            let temp2 = await si.graphics()
             let userPlatform = temp.platform;
-            for (let i = 0; i < Object.keys(data).length; i++) {
-                if(data[Object.keys(data)[i]].supported_os.includes(userPlatform)) {
+            let GPUs = [];
+            console.log(temp2)
+            for (let i = 0; i < temp2.controllers.length; i++) {
+                GPUs.push({"algos": null, "vram": temp2.controllers[i].vram});
+            } ///aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+            for (let i = 0; i < Object.keys(data.miners).length; i++) {
+                const minerSupportsOS = data.miners[Object.keys(data.miners)[i]].supported_os.includes(userPlatform)
+                if(minerSupportsOS) {
                     minerList.push({
-                        name: data[Object.keys(data)[i]].miner,
-                        value: data[Object.keys(data)[i]]
+                        name: data.miners[Object.keys(data.miners)[i]].miner,
+                        value: data.miners[Object.keys(data.miners)[i]]
                     });
                 }
             }
             if (minerList.length == 0) {
-                console.log(chalk.bold.red("No miner found for your platform."));
-                process.exit();
+                spinner.stop();
+                console.log(chalk.bold.red("No miners are available for your machine D:\nIf you think this is a mistake, talk to us on our Discord server."));
+                setTimeout(() => {
+                    require("./index").menu();
+                }, 6000);
             }
             const miner = await inquirer.prompt({
                 type: "list",

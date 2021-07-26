@@ -1,53 +1,60 @@
 {
-    "phoenixminer": {
-        "miner": "PhoenixMiner",
-        "download": {"win32": "https://phoenixminer.info/downloads/PhoenixMiner_5.6d_Windows.zip", "linux": "https://phoenixminer.info/downloads/PhoenixMiner_5.6d_Linux.tar.gz"},
-        "algos": {
-            "ethash": "4.3GB",
-            "etchash": "2.7GB"
-        },
-        "supported_gpus": ["nvidia", "amd"],
-        "supported_os": ["win32", "linux"],
-        "fee": 0.65,
-        "version": "5.6d"
+    "algos": {
+        "ethash": "4.3GB",
+        "etchash": "2.7GB",
+        "kawpow": "2.9GB",
+        "beamv3": "3GB"
     },
-    "trex": {
-        "miner": "T-Rex Miner",
-        "download": {"win32": "https://github.com/trexminer/T-Rex/releases/download/0.21.4/t-rex-0.21.4-win.zip", "linux": "https://github.com/trexminer/T-Rex/releases/download/0.21.4/t-rex-0.21.4-linux.tar.gz"},
-        "algos": {
-            "ethash": "4.3GB",
-            "etchash": "2.7GB",
-            "kawpow": "2.9GB"
+    "miners": {
+        "phoenixminer": {
+            "miner": "PhoenixMiner",
+            "download": {"win32": "https://phoenixminer.info/downloads/PhoenixMiner_5.6d_Windows.zip", "linux": "https://phoenixminer.info/downloads/PhoenixMiner_5.6d_Linux.tar.gz"},
+            "algos": [
+                "ethash",
+                "etchash"
+            ],
+            "supported_gpus": ["nvidia", "amd"],
+            "supported_os": ["win32", "linux"],
+            "fee": 0.65,
+            "version": "5.6d"
         },
-        "supported_gpus": ["nvidia"],
-        "supported_os": ["win32", "linux"],
-        "fee": 1.0,
-        "version": "0.21.4"
-    },
-    "xmrig": {
-        "miner": "XMRig-GPU",
-        "download": {"win32": "l", "mac": "l", "linux": "l"},
-        "algos": {
-            "kawpow": "2.9GB"
+        "trex": {
+            "miner": "T-Rex Miner",
+            "download": {"win32": "https://github.com/trexminer/T-Rex/releases/download/0.21.4/t-rex-0.21.4-win.zip", "linux": "https://github.com/trexminer/T-Rex/releases/download/0.21.4/t-rex-0.21.4-linux.tar.gz"},
+            "algos": [
+                "ethash",
+                "etchash",
+                "kawpow"
+            ],
+            "supported_gpus": ["nvidia"],
+            "supported_os": ["win32", "linux"],
+            "fee": 1.0,
+            "version": "0.21.4"
         },
-        "supported_gpus": ["nvidia", "amd"],
-        "supported_os": ["win32", "linux"],
-        "fee": 1.0,
-        "version": "l"
-    },
-    "nbminer": {
-        "miner": "NBMiner",  
-        "download": {"win32": "https://github.com/NebuTech/NBMiner/releases/download/v38.1/NBMiner_38.1_win.zip", "linux": "https://github.com/NebuTech/NBMiner/releases/download/v38.1/NBMiner_38.1_Linux.tgz"},
-        "algos": {
-            "ethash": "4.3GB",
-            "etchash": "2.7GB",
-            "kawpow": "2.9GB",
-            "beamv3": "3GB"
+        "xmrig": {
+            "miner": "XMRig-GPU",
+            "download": {"win32": "l", "mac": "l", "linux": "l"},
+            "algos": [
+                "kawpow"
+            ],
+            "supported_gpus": ["nvidia", "amd"],
+            "supported_os": ["win32", "linux"],
+            "fee": 1.0,
+            "version": "l"
         },
-        "supported_gpus": ["nvidia", "amd"],
-        "supported_os": ["win32", "linux"],
-        "fee": 2.0,
-        "version": "38.1"
+        "nbminer": {
+            "miner": "NBMiner",  
+            "download": {"win32": "https://github.com/NebuTech/NBMiner/releases/download/v38.1/NBMiner_38.1_win.zip", "linux": "https://github.com/NebuTech/NBMiner/releases/download/v38.1/NBMiner_38.1_Linux.tgz"},
+            "algos": [
+                "ethash",
+                "etchash",
+                "kawpow",
+                "beamv3"
+            ],
+            "supported_gpus": ["nvidia", "amd"],
+            "supported_os": ["win32", "linux"],
+            "fee": 2.0,
+            "version": "38.1"
+        }
     }
-    
 }
