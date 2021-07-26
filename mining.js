@@ -2,6 +2,7 @@ const ora = require('ora');
 const chalk = require('chalk');
 const inquirer = require('inquirer');
 const fs = require('fs');
+const fetch = require("node-fetch");
 let spinner;
 
 async function run() {
@@ -10,35 +11,32 @@ async function run() {
     }
     console.clear();
     console.log(chalk.bold.cyan(`Configure your miner`))
-    const pool = await inquirer.prompt([{
-        type: 'list',
-        name: "pool",
-        message: "Choose a pool",
-        choices: [{
-            name: `Ethermine`,
-            value: "ethermine"
-        }, {
-            name: `NiceHash`,
-            value: "nicehash"
-        }]
-    }]);
     spinner = ora("Loading miner list").start();
-    setTimeout(async () => {
-        spinner.stop();
-        const miner = await inquirer.prompt([{
-            type: 'list',
-            name: "miner",
-            message: "Choose a miner",
-            choices: [{
-                name: `PhoenixMiner`,
-                value: "phoenix"
-            }, {
-                name: `XMRig`,
-                value: "xmrig"
-            }]
-        }]);
-        spinner = ora(`Downloading ${miner.miner}`).start();
-    }, 2500);
+    fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/miners.json')
+        .then(res => res.json())
+        .then(async data => {
+            spinner.stop();
+            let minerList = [];
+            for (let i = 0; i < Object.keys(data).length; i++) {
+                minerList.push({
+                    name: data[Object.keys(data)[i]].miner,
+                    value: data[Object.keys(data)[i]]
+                });
+            }
+            const miner = await inquirer.prompt({
+                type: "list",
+                name: "miner",
+                message: "Choose a miner",
+                choices: minerList
+            });
+            ora(`Downloading ${data[miner].name}`).start();
+        })
+        .catch(err => {
+            spinner.fail(chalk.bold.red(`Could not load miner list. Please try again later.`));
+            setTimeout(() => {
+                require("./index").menu();
+            }, 2500);
+        });
 }
 
 module.exports = {

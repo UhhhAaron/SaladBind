@@ -1,0 +1,26 @@
+{
+    "nicehash": {
+        "name": "NiceHash",
+        "regions": ["eu-west", "eu-north", "usa-west", "usa-east"],
+        "algos": {
+            "beamv3": {
+                "host": "stratum+tcp://beamv3.REGION.nicehash.com:3335"
+            },
+            "kawpow": {
+                "host": "stratum+tcp://kawpow.REGION.nicehash.com:3335"
+            }
+        }
+    },
+    "ethermine": {
+        "name": "Ethermine",
+        "regions": ["eu1", "us1", "asia1", "eu2", "us2", "asia2"],
+        "algos": {
+            "etchash": {
+                "host": "ethproxy+tcp://REGION-etc.ethermine.org:4444"
+            },
+            "ethash": {
+                "host": "ethproxy+tcp://REGION.ethermine.org:4444"
+            }
+        }
+    }
+}
