@@ -8,6 +8,23 @@ const https = require('https');
 const path = require('path');
 let spinner;
 
+
+async function downloadFile(url, location, name) {
+    const stream = fs.createWriteStream(location);
+    const request = await https.get(url, function(response) {
+        if(parseInt(response.statusCode) >= 200 && parseInt(response.statusCode) < 300) { 
+            response.pipe(stream);
+            stream.on('finish', function() {
+                stream.close(function(){
+                    spinner.succeed(chalk.bold.green(`Downloaded ${name}`));
+                });
+            });
+        } else {
+            downloadFile(response.headers.location, location, name);
+        }
+    });
+}
+
 async function run() {
     if (!fs.existsSync("./data/miners")){
         fs.mkdirSync("./data/miners");
@@ -15,7 +32,7 @@ async function run() {
     console.clear();
     console.log(chalk.bold.cyan(`Configure your miner`))
     spinner = ora("Loading miner list").start();
-    fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/miners.json?token=')
+    fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/miners.json')
         .then(res => res.json())
         .then(async data => {
             spinner.stop();
@@ -30,8 +47,9 @@ async function run() {
                     });
                 }
             }
-            if (minerList.length == 0) { // pushed the change
-
+            if (minerList.length == 0) {
+                console.log(chalk.bold.red("No miner found for your platform."));
+                process.exit();
             }
             const miner = await inquirer.prompt({
                 type: "list",
@@ -39,22 +57,15 @@ async function run() {
                 message: "Choose a miner",
                 choices: minerList
             });
-             spinner = ora(`Downloading ${miner.miner.miner} ${miner.miner.version}`).start();
+            spinner = ora(`Downloading ${miner.miner.miner}-${miner.miner.version}`).start();
             var downloadURL = miner.miner.download[userPlatform];
             const fileExtension = path.extname(downloadURL);
-            const fileLocation = `./data/miners/${miner.miner.miner}-${miner.miner.version}${fileExtension}`; 
-            const stream = fs.createWriteStream(fileLocation);
-            const request = https.get(downloadURL, function(response) {
-                response.pipe(stream); // if you get error token expired likely yeah expired token :bukky:
-                stream.on('finish', function() {
-                    stream.close(function(){
-                        spinner.succeed(chalk.bold.green(`Downloaded ${miner.miner.miner} ${miner.miner.version}`));
-                    });
-                });
-            });
+            const fileName = `${miner.miner.miner}-${miner.miner.version}`
+            const fileLocation = `./data/miners/${fileName}${fileExtension}`; 
+            await downloadFile(downloadURL, fileLocation, fileName);
         })
         .catch(err => {
-            spinner.fail(chalk.bold.red(`Could not load miner list. Please try again later.`));
+            spinner.fail(chalk.bold.red(`Could not start a miner. Please try again later.`));
             console.log(err);
             setTimeout(() => {
                 require("./index").menu();
