@@ -30,7 +30,7 @@ async function run() {
                     });
                 }
             }
-            if (minerList.length == 0) {
+            if (minerList.length == 0) { // pushed the change
 
             }
             const miner = await inquirer.prompt({
@@ -39,12 +39,18 @@ async function run() {
                 message: "Choose a miner",
                 choices: minerList
             });
-            ora(`Downloading ${miner.miner.miner} ${miner.miner.version}`).start();
+             spinner = ora(`Downloading ${miner.miner.miner} ${miner.miner.version}`).start();
             var downloadURL = miner.miner.download[userPlatform];
             const fileExtension = path.extname(downloadURL);
-            const fileLocation = `./data/miners/${miner.miner.miner}-${miner.miner.version}.${fileExtension}`; 
+            const fileLocation = `./data/miners/${miner.miner.miner}-${miner.miner.version}${fileExtension}`; 
+            const stream = fs.createWriteStream(fileLocation);
             const request = https.get(downloadURL, function(response) {
-                response.pipe(fs.createWriteStream(fileLocation)); // if you get error token expired likely yeah expired token :bukky:
+                response.pipe(stream); // if you get error token expired likely yeah expired token :bukky:
+                stream.on('finish', function() {
+                    stream.close(function(){
+                        spinner.succeed(chalk.bold.green(`Downloaded ${miner.miner.miner} ${miner.miner.version}`));
+                    });
+                });
             });
         })
         .catch(err => {

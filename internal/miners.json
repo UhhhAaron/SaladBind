@@ -1,7 +1,7 @@
 {
     "phoenixminer": {
         "miner": "PhoenixMiner",
-        "download": {"win32": "https://phoenixminer.info/downloads/PhoenixMiner_5.6d_win32dows.zip", "linux": "https://phoenixminer.info/downloads/PhoenixMiner_5.6d_Linux.tar.gz"},
+        "download": {"win32": "https://phoenixminer.info/downloads/PhoenixMiner_5.6d_Windows.zip", "linux": "https://phoenixminer.info/downloads/PhoenixMiner_5.6d_Linux.tar.gz"},
         "algos": {
             "ethash": "4.3GB",
             "etchash": "2.7GB"
@@ -13,7 +13,7 @@
     },
     "trex": {
         "miner": "T-Rex Miner",
-        "download": {"win32": "https://github.com/trexminer/T-Rex/releases/download/0.21.4/t-rex-0.21.4-win32.zip", "linux": "https://github.com/trexminer/T-Rex/releases/download/0.21.4/t-rex-0.21.4-linux.tar.gz"},
+        "download": {"win32": "https://github.com/trexminer/T-Rex/releases/download/0.21.4/t-rex-0.21.4-win.zip", "linux": "https://github.com/trexminer/T-Rex/releases/download/0.21.4/t-rex-0.21.4-linux.tar.gz"},
         "algos": {
             "ethash": "4.3GB",
             "etchash": "2.7GB",
@@ -37,7 +37,7 @@
     },
     "nbminer": {
         "miner": "NBMiner",  
-        "download": {"win32": "https://github.com/NebuTech/NBMiner/releases/download/v38.1/NBMiner_38.1_win32.zip", "linux": "https://github.com/NebuTech/NBMiner/releases/download/v38.1/NBMiner_38.1_Linux.tgz"},
+        "download": {"win32": "https://github.com/NebuTech/NBMiner/releases/download/v38.1/NBMiner_38.1_win.zip", "linux": "https://github.com/NebuTech/NBMiner/releases/download/v38.1/NBMiner_38.1_Linux.tgz"},
         "algos": {
             "ethash": "4.3GB",
             "etchash": "2.7GB",
