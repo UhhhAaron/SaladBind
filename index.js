@@ -5,6 +5,7 @@ const fs = require('fs');
 const inquirer = require('inquirer');
 const fetch = require("node-fetch");
 const open = require("open");
+const si = require("systeminformation");
 
 console.clear();
 process.title = "SaladBind";
@@ -85,11 +86,16 @@ async function menu() {
             require("./setup").run();
             break;
         case 'discord':
-            open("https://discord.gg/HfBAtQ2afz");
-            console.log("\nOpened the invite in your browser!");
+            let temp = await si.osInfo()
+            if(temp.platform == "linux") {
+                console.log("\nhttps://discord.gg/HfBAtQ2afz");
+            } else {
+                open("https://discord.gg/HfBAtQ2afz");
+                console.log("\nOpened the invite in your browser!");
+            }
             setTimeout(() => {
                 menu();
-            }, 2500);
+            }, 3500); 
         break;
         case 'exit':
             console.clear();
