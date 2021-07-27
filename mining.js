@@ -296,6 +296,8 @@ async function prepStart(minerData, algo, pool, region, advancedCommands) {
 }
 
 async function startMiner(minerData, algo, pool, region, advancedCommands) {
+	console.clear();
+	console.log(`${chalk.bold.greenBright("Starting miner!")}\nPlease wait, this might take a few seconds.\n`);
 	let minerFiles = fs.readdirSync(`data/miners/${minerData.miner}-${minerData.version}`);
 	let logs = minerFiles.filter(file => file.startsWith("log") || file.endsWith("log"));
 	if(logs.length > 0) { //woo! time for pools.json (and more fucking tokens) oh piss
@@ -350,7 +352,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 		advancedCommands.split(" ").forEach(arg => {
 			finalArguments.push(arg);
 		});
-		spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${minerData.parameters.fileName}`, [finalArguments], {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }}) //its an array dumbass
+		spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${minerData.parameters.fileName}`, [finalArguments.join(" ").split(" ")], {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }}) //its an array dumbass
 	} else {
 		spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${minerData.parameters.fileName}`, [defaultArgs.pool, defaultArgs.algo, defaultArgs.wallet], {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }})
 	}
