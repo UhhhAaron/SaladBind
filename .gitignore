@@ -1,7 +1,6 @@
 # BIND-related files that shouldn't be pushed
 bin/
 data/
-
 # Logs
 logs
 *.log
@@ -78,4 +77,3 @@ typings/
 
 # FuseBox cache
 .fusebox/
-T-Rex Miner-0.21.4/t-rex.exe

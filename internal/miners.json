@@ -33,7 +33,7 @@
         },
         "xmrig": {
             "miner": "XMRig-GPU",
-            "download": {"win32": "l", "mac": "l", "linux": "l"},
+            "download": {"win32": "l", "linux": "l"},
             "algos": [
                 "kawpow"
             ],
@@ -55,6 +55,17 @@
             "supported_os": ["win32", "linux"],
             "fee": 2.0,
             "version": "38.1"
+        },
+        "ethminer": {
+            "miner": "Ethminer",
+            "download": {"win32": "l", "linux": "l", "darwin": "l"},
+            "algos": [
+                "ethash"
+            ],
+            "supported_gpus": ["nvidia", "amd"],
+            "supported_os": ["win32", "linux", "darwin"],
+            "fee": 0.0,
+            "version": "0.18.0"
         }
     }
 }

@@ -6,18 +6,38 @@ const fetch = require("node-fetch");
 const si = require("systeminformation");
 const https = require('https');
 const path = require('path');
-const extract = require('extract-zip')
+const extract = require('extract-zip');
+const tar = require('tar');
 let spinner;
 
-
-
 async function extractFile(location, folderName, fileExtension) {
-    if (!fs.existsSync(location)){
-		fs.mkdirSync(location);
+    if (!fs.existsSync(`./data/miners/${folderName}`)){
+		fs.mkdirSync(`./data/miners/${folderName}`); // me too
 	}
-    await extract(require('path').resolve(location), { dir: path.resolve(`./data/miners/${folderName}`) });
+	switch (fileExtension) {
+		case ".zip":
+    		await extract(require('path').resolve(location), { dir: path.resolve(`./data/miners/${folderName}`) });
+			fs.unlinkSync(location);
+		break;
+		case ".tgz":
+		case ".tar.gz":
+			fs.createReadStream(location).pipe(
+				tar.x({
+				  strip: 0,
+				  C: path.resolve(`./data/miners/${folderName}`),
+				  filter: function(path, entry) {
+				    return !path.endsWith('.sh') && !path.endsWith('.bat') && !path.endsWith('.md'); //how would we go about this for extract thoughh? can't find anything since it wraps the yauzl stuff
+				  },
+				  sync: true
+				})
+			).on("end", () => {
+				fs.unlinkSync(location)
+			})
+		break;
+	}
 	spinner.succeed(chalk.bold.green(`Extracted ${folderName}`));
-}
+} 
+
 const downloadFile = async function(url, location, name) {
     return new Promise(async (resolve, reject) => {
         const stream = fs.createWriteStream(location);
@@ -28,13 +48,13 @@ const downloadFile = async function(url, location, name) {
                     stream.close(function(){
                         spinner.succeed(chalk.bold.green(`Downloaded ${name}`));
                         resolve();
-                    }); // confusdion?
+                    });
                 });
             } else {
                 downloadFile(response.headers.location, location, name).then(() => {
 					resolve();
 				});
-			} // im confused on what happened there
+			}
         });
     });
 }
@@ -46,14 +66,14 @@ async function run() {
 	console.clear();
 	console.log(chalk.bold.cyan(`Configure your miner`))
 	spinner = ora("Loading miner list").start();
-	fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/miners.json?token=ALJSKC27NQQ2YU43LJOK2B3A73WMI') //fuck you token
+	fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/miners.json?token=ALJSKC2PDZZVPSHH55NHY6TA77UV6') //fuck you token
 		.then(res => res.json())
 		.then(async data => {
 			spinner.stop();
 			let minerList = [];
 			let temp = await si.osInfo()
 			let temp2 = await si.graphics()
-			let userPlatform = "linux" //temp.platform;
+			let userPlatform = "win32" //temp.platform;
 			let GPUs = [];  
 			for (let i = 0; i < temp2.controllers.length; i++) {
 				let compatibleAlgos = []
@@ -98,15 +118,21 @@ async function run() {
 					message: "Choose a miner",
 					choices: minerList
 				});
-				spinner = ora(`Downloading ${miner.miner.miner}-${miner.miner.version}`).start();
-				var downloadURL = miner.miner.download[userPlatform];
-				const fileExtension = path.extname(downloadURL);
-				const fileName = `${miner.miner.miner}-${miner.miner.version}`
-				const fileLocation = `./data/miners/${fileName}${fileExtension}`; 
-                downloadFile(downloadURL, fileLocation, fileName).then(async () => {
-                    spinner = ora(`Extracting ${miner.miner.miner}-${miner.miner.version}`).start();
-                    await extractFile(fileLocation, fileName, fileExtension)
-				});
+				if(!fs.existsSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`)) {
+					spinner = ora(`Downloading ${miner.miner.miner}-${miner.miner.version}`).start();
+					var downloadURL = miner.miner.download[userPlatform];
+					var fileExtension = path.extname(downloadURL); //time for a really hacky solution
+					if (fileExtension == ".gz") {
+						fileExtension = ".tar.gz"
+					}
+					const fileName = `${miner.miner.miner}-${miner.miner.version}`
+					const fileLocation = `./data/miners/${fileName}${fileExtension}`; 
+					downloadFile(downloadURL, fileLocation, fileName).then(async () => {
+						spinner = ora(`Extracting ${miner.miner.miner}-${miner.miner.version}`).start();
+						await extractFile(fileLocation, fileName, fileExtension)
+					});
+				}
+				//algoSelection()
 			}
 		})
 		.catch(err => {
