@@ -91,6 +91,7 @@ async function run() {
 	fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/miners.json') //fuck you token
 		.then(res => res.json())
 		.then(async data => {
+			spinner.text = "Checking your specs";
 			let minerList = [];
 			let temp = await si.osInfo()
 			let temp2 = await si.graphics() 
