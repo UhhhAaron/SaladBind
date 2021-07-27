@@ -20,7 +20,7 @@
         "regions": ["eu1", "us1", "asia1", "eu2", "us2", "asia2"],
         "algos": {
             "etchash": {
-                "host": "ssl://REGION-etc.ethermine.org:4444"
+                "host": "ethproxy+tcp://REGION-etc.ethermine.org:4444"
             },
             "ethash": {
                 "host": "ethproxy+tcp://REGION.ethermine.org:4444"
