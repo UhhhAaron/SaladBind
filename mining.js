@@ -274,7 +274,7 @@ async function prepStart(minerData, algo, pool, region, advancedCommands) {
 			startMiner(minerData, algo, pool, region, advancedCommands);
 		break;
 		case "n":
-			menu
+			require("./index").menu();
 		break;
 		case "advanced":
 			console.log("To exit, just press enter without typing anything.");
