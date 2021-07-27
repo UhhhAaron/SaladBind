@@ -11,6 +11,8 @@ const tar = require('tar');
 const mv = require('mv'); //what i forogt to save :bukky:
 const { menu } = require('./index');
 const config = require("./data/config.json");
+const { win32 } = require('path');
+const { spawn } = require("child_process");
 let spinner;
 
 function moveDupeFolder(folderName) {
@@ -296,26 +298,33 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 			wallet = "33kJvAUL3Na2ifFDGmUPsZLTyDUBGZLhAi" // tested to work i swear
 		break;
 	}
-	let defaultArgs
+	let defaultArgs = {}
 	console.log("minerdata haha" + minerData.parameters.wallet)
 	if (minerData.parameters.wallet != "") { //for phoenix this isnt null o
-		defaultArgs = {
-			"algo": `${minerData.parameters.algo} ${algo}`,
-			"pool": `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}`,
-			"wallet": `${minerData.parameters.algo} ${wallet}.${config.minerId}`
+		defaultArgs.wallet = `${minerData.parameters.wallet} ${wallet}.${config.minerId}`
+		if (minerData.parameters.algo != "") {
+			defaultArgs.algo = `${minerData.parameters.algo} ${algo}`
+		} else {
+			defaultArgs.algo = ""
 		}
+		defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}`
 	} else {
-		let poolScheme = pool.algos[algo].hosplit("//")[0]
-		let restOfPool = pool.algos[algo].split("//")[1].replace("REGION", region)
+		let poolUrl = pool.algos[algo].host
+		console.log(poolUrl)
+		let poolScheme = poolUrl.split("//")[0]
+		poolScheme = poolScheme.replace("stratum", "stratum2")
+		poolScheme = poolScheme.replace("ethproxy", "stratum1")
+		let restOfPool = poolUrl.split("//")[1].replace("REGION", region)
 		defaultArgs = {
-			"algo": null,
-			"pool": `${minerData.parameters.pool} ${poolScheme}//${wallet}.${config.minerId}`,
-			"wallet": null
+			"algo": "",
+			"pool": `${minerData.parameters.pool} ${poolScheme}//${wallet}.${config.minerId}@${restOfPool}`,
+			"wallet": ""
 		} //thats behind the if statement
 		if (minerData.parameters.algo != "") {
 			defaultArgs.algo = `${minerData.parameters.algo} ${algo}`
 		}
 	}
+	console.log(defaultArgs);
 	if(advancedCommands.length > 0) { // didnt workkkk
 		// i turned them into a string, it's because of inquirer remember, like when we have to do pool.pool
 		// *****user has set advanced commands*****					ok then???
@@ -334,9 +343,18 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 		});
 		finalArguments = finalArguments.join(" ");
 		//exec miner, finalArguments
-		console.log(minerData.parameters.fileName + " " + finalArguments)
+		exec(`data/miners/${minerData.miner}-${minerData.version}/${minerData.parameters.fileName} ${finalArguments}`, (error, stdout, stderr) => {
+			if (error) {
+				console.log(chalk.red(error));
+				return;
+			}
+			if (stderr) {
+				console.log(chalk.red(stderr));
+				return;
+			}
+			console.log(`Miner Closed.`);
+		});
 	} else {
-
 		// command parameters in miners.json as well maybe?
 		/*
 		default ones, yes
@@ -346,7 +364,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 			(shit like that)
 		}
 		*/
-		//exec(`${./data/miners/${something}/${minerData.parameters.fileName} ${args args baby}`)
+		var miner = spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${minerData.parameters.fileName}`, [defaultArgs.pool, defaultArgs.algo, defaultArgs.wallet], {stdio: 'inherit', shell: true})
 	}
 }
 
