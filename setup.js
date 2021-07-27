@@ -54,23 +54,12 @@ async function continueSetup(clear) {
                     if (input.length == 778) {
                         return true;
                     }
-                    return `Your Salad Access Token is required for automatic mode. If you don't want this, restart SaladBind and select manual. ${chalk.yellow.bold("You may be seeing this if you entered the token incorrectly!")}`;
-                }
-            },
-            {
-                type: 'input',
-                name: 'refresh',
-                message: 'What is your Salad Refresh Token?',
-                validate: function (input) {
-                    if (input.length == 36) {
-                        return true;
-                    }
-                    return `Your Salad Refresh Token is required for automatic mode. If you don't want this, restart SaladBind and select manual. ${chalk.yellow.bold("You may be seeing this if you entered the token incorrectly!")}`;
+                    return `Your Salad Access Token is required for automatic mode. If you don't want this, restart SaladBind and select manual. ${chalk.yellow.bold("You may be seeing this if you entered the token incorrectly the token is 778 chars long!")}`;
                 }
             }
         ]);
         const spinner = ora("Getting miner details...").start();
-        let minerDetails = await require("./internal/getMachine").getInfo(auth.auth, auth.refresh);
+        let minerDetails = await require("./internal/getMachine").getInfo(auth.auth);
         if (!fs.existsSync("./data")){
             fs.mkdirSync("./data");
         }

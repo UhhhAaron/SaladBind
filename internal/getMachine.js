@@ -4,7 +4,7 @@
 
 const si = require("systeminformation");
 const fetch = require("node-fetch");
-async function getInfo(sAccessToken, sIdRefreshToken){
+async function getInfo(sAccessToken){
     var temp = await si.osInfo()
     const systemInfo = {
         version: await si.version(),
@@ -21,13 +21,14 @@ async function getInfo(sAccessToken, sIdRefreshToken){
         "headers": {
             "content-type": "application/json;charset=UTF-8",
             "rid": "session",
-            "cookie": `sAccessToken=${sAccessToken};sIdRefreshToken=${sIdRefreshToken}`
+            "cookie": `sAccessToken=${sAccessToken};sIdRefreshToken=notrequiredforthisbecausewedontkeepitlol`
         },
         "body": `{\"systemInfo\":{\"version\":\"${systemInfo.version}\",\"system\":${JSON.stringify(systemInfo.system)},\"cpu\":${JSON.stringify(systemInfo.cpu)},\"memLayout\":${JSON.stringify(systemInfo.memLayout)},\"graphics\":${JSON.stringify(systemInfo.graphics)},\"os\":${JSON.stringify(systemInfo.os)},\"platform\":${JSON.stringify(systemInfo.platform)},\"uuid\":${JSON.stringify(systemInfo.uuid)}}}`,
         "method": "POST"
         }).then(res => {poo = res.json()}); 
     return poo;
 };
+   
 
 module.exports = {
     getInfo

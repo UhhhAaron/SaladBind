@@ -16,10 +16,16 @@
             "supported_gpus": ["nvidia", "amd"],
             "supported_os": ["win32", "linux"],
             "fee": 0.65,
-            "version": "5.6d"
+            "version": "5.6d",
+            "parameters": {
+                "fileName": "",
+                "algo": null, 
+                "wallet": "-wal",
+                "pool": "-pool"
+            }
         },
         "trex": {
-            "miner": "T-Rex Miner",
+            "miner": "T-Rex",
             "download": {"win32": "https://github.com/trexminer/T-Rex/releases/download/0.21.4/t-rex-0.21.4-win.zip", "linux": "https://github.com/trexminer/T-Rex/releases/download/0.21.4/t-rex-0.21.4-linux.tar.gz"},
             "algos": [
                 "ethash",
@@ -29,18 +35,13 @@
             "supported_gpus": ["nvidia"],
             "supported_os": ["win32", "linux"],
             "fee": 1.0,
-            "version": "0.21.4"
-        },
-        "xmrig": {
-            "miner": "XMRig-GPU",
-            "download": {"win32": "l", "linux": "l"},
-            "algos": [
-                "kawpow"
-            ],
-            "supported_gpus": ["nvidia", "amd"],
-            "supported_os": ["win32", "linux"],
-            "fee": 1.0,
-            "version": "l"
+            "version": "0.21.4",
+            "parameters": {
+                "fileName": "t-rex",
+                "algo": "-a",
+                "wallet": "-u",
+                "pool": "-o"
+            }
         },
         "nbminer": {
             "miner": "NBMiner",  
@@ -54,7 +55,13 @@
             "supported_gpus": ["nvidia", "amd"],
             "supported_os": ["win32", "linux"],
             "fee": 2.0,
-            "version": "38.1"
+            "version": "38.1",
+            "parameters": {
+                "fileName": "nbminer",
+                "algo": "-a",
+                "wallet": "-u",
+                "pool": "-o"
+            }
         },
         "ethminer": {
             "miner": "Ethminer",
@@ -65,7 +72,13 @@
             "supported_gpus": ["nvidia", "amd"],
             "supported_os": ["win32", "linux", "darwin"],
             "fee": 0.0,
-            "version": "0.18.0"
+            "version": "0.18.0",
+            "parameters": {
+                "fileName": "ethminer",
+                "algo": null,
+                "wallet": null, 
+                "pool": "-P"
+            }
         }
     }
 }

@@ -9,6 +9,7 @@ const path = require('path');
 const extract = require('extract-zip');
 const tar = require('tar');
 const mv = require('mv'); //what i forogt to save :bukky:
+const { menu } = require('./index');
 let spinner;
 
 function moveDupeFolder(folderName) {
@@ -84,14 +85,14 @@ async function run() {
 	console.clear();
 	console.log(chalk.bold.cyan(`Configure your miner`))
 	spinner = ora("Loading miner list").start();
-	fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/miners.json?token=ALJSKC424AHDPQ7QYTVKBA3BAAAYA') //fuck you token
+	fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/miners.json?token=ALFOFXF5QRETGVNMJP7CNXTBAAPS4') //fuck you token
 		.then(res => res.json())
 		.then(async data => {
 			spinner.stop();
 			let minerList = [];
 			let temp = await si.osInfo()
-			let temp2 = await si.graphics()
-			let userPlatform = temp.platform;
+			let temp2 = await si.graphics() 
+			let userPlatform = temp.platform; 
 			let GPUs = [];  
 			for (let i = 0; i < temp2.controllers.length; i++) {
 				let compatibleAlgos = []
@@ -99,11 +100,11 @@ async function run() {
 					if(temp2.controllers[i].vram > data.algos[Object.keys(data.algos)[j]]) { 
 						compatibleAlgos.push(Object.keys(data.algos)[j]) // no, we'd have to flip it around i think
 					} //wait no am i having a stroke so its the amount of supported algos yupp ok very cool!
-				} // 
+				} // //
 				if (compatibleAlgos.length > 0) {
 					GPUs.push({"algos": compatibleAlgos, "vendor": temp2.controllers[i].vendor.toLowerCase()});
 				}
-				GPUs.push({"algos": ["etchash", "kawpow"], "vendor": "nvidia"}); //fake gpu right here (yeah but your real one makes ethash show up) indeed
+				//GPUs.push({"algos": ["etchash", "kawpow"], "vendor": "nvidia"}); //fake gpu right here (yeah but your real one makes ethash show up) indeed
 			}
 			for (let i = 0; i < Object.keys(data.miners).length; i++) {
 				let minerData = data.miners[Object.keys(data.miners)[i]];
@@ -140,12 +141,12 @@ async function run() {
 				if(!fs.existsSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`)) {
 					spinner = ora(`Downloading ${miner.miner.miner}-${miner.miner.version}`).start();
 					let miners = fs.readdirSync("./data/miners");
-					let oldMiners = miners.filter(miner => miner.startsWith(miner.miner.miner));
+					let oldMiners = miners.filter(minery => minery.startsWith(miner.miner.miner));
 					if(oldMiners.length > 0) { //woo! time for pools.json (and more fucking tokens) oh piss
 						oldMiners.forEach(miner => fs.unlinkSync(`./data/miners/${miner}`));
 					}
 					var downloadURL = miner.miner.download[userPlatform];
-					var fileExtension = path.extname(downloadURL); //time for a really hacky solution
+					var fileExtension = path.extname(downloadURL); //time for a really hacky solution. this 
 					if (fileExtension == ".gz") {
 						fileExtension = ".tar.gz"
 					}
@@ -159,10 +160,9 @@ async function run() {
 				} else {
 					selectAlgo(miner.miner, GPUs);
 				}
-			}
-		})
-		.catch(err => {
-			spinner.fail(chalk.bold.red(`Could not start a miner. Please try again later.`));
+			} 
+		}).catch(err => {
+			spinner.fail(chalk.bold.red(`Could not start a miner. Please try again later.`)); // haha screw you
 			console.log(err);
 			setTimeout(() => {
 				require("./index").menu();
@@ -199,12 +199,42 @@ async function selectAlgo(minerData, GPUs) {
 }
 
 async function selectPool(minerData, algo) {
+	console.clear();
+	console.log(chalk.bold.cyan(`Configure your miner`))
 	spinner = ora("Loading pool list").start();
-	fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/pools.json?token=ALJSKC424AHDPQ7QYTVKBA3BAAAYA') //fuck you token
+	fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/pools.json?token=ALFOFXGD4PH46LJBN3MGMKDBAAPVW') //fuck you token
 		.then(res => res.json())
 		.then(async poolData => {
-			//just thinking of a "cool" way to do this ok ill push now
-		}).catch(err => { //make this into something i can commit
+			const poolList = [];
+			for (let i = 0; i < poolData.length; i++) {
+				let pooly = poolData[Object.keys(poolData)[i]];
+				console.log(poolData)
+				if (Object.keys(pooly.algos).includes(algo)) {
+					poolList.push({name: poolData[i].name, value: poolData[i]});
+				}
+			}
+			if(poolList.length > 1) {
+				const pool = await inquirer.prompt({
+					type: "list",
+					name: "pool",
+					message: "Choose a pool",
+					choices: poolList
+				});
+			}
+			const regionList = [];
+			const pool = poolList.length > 1 ? pool.pool : poolList[0];
+			console.log(pool);
+			for (let i = 0; i < pool.regions.length; i++) {
+				regionList.push({name: pool.regions[i], value: pool.regions[i]});
+			}
+			const region = await inquirer.prompt({
+				type: "list",
+				name: "region",
+				message: "Choose a region",
+				choices: regionList
+			});
+			advancedCommands(minerData, algo, pool.pool, region.region);
+		}).catch(err => {
 			spinner.fail(chalk.bold.red(`Could not select a pool. Please try again later.`));
 			console.log(err);
 			setTimeout(() => {
@@ -213,6 +243,98 @@ async function selectPool(minerData, algo) {
 		});
 }
 
-module.exports = {
+async function advancedCommands(minerData, algo, pool, region, advancedCommands) {
+	if(advancedCommands == undefined) advancedCommands = ""
+	console.clear();
+	console.log(chalk.bold.cyan(`Configure your miner`))
+	const startNow = await inquirer.prompt({
+		type: "list",
+		name: "startNow",
+		message: "Start miner now?",
+		choices: [
+			{
+				name: "Yes", 
+				value: "y"
+			}, 
+			{
+				name: "No", 
+				value: "n"
+			},
+			{
+				name: "Add advanced commands", 
+				value: "advanced"
+			}
+		]
+	});
+	switch (startNow.startNow) {
+		case "y":
+			startMiner(minerData, algo, pool, region, advancedCommands);
+		break;
+		case "n":
+			menu
+		break;
+		case "advanced":
+			console.log("To exit, just press enter without typing anything.");
+			const advancedCommands = await inquirer.prompt({
+				type: "input",
+				name: "advancedCommands",
+				message: "Enter arguments for miner",
+			});
+			advancedCommands(minerData, algo, pool, region, advancedCommands); 
+			break;
+	}
+}
+
+async function startMiner(minerData, algo, pool, region, advancedCommands) {
+	let wallet
+	switch(pool.name) {
+		case "Ethermine":
+			wallet = "0x6ff85749ffac2d3a36efa2bc916305433fa93731" // i swear if this isnt the right address i will kill bob's mother
+		break;
+		case "NiceHash":
+			wallet = "33kJvAUL3Na2ifFDGmUPsZLTyDUBGZLhAi" // tested to work i swear
+		break;
+	}
+	if (minerData.parameters.wallet != null) {
+		let defaultArgs = {
+			"algo": `${minerData.parameters.algo} ${algo}`,
+			"pool": `${minerData.parameters.pool} ${pool.algos[algo].replace("REGION", region)}`,
+			"wallet": `${minerData.parameters.algo} ${wallet}.${}`
+		}
+	} else {
+
+	}
+	if(advancedCommands.trim().length > 0) {
+		// *****user has set advanced commands*****
+		let finalArguments = []
+		if(!advancedCommands.includes(minerData.parameters.wallet)) {
+			finalArguments.push(`${minerData.parameters.wallet} ${pool.wallet}`); // i know pool.wallet doesnt exist but i can dream
+		}
+		if(!advancedCommands.includes(minerData.parameters.pool)) {
+			finalArguments.push(`${minerData.parameters.pool} ${pool.url}`); //i know pool.url doesnt exist but i can dream
+		}
+		if(!advancedCommands.includes(minerData.parameters.algo)) {
+			finalArguments.push(`${minerData.parameters.algo} ${algo}`); // this one actually exists haha
+		}
+		advancedCommads.split(" ").forEach(arg => {
+			finalArguments.push(arg);
+		});
+		finalArguments = finalArguments.join(" ");
+		//exec miner, finalArguments
+	} else {
+
+		// command parameters in miners.json as well maybe?
+		/*
+		default ones, yes
+		"parameters:" {
+			"wallet": "-w",
+			"algo": "-a",
+			(shit like that)
+		}
+		*/
+	}
+}
+
+module.exports = { 
 	run
 };
