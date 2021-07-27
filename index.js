@@ -17,12 +17,12 @@ const updateCheck = new Promise((resolve, reject) => {
         .then(data => {
             if(data.version !== packageJson.version) {
                 spinner.succeed(chalk.bold.green(`SaladBind ${data.version} is available!`));
-                console.log("Download it from https://bit.ly/saladbind");
+                console.log("Download it from https://bit.ly/saladbind\n");
                 setTimeout(() => {
                     resolve();
                 },2500);
             } else {
-                spinner.succeed(chalk.bold.green(`SaladBind is up to date!`));
+                spinner.succeed(chalk.bold.green(`SaladBind is up to date!\n`));
                 setTimeout(() => {
                     resolve();
                 },500);

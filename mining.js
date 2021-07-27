@@ -10,6 +10,7 @@ const extract = require('extract-zip');
 const tar = require('tar');
 const mv = require('mv'); //what i forogt to save :bukky:
 const { menu } = require('./index');
+const config = require("./data/config.json");
 let spinner;
 
 function moveDupeFolder(folderName) {
@@ -85,7 +86,7 @@ async function run() {
 	console.clear();
 	console.log(chalk.bold.cyan(`Configure your miner`))
 	spinner = ora("Loading miner list").start();
-	fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/miners.json?token=ALFOFXF5QRETGVNMJP7CNXTBAAPS4') //fuck you token
+	fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/miners.json?token=ALJSKCYHN35UPMMPKVDIAY3BAARX2') //fuck you token
 		.then(res => res.json())
 		.then(async data => {
 			spinner.stop();
@@ -202,15 +203,15 @@ async function selectPool(minerData, algo) {
 	console.clear();
 	console.log(chalk.bold.cyan(`Configure your miner`))
 	spinner = ora("Loading pool list").start();
-	fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/pools.json?token=ALFOFXGD4PH46LJBN3MGMKDBAAPVW') //fuck you token
+	fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/pools.json?token=ALJSKCY3W7TJUDDNQTDMNK3BAAR5A') //fuck you token
 		.then(res => res.json())
 		.then(async poolData => {
+			spinner.stop();
 			const poolList = [];
-			for (let i = 0; i < poolData.length; i++) {
+			for (let i = 0; i < Object.keys(poolData).length; i++) {
 				let pooly = poolData[Object.keys(poolData)[i]];
-				console.log(poolData)
 				if (Object.keys(pooly.algos).includes(algo)) {
-					poolList.push({name: poolData[i].name, value: poolData[i]});
+					poolList.push({name: pooly.name, value: pooly});
 				}
 			}
 			if(poolList.length > 1) {
@@ -222,10 +223,9 @@ async function selectPool(minerData, algo) {
 				});
 			}
 			const regionList = [];
-			const pool = poolList.length > 1 ? pool.pool : poolList[0];
-			console.log(pool);
-			for (let i = 0; i < pool.regions.length; i++) {
-				regionList.push({name: pool.regions[i], value: pool.regions[i]});
+			const poolsy = poolList.length > 1 ? pool.pool : poolList[0].value;
+			for (let i = 0; i < poolsy.regions.length; i++) {
+				regionList.push({name: poolsy.regions[i], value: poolsy.regions[i]});
 			}
 			const region = await inquirer.prompt({
 				type: "list",
@@ -233,7 +233,7 @@ async function selectPool(minerData, algo) {
 				message: "Choose a region",
 				choices: regionList
 			});
-			advancedCommands(minerData, algo, pool.pool, region.region);
+			prepStart(minerData, algo, poolsy, region.region);
 		}).catch(err => {
 			spinner.fail(chalk.bold.red(`Could not select a pool. Please try again later.`));
 			console.log(err);
@@ -243,7 +243,7 @@ async function selectPool(minerData, algo) {
 		});
 }
 
-async function advancedCommands(minerData, algo, pool, region, advancedCommands) {
+async function prepStart(minerData, algo, pool, region, advancedCommands) {
 	if(advancedCommands == undefined) advancedCommands = ""
 	console.clear();
 	console.log(chalk.bold.cyan(`Configure your miner`))
@@ -275,12 +275,12 @@ async function advancedCommands(minerData, algo, pool, region, advancedCommands)
 		break;
 		case "advanced":
 			console.log("To exit, just press enter without typing anything.");
-			const advancedCommands = await inquirer.prompt({
+			const advancedCommandsy = await inquirer.prompt({
 				type: "input",
 				name: "advancedCommands",
 				message: "Enter arguments for miner",
 			});
-			advancedCommands(minerData, algo, pool, region, advancedCommands); 
+			prepStart(minerData, algo, pool, region, advancedCommandsy.advancedCommands); 
 			break;
 	}
 }
@@ -295,28 +295,44 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 			wallet = "33kJvAUL3Na2ifFDGmUPsZLTyDUBGZLhAi" // tested to work i swear
 		break;
 	}
+	let defaultArgs
 	if (minerData.parameters.wallet != null) {
-		let defaultArgs = {
+		defaultArgs = {
 			"algo": `${minerData.parameters.algo} ${algo}`,
-			"pool": `${minerData.parameters.pool} ${pool.algos[algo].replace("REGION", region)}`,
-			"wallet": `${minerData.parameters.algo} ${wallet}.${}`
+			"pool": `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}`,
+			"wallet": `${minerData.parameters.algo} ${wallet}.${config.minerId}`
 		}
 	} else {
-
+		let poolScheme = pool.algos[algo].host.split("//")[0]
+		let restOfPool = pool.algos[algo].host.split("//")[1].replace("REGION", region)
+		defaultArgs = {
+			"algo": null,
+			"pool": `${minerData.parameters.pool} ${poolScheme}//${wallet}.${config.minerId}`,
+			"wallet": null
+		}
+		if (minerData.parameters.algo != null) {
+			defaultArgs.algo = `${minerData.parameters.algo} ${algo}`
+		}
 	}
 	if(advancedCommands.trim().length > 0) {
 		// *****user has set advanced commands*****
 		let finalArguments = []
 		if(!advancedCommands.includes(minerData.parameters.wallet)) {
 			finalArguments.push(`${minerData.parameters.wallet} ${pool.wallet}`); // i know pool.wallet doesnt exist but i can dream
+		} else {
+			finalArguments.push(defaultArgs.wallet)
 		}
 		if(!advancedCommands.includes(minerData.parameters.pool)) {
 			finalArguments.push(`${minerData.parameters.pool} ${pool.url}`); //i know pool.url doesnt exist but i can dream
+		} else {
+			finalArguments.push(defaultArgs.pool)
 		}
 		if(!advancedCommands.includes(minerData.parameters.algo)) {
 			finalArguments.push(`${minerData.parameters.algo} ${algo}`); // this one actually exists haha
+		} else {
+			finalArguments.push(defaultArgs.algo)
 		}
-		advancedCommads.split(" ").forEach(arg => {
+		advancedCommands.split(" ").forEach(arg => {
 			finalArguments.push(arg);
 		});
 		finalArguments = finalArguments.join(" ");
@@ -332,6 +348,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 			(shit like that)
 		}
 		*/
+		//exec(`${./data/miners/${something}/${minerData.parameters.fileName}}`)
 	}
 }
 
