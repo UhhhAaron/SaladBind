@@ -289,6 +289,11 @@ async function prepStart(minerData, algo, pool, region, advancedCommands) {
 }
 
 async function startMiner(minerData, algo, pool, region, advancedCommands) {
+	let minerFiles = fs.readdirSync(`data/miners/${minerData.miner}-${minerData.version}`);
+	let logs = minerFiles.filter(file => file.startsWith("log") || file.endsWith("log"));
+	if(logs.length > 0) { //woo! time for pools.json (and more fucking tokens) oh piss
+		logs.forEach(log => fs.unlinkSync(`./data/miners/${minerData.miner}-${minerData.version}/${log}`));
+	}
 	let wallet
 	switch(pool.name) {
 		case "Ethermine":
