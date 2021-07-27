@@ -312,7 +312,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 		} else {
 			defaultArgs.algo = ""
 		}
-		defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}`
+		defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)} ${minerData.miner == "PhoenixMiner" ? "-proto 4" : ""}`
 	} else {
 		let poolUrl = pool.algos[algo].host
 		console.log(poolUrl)
