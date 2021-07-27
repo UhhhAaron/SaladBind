@@ -99,14 +99,14 @@ async function run() {
 			for (let i = 0; i < temp2.controllers.length; i++) {
 				let compatibleAlgos = []
 				for (let j = 0; j < Object.keys(data.algos).length; j++) {
+					if(temp2.controllers[i].vendor == "Advanced Micro Devices, Inc.") temp2.controllers[i].vendor = "AMD";
 					if(temp2.controllers[i].vram > data.algos[Object.keys(data.algos)[j]]) { 
-						compatibleAlgos.push(Object.keys(data.algos)[j]) // no, we'd have to flip it around i think
-					} //wait no am i having a stroke so its the amount of supported algos yupp ok very cool!
-				} // //
+						compatibleAlgos.push(Object.keys(data.algos)[j])
+					}
+				}
 				if (compatibleAlgos.length > 0) {
 					GPUs.push({"algos": compatibleAlgos, "vendor": temp2.controllers[i].vendor.toLowerCase()});
 				}
-				//GPUs.push({"algos": ["etchash", "kawpow"], "vendor": "nvidia"}); //fake gpu right here (yeah but your real one makes ethash show up) indeed
 			}
 			for (let i = 0; i < Object.keys(data.miners).length; i++) {
 				let minerData = data.miners[Object.keys(data.miners)[i]];
