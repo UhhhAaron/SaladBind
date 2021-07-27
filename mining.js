@@ -213,7 +213,11 @@ async function selectPool(minerData, algo) {
 			for (let i = 0; i < Object.keys(poolData).length; i++) {
 				let pooly = poolData[Object.keys(poolData)[i]];
 				if (Object.keys(pooly.algos).includes(algo)) {
-					poolList.push({name: pooly.name, value: pooly});
+					if (minerData.miner != "Ethminer") {
+						poolList.push({name: pooly.name, value: pooly});
+					} else if (pooly.name == "Ethermine") {
+						poolList.push({name: pooly.name, value: pooly});
+					}
 				}
 			}
 			let pool;
@@ -224,6 +228,8 @@ async function selectPool(minerData, algo) {
 					message: "Choose a pool",
 					choices: poolList
 				});
+			} else {
+				console.log(chalk.green(`Only one pool available with these settings, using ${poolList[0].name}`))
 			}
 			const regionList = [];
 			const poolsy = poolList.length > 1 ? pool.pool : poolList[0].value;
@@ -304,7 +310,6 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 		break;
 	}
 	let defaultArgs = {}
-	console.log("minerdata haha" + minerData.parameters.wallet)
 	if (minerData.parameters.wallet != "") { //for phoenix this isnt null o
 		defaultArgs.wallet = `${minerData.parameters.wallet} ${wallet}.${config.minerId}`
 		if (minerData.parameters.algo != "") {
@@ -315,7 +320,6 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 		defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)} ${minerData.miner == "PhoenixMiner" ? "-proto 4" : ""}`
 	} else {
 		let poolUrl = pool.algos[algo].host
-		console.log(poolUrl)
 		let poolScheme = poolUrl.split("//")[0]
 		poolScheme = poolScheme.replace("stratum", "stratum2")
 		poolScheme = poolScheme.replace("ethproxy", "stratum1")
@@ -329,7 +333,6 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 			defaultArgs.algo = `${minerData.parameters.algo} ${algo}`
 		}
 	}
-	console.log(defaultArgs);
 	if(advancedCommands.length > 0) { // didnt workkkk
 		// i turned them into a string, it's because of inquirer remember, like when we have to do pool.pool
 		// *****user has set advanced commands*****					ok then???
@@ -346,9 +349,9 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 		advancedCommands.split(" ").forEach(arg => {
 			finalArguments.push(arg);
 		});
-		spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${minerData.parameters.fileName}`, [finalArguments], {stdio: 'inherit', shell: true}) //its an array dumbass
+		spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${minerData.parameters.fileName}`, [finalArguments], {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }}) //its an array dumbass
 	} else {
-		spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${minerData.parameters.fileName}`, [defaultArgs.pool, defaultArgs.algo, defaultArgs.wallet], {stdio: 'inherit', shell: true})
+		spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${minerData.parameters.fileName}`, [defaultArgs.pool, defaultArgs.algo, defaultArgs.wallet], {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }})
 	}
 }
 

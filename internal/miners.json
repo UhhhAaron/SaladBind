@@ -63,6 +63,25 @@
                 "pool": "-o"
             }
         },
+        "teamredminer": {
+            "miner": "TeamRedMiner",  
+            "download": {"win32": "https://github.com/todxx/teamredminer/releases/download/v0.8.4/teamredminer-v0.8.4-win.zip", "linux": "https://github.com/todxx/teamredminer/releases/download/v0.8.4/teamredminer-v0.8.4-linux.tgz"},
+            "algos": [
+                "ethash",
+                "etchash",
+                "kawpow"
+            ],
+            "supported_gpus": ["amd"],
+            "supported_os": ["win32", "linux"],
+            "fee": 2.0,
+            "version": "v0.8.4",
+            "parameters": {
+                "fileName": "teamredminer",
+                "algo": "-a",
+                "wallet": "-u",
+                "pool": "-o"
+            }
+        },
         "ethminer": {
             "miner": "Ethminer",
             "download": {"win32": "https://github.com/ethereum-mining/ethminer/releases/download/v0.18.0/ethminer-0.18.0-cuda9.1-windows-amd64.zip", "linux": "https://github.com/ethereum-mining/ethminer/releases/download/v0.18.0/ethminer-0.18.0-cuda-9-linux-x86_64.tar.gz", "darwin": "https://github.com/ethereum-mining/ethminer/releases/download/v0.18.0/ethminer-0.18.0-cuda-9-darwin-x86_64.tar.gz"},
