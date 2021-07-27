@@ -4,13 +4,13 @@
         "regions": ["eu-west", "eu-north", "usa-west", "usa-east"],
         "algos": {
             "beamv3": {
-                "host": "stratum+tcp://beamv3.REGION.nicehash.com:3335"
+                "host": "stratum+tcp://beamv3.REGION.nicehash.com:3387"
             },
             "kawpow": {
                 "host": "stratum2+tcp://kawpow.REGION.nicehash.com:3385"
             },
             "ethash": {
-                "host": "stratum+tcp://daggerhashimoto.REGION.nicehash.com:3387"
+                "host": "stratum+tcp://daggerhashimoto.REGION.nicehash.com:3353"
             }
 
         }
