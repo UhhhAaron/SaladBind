@@ -86,10 +86,9 @@ async function run() {
 	console.clear();
 	console.log(chalk.bold.cyan(`Configure your miner`))
 	spinner = ora("Loading miner list").start();
-	fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/miners.json?token=ALJSKCYHN35UPMMPKVDIAY3BAARX2') //fuck you token
+	fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/miners.json') //fuck you token
 		.then(res => res.json())
 		.then(async data => {
-			spinner.stop();
 			let minerList = [];
 			let temp = await si.osInfo()
 			let temp2 = await si.graphics() 
@@ -126,6 +125,7 @@ async function run() {
 					}
 				}
 			}
+			spinner.stop();
 			if (minerList.length == 0) {
 				spinner.stop();
 				console.log(chalk.bold.red("No miners are available for your machine D:\nIf you think this is a mistake, talk to us on our Discord server."));
@@ -203,7 +203,7 @@ async function selectPool(minerData, algo) {
 	console.clear();
 	console.log(chalk.bold.cyan(`Configure your miner`))
 	spinner = ora("Loading pool list").start();
-	fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/pools.json?token=ALJSKCY3W7TJUDDNQTDMNK3BAAR5A') //fuck you token
+	fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/pools.json') //fuck you token
 		.then(res => res.json())
 		.then(async poolData => {
 			spinner.stop();
@@ -214,10 +214,11 @@ async function selectPool(minerData, algo) {
 					poolList.push({name: pooly.name, value: pooly});
 				}
 			}
+			let pool;
 			if(poolList.length > 1) {
-				const pool = await inquirer.prompt({
+				pool = await inquirer.prompt({
 					type: "list",
-					name: "pool",
+					name: "pool",	
 					message: "Choose a pool",
 					choices: poolList
 				});
@@ -296,40 +297,36 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 		break;
 	}
 	let defaultArgs
-	if (minerData.parameters.wallet != null) {
+	console.log("minerdata haha" + minerData.parameters.wallet)
+	if (minerData.parameters.wallet != "") { //for phoenix this isnt null o
 		defaultArgs = {
 			"algo": `${minerData.parameters.algo} ${algo}`,
 			"pool": `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}`,
 			"wallet": `${minerData.parameters.algo} ${wallet}.${config.minerId}`
 		}
 	} else {
-		let poolScheme = pool.algos[algo].host.split("//")[0]
-		let restOfPool = pool.algos[algo].host.split("//")[1].replace("REGION", region)
+		let poolScheme = pool.algos[algo].hosplit("//")[0]
+		let restOfPool = pool.algos[algo].split("//")[1].replace("REGION", region)
 		defaultArgs = {
 			"algo": null,
 			"pool": `${minerData.parameters.pool} ${poolScheme}//${wallet}.${config.minerId}`,
 			"wallet": null
-		}
-		if (minerData.parameters.algo != null) {
+		} //thats behind the if statement
+		if (minerData.parameters.algo != "") {
 			defaultArgs.algo = `${minerData.parameters.algo} ${algo}`
 		}
 	}
-	if(advancedCommands.trim().length > 0) {
-		// *****user has set advanced commands*****
+	if(advancedCommands.length > 0) { // didnt workkkk
+		// i turned them into a string, it's because of inquirer remember, like when we have to do pool.pool
+		// *****user has set advanced commands*****					ok then???
 		let finalArguments = []
 		if(!advancedCommands.includes(minerData.parameters.wallet)) {
-			finalArguments.push(`${minerData.parameters.wallet} ${pool.wallet}`); // i know pool.wallet doesnt exist but i can dream
-		} else {
-			finalArguments.push(defaultArgs.wallet)
+			finalArguments.push(defaultArgs.wallet) //why null WHY NULL TELLL MMEEE
 		}
 		if(!advancedCommands.includes(minerData.parameters.pool)) {
-			finalArguments.push(`${minerData.parameters.pool} ${pool.url}`); //i know pool.url doesnt exist but i can dream
-		} else {
 			finalArguments.push(defaultArgs.pool)
 		}
 		if(!advancedCommands.includes(minerData.parameters.algo)) {
-			finalArguments.push(`${minerData.parameters.algo} ${algo}`); // this one actually exists haha
-		} else {
 			finalArguments.push(defaultArgs.algo)
 		}
 		advancedCommands.split(" ").forEach(arg => {
@@ -337,6 +334,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 		});
 		finalArguments = finalArguments.join(" ");
 		//exec miner, finalArguments
+		console.log(minerData.parameters.fileName + " " + finalArguments)
 	} else {
 
 		// command parameters in miners.json as well maybe?
@@ -348,7 +346,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 			(shit like that)
 		}
 		*/
-		//exec(`${./data/miners/${something}/${minerData.parameters.fileName}}`)
+		//exec(`${./data/miners/${something}/${minerData.parameters.fileName} ${args args baby}`)
 	}
 }
 

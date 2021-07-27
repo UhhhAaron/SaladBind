@@ -54,7 +54,7 @@ async function continueSetup(clear) {
                     if (input.length == 778) {
                         return true;
                     }
-                    return `Your Salad Access Token is required for automatic mode. If you don't want this, restart SaladBind and select manual. ${chalk.yellow.bold("You may be seeing this if you entered the token incorrectly the token is 778 chars long!")}`;
+                    return `Your Salad Access Token is required for automatic mode. If you don't want this, restart SaladBind and select manual. ${chalk.yellow.bold("You may be seeing this if you entered the token incorrectly, the token is 778 chars long!")}`;
                 }
             }
         ]);

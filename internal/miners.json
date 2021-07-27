@@ -19,7 +19,7 @@
             "version": "5.6d",
             "parameters": {
                 "fileName": "PhoenixMiner",
-                "algo": null, 
+                "algo": "", 
                 "wallet": "-wal",
                 "pool": "-pool"
             }
@@ -75,8 +75,8 @@
             "version": "0.18.0",
             "parameters": {
                 "fileName": "ethminer",
-                "algo": null,
-                "wallet": null, 
+                "algo": "",
+                "wallet": "", 
                 "pool": "-P"
             }
         }
