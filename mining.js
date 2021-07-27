@@ -352,7 +352,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 		advancedCommands.split(" ").forEach(arg => {
 			finalArguments.push(arg);
 		});
-		spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${minerData.parameters.fileName}`, [finalArguments.join(" ").split(" ")], {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }}) //its an array dumbass
+		spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${minerData.parameters.fileName}`, [finalArguments], {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }}) //its an array dumbass
 	} else {
 		spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${minerData.parameters.fileName}`, [defaultArgs.pool, defaultArgs.algo, defaultArgs.wallet], {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }})
 	}
