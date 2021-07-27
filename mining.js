@@ -142,12 +142,18 @@ async function run() {
 					message: "Choose a miner",
 					choices: minerList
 				});
+				if (fs.existsSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`)) {
+					let minerFolder = fs.readdirSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`);
+					if (!minerFolder.filter(file => file.startsWith(miner.miner.parameters.fileName)).length > 0) {
+						fs.rmSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`, {recursive: true});
+					}
+				}
 				if(!fs.existsSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`)) {
 					spinner = ora(`Downloading ${miner.miner.miner}-${miner.miner.version}`).start();
 					let miners = fs.readdirSync("./data/miners");
 					let oldMiners = miners.filter(minery => minery.startsWith(miner.miner.miner));
 					if(oldMiners.length > 0) { //woo! time for pools.json (and more fucking tokens) oh piss
-						oldMiners.forEach(miner => fs.unlinkSync(`./data/miners/${miner}`));
+						oldMiners.forEach(miner => fs.rmSync(`./data/miners/${miner}`, {recursive: true}));
 					}
 					var downloadURL = miner.miner.download[userPlatform];
 					var fileExtension = path.extname(downloadURL); //time for a really hacky solution. this 
