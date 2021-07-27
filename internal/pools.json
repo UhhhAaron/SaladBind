@@ -7,7 +7,7 @@
                 "host": "stratum+tcp://beamv3.REGION.nicehash.com:3335"
             },
             "kawpow": {
-                "host": "stratum2+tcp://kawpow.REGION.nicehash.com:3385"
+                "host": "stratum2+tcp://kawpow.REGION.nicehash.com:3387"
             },
             "ethash": {
                 "host": "stratum+tcp://daggerhashimoto.REGION.nicehash.com:3353"
