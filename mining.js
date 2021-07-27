@@ -346,30 +346,9 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 		advancedCommands.split(" ").forEach(arg => {
 			finalArguments.push(arg);
 		});
-		finalArguments = finalArguments.join(" ");
-		//exec miner, finalArguments
-		exec(`data/miners/${minerData.miner}-${minerData.version}/${minerData.parameters.fileName} ${finalArguments}`, (error, stdout, stderr) => {
-			if (error) {
-				console.log(chalk.red(error));
-				return;
-			}
-			if (stderr) {
-				console.log(chalk.red(stderr));
-				return;
-			}
-			console.log(`Miner Closed.`);
-		});
+		spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${minerData.parameters.fileName}`, [finalArguments], {stdio: 'inherit', shell: true}) //its an array dumbass
 	} else {
-		// command parameters in miners.json as well maybe?
-		/*
-		default ones, yes
-		"parameters:" {
-			"wallet": "-w",
-			"algo": "-a",
-			(shit like that)
-		}
-		*/
-		var miner = spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${minerData.parameters.fileName}`, [defaultArgs.pool, defaultArgs.algo, defaultArgs.wallet], {stdio: 'inherit', shell: true})
+		spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${minerData.parameters.fileName}`, [defaultArgs.pool, defaultArgs.algo, defaultArgs.wallet], {stdio: 'inherit', shell: true})
 	}
 }
 
