@@ -96,6 +96,7 @@ async function run() {
 				let compatibleAlgos = []
 				for (let j = 0; j < Object.keys(data.algos).length; j++) {
 					if(temp2.controllers[i].vendor == "Advanced Micro Devices, Inc.") temp2.controllers[i].vendor = "AMD";
+					if(temp2.controllers[i].vendor == "NVIDIA Corporation") temp2.controllers[i].vendor = "NVIDIA";
 					if(temp2.controllers[i].vram > data.algos[Object.keys(data.algos)[j]]) { 
 						compatibleAlgos.push(Object.keys(data.algos)[j])
 					}
@@ -300,7 +301,8 @@ async function prepStart(minerData, algo, pool, region, advancedCommands) {
 async function startMiner(minerData, algo, pool, region, advancedCommands) {
 	console.clear();
 	console.log(`${chalk.bold.greenBright("Starting miner!")}\nPlease wait, this might take a few seconds.\n`);
-	let minerFiles = fs.readdirSync(`data/miners/${minerData.miner}-${minerData.version}`);
+	let temp = await si.osInfo();
+	let userPlatform = temp.platform;
 	let wallet
 	switch(pool.name) {
 		case "Ethermine":
@@ -366,7 +368,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 		//}); time for a hacky fix!
 
 		finalArguments.push(advancedCommands)
-		let miner = spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${minerData.parameters.fileName}`, finalArguments, {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }}) //its an array dumbass
+		let miner = spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${userPlatform == "linux" ? "./" : ""}${minerData.parameters.fileName}`, finalArguments, {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }}) //its an array dumbass
 		miner.on('close', (code) => {
 			console.log(`\nMiner stopped!\n`);
 			require("./index").menu(false);
@@ -380,7 +382,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 		});
 	} else {
 		console.log([defaultArgs.pool, defaultArgs.algo, defaultArgs.wallet])
-		let miner = spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${minerData.parameters.fileName}`, [defaultArgs.pool, defaultArgs.algo, defaultArgs.wallet], {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }})
+		let miner = spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${userPlatform == "linux" ? "./" : ""}${minerData.parameters.fileName}`, [defaultArgs.pool, defaultArgs.algo, defaultArgs.wallet], {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }})
 		miner.on('close', (code) => {
 			console.log(`\nMiner stopped!\n`);
 			require("./index").menu(false);
