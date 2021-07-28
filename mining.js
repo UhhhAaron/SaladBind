@@ -17,6 +17,7 @@ let rawdata = fs.readFileSync(tempest);
 const config = JSON.parse(rawdata);
 const { win32 } = require('path');
 const { spawn } = require("child_process");
+const lzma_native = require(`lzma-native`);
 let spinner;
 
 function moveDupeFolder(folderName) {
