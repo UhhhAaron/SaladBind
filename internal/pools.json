@@ -20,10 +20,10 @@
         "regions": ["asia1", "eu1", "us1"],
         "algos": {
             "etchash": {
-                "host": "ssl://REGION-etc.ethermine.org:5555"
+                "host": "ethproxy+ssl://REGION-etc.ethermine.org:5555"
             },
             "ethash": {
-                "host": "ssl://REGION.ethermine.org:5555"
+                "host": "ethproxy+ssl://REGION.ethermine.org:5555"
             }
         }
     }
