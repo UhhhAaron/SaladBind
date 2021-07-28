@@ -149,12 +149,13 @@ async function run() {
 					}
 				}
 				if(!fs.existsSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`)) {
-					spinner = ora(`Downloading ${miner.miner.miner}-${miner.miner.version}`).start();
 					let miners = fs.readdirSync("./data/miners");
 					let oldMiners = miners.filter(minery => minery.startsWith(miner.miner.miner));
 					if(oldMiners.length > 0) { //woo! time for pools.json (and more fucking tokens) oh piss
+						console.log(chalk.yellow(`A ${miner.miner.miner} update has been found! Updating now..`));
 						oldMiners.forEach(miner => fs.rmSync(`./data/miners/${miner}`, {recursive: true}));
 					}
+					spinner = ora(`Downloading ${miner.miner.miner}-${miner.miner.version}`).start();
 					var downloadURL = miner.miner.download[userPlatform];
 					var fileExtension = path.extname(downloadURL); //time for a really hacky solution. this 
 					if (fileExtension == ".gz") {
@@ -172,7 +173,7 @@ async function run() {
 				}
 			} 
 		}).catch(err => {
-			spinner.fail(chalk.bold.red(`Could not start a miner. Please try again later.`)); // haha screw you
+			spinner.fail(chalk.bold.red(`Could not start the miner, please try again later.`)); // haha screw you
 			console.log(err);
 			setTimeout(() => {
 				require("./index").menu();
@@ -251,7 +252,7 @@ async function selectPool(minerData, algo) {
 			});
 			prepStart(minerData, algo, poolsy, region.region);
 		}).catch(err => {
-			spinner.fail(chalk.bold.red(`Could not select a pool. Please try again later.`));
+			spinner.fail(chalk.bold.red(`Could not select a pool, please try again later.`));
 			console.log(err);
 			setTimeout(() => {
 				require("./index").menu();
@@ -326,7 +327,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 		} else {
 			defaultArgs.algo = ""
 		}
-		defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)} ${minerData.miner == "PhoenixMiner" ? "-proto 4" : ""}`
+		defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)} ${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? "-proto 4" : ""}`
 	} else {
 		let poolUrl = pool.algos[algo].host
 		let poolScheme = poolUrl.split("//")[0]

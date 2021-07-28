@@ -35,7 +35,7 @@ async function continueSetup(clear) {
         name: "useapi",
         message: "How would you like to provide your mining details?",
         choices: [{
-            name: `Automatic ${chalk.yellow("(Salad Auth tokens required!)")}`,
+            name: `Automatic ${chalk.yellow("(Salad auth token required!)")}`,
             value: "api"
         }, {
             name: `Manual`,
@@ -44,7 +44,7 @@ async function continueSetup(clear) {
     }]);
     if (useapi.useapi == "api") {
         //auth
-        console.log(chalk.green("We need the tokens to get your Wallet and Rig ID automatically.\nThey will not be stored!"))
+        console.log(chalk.green("We need the token to get your Wallet and Rig ID automatically.\nThey will not be stored!"))
         const auth = await inquirer.prompt([
             {
                 type: 'input',
@@ -75,7 +75,7 @@ async function continueSetup(clear) {
                     if (input.length == 15) {
                         return true;
                     }
-                    return `If you don't want to manually enter your Worker ID you can use automatic mode. ${chalk.yellow.bold("You may be seeing this if you entered the Worker ID incorrectly!")}`;
+                    return `If you don't want to manually enter your Worker ID, you can use automatic mode. ${chalk.yellow.bold("You may be seeing this if you entered the Worker ID incorrectly!")}`;
                 }
             }
         ]);
@@ -88,7 +88,7 @@ async function continueSetup(clear) {
     }
     console.clear();
     console.log(chalk.bold.greenBright(`Congratulations!! :D`))
-    console.log("SaladBind is now configured!\nStarting in 5 seconds...")
+    console.log("SaladBind has now been configured!\nStarting in 5 seconds...")
     setTimeout(() => {
         require("./index").menu();
     }, 5000);

@@ -20,10 +20,10 @@
         "regions": ["asia1", "eu1", "us1"],
         "algos": {
             "etchash": {
-                "host": "ethproxy+tcp://REGION-etc.ethermine.org:4444"
+                "host": "stratum://REGION-etc.ethermine.org:4444"
             },
             "ethash": {
-                "host": "ethproxy+tcp://REGION.ethermine.org:4444"
+                "host": "stratum://REGION.ethermine.org:4444"
             }
         }
     }

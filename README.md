@@ -20,15 +20,13 @@ Welcome to the next generation of Salad CLIs!
 
 Head to our [GitHub Releases](https://github.com/VukkyLtd/SaladBind/releases/latest) page, download the latest release, and run it. **BUT KEEP READING!**
 
-If you are on macOS or linux, you'll have to run it from the terminal like this:
+If you are on macOS or Linux, please note that these platforms are untested and you may encounter bugs.
 
-### macOS
+On those platforms, you'll have to run SaladBind from the terminal like this, respectively:
 
 ```bash
 ./saladbind-macos
 ```
-
-### Linux
 
 ```bash
 ./saladbind-linux
@@ -42,3 +40,19 @@ You can do this automatically by entering your Salad Auth token, or you can ente
 
 #### Automatic
 
+You will be prompted to enter your access token.
+To get your access token follow these steps:
+
+1. Log in at [https://app.salad.io/](app.salad.io)
+2. Click the lock symbol in the address bar
+3. Open Cookies and uncollapse app-api.salad.io
+4. Look for sAccessToken and copy it (right click and select all as it is very long)
+5. Paste the token into the terminal (on Windows, use right-click)
+
+#### Manual
+
+1. Start mining with normal Salad
+2. Mine for 5-15 minutes
+3. Find your Salad logs. A guide can be found [https://support.salad.com/hc/en-us/articles/360042215512-How-To-Find-Your-Salad-Log-Files](here)-
+4. Search for "rig ID" in the main.log file and copy it. Both Ethermine worker ID and Nicehash rig ID are supported.
+5. Paste the Rig ID into the terminal (on Windows, use right-click)

@@ -8,7 +8,7 @@ const open = require("open");
 const si = require("systeminformation");
 
 console.clear();
-process.title = "SaladBind";
+process.title = `SaladBind v${packageJson.version}`;
 
 const updateCheck = new Promise((resolve, reject) => {
     const spinner = ora('Checking for updates...').start();
@@ -29,7 +29,7 @@ const updateCheck = new Promise((resolve, reject) => {
             }
         })
         .catch(err => {
-            spinner.fail(chalk.bold.red(`Could not check for updates. Please try again later.`));
+            spinner.fail(chalk.bold.red(`Could not check for updates, please try again later.`));
             console.log(err);
             setTimeout(() => {
                 resolve();
@@ -39,7 +39,7 @@ const updateCheck = new Promise((resolve, reject) => {
 
 (async () => {
     updateCheck.then(() => {
-        console.log(chalk.bold.green(`SaladBind ${packageJson.version}`))
+        console.log(chalk.bold.green(`SaladBind v${packageJson.version}`))
         if(!fs.existsSync('./data/config.json')) {
             console.log("Welcome to SaladBind! Let's set things up now :)\n");
             require("./setup").run(false);
@@ -51,7 +51,7 @@ const updateCheck = new Promise((resolve, reject) => {
 
 async function menu() {
     console.clear();
-    console.log(chalk.bold.green(`SaladBind ${packageJson.version}`));
+    console.log(chalk.bold.green(`SaladBind v${packageJson.version}`));
     const questions = [
         {
             type: 'list',
