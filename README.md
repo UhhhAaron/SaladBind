@@ -20,11 +20,15 @@ Welcome to the next generation of Salad CLIs!
 
 Head to our [GitHub Releases](https://github.com/VukkyLtd/SaladBind/releases/latest) page, download the latest release, and run it. **BUT KEEP READING!**
 
-For macOS and Linux specifically, you'll have to run it from a terminal window, like this:
+If you are on macOS or linux, you'll have to run it from the terminal like this:
+
+### macOS
 
 ```bash
 ./saladbind-macos
 ```
+
+### Linux
 
 ```bash
 ./saladbind-linux
@@ -32,7 +36,7 @@ For macOS and Linux specifically, you'll have to run it from a terminal window, 
 
 ### Configuration
 
-Once you start it for the first time, it'll prompt you to enter your mining details.
+Once you start SaladBind for the first time, it'll prompt you to enter your mining details.
 
 You can do this automatically by entering your Salad Auth token, or you can enter your Rig ID manually.
 
