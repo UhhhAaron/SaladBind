@@ -324,30 +324,30 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 				console.log("ethash")
 				defaultArgs.wallet = `-wal ${wallet}.${config.minerId}`
 				defaultArgs.algo = `-coin eth`
-				defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}`
+				defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "lolMiner" ? "--pers BgoldPoW" : ""}`
 			} else if(algo == "etchash") {
 				console.log("etchash")
 				defaultArgs.wallet = `-wal ${wallet}.${config.minerId}`
 				defaultArgs.algo = `-coin etc`
-				defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}`
+				defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "lolMiner" ? "--pers BgoldPoW" : ""}`
 			} else {
 				console.log(chalk.blue("something went badly wrong"))
 			}
 		} else {
 			defaultArgs.wallet = `${minerData.parameters.wallet} ${wallet}.${config.minerId}`
 			if (minerData.parameters.algo != "") {
-				defaultArgs.algo = `${minerData.parameters.algo} ${algo}`
+				defaultArgs.algo = `${minerData.parameters.algo} ${minerData.miner == "lolMiner" ? algo == "beamv3" ? "BEAM-III" : algo.toUpperCase() : algo}`
 			} else {
 				defaultArgs.algo = ""
 			}
-			defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}`
+			defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "lolMiner" ? "--pers BgoldPoW" : ""}`
 			} //i grabbed this from an older build because i accidentally removed a part so it didnt have it yet im a fucking retard
 	} else {
 		let poolUrl = pool.algos[algo].host
-		let poolScheme = poolUrl.split("//")[0]
+		let poolScheme = poolUrl.split("://")[0]
 		poolScheme = poolScheme.replace("stratum", "stratum2")
 		poolScheme = poolScheme.replace("ethproxy", "stratum1")
-		let restOfPool = poolUrl.split("//")[1].replace("REGION", region)
+		let restOfPool = poolUrl.split("://")[1].replace("REGION", region)
 		defaultArgs = {
 			"algo": "",
 			"pool": `${minerData.parameters.pool} ${poolScheme}//${wallet}.${config.minerId}@${restOfPool}`,

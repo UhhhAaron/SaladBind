@@ -104,9 +104,6 @@
             "miner": "lolMiner",
             "download": {"win32": "https://github.com/Lolliedieb/lolMiner-releases/releases/download/1.31/lolMiner_v1.31_Win64.zip", "linux": "https://github.com/Lolliedieb/lolMiner-releases/releases/download/1.31/lolMiner_v1.31_Lin64.tar.gz"},
             "algos": [
-                "ethash",
-                "etchash",
-                "beamv3",
                 "EQUI144_5"
             ],
             "supported_gpus": ["nvidia", "amd"],
