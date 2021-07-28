@@ -312,15 +312,12 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 	}
 	let defaultArgs = {}
 	if (minerData.parameters.wallet != "") { // poo
-		console.log(minerData.parameters.wallet)
 		if(minerData.parameters.wallet == "PHOENIX") {
 			if(algo == "ethash") {
-				console.log("ethash")
 				defaultArgs.wallet = `-wal ${wallet}.${config.minerId}`
 				defaultArgs.algo = `-coin eth`
 				defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "lolMiner" ? " --pers BgoldPoW " : ""}`
 			} else if(algo == "etchash") {
-				console.log("etchash")
 				defaultArgs.wallet = `-wal ${wallet}.${config.minerId}`
 				defaultArgs.algo = `-coin etc`
 				defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "lolMiner" ? " --pers BgoldPoW " : ""}`
@@ -369,7 +366,6 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 		//}); time for a hacky fix!
 
 		finalArguments.push(advancedCommands)
-		console.log(finalArguments)
 		let miner = spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${minerData.parameters.fileName}`, finalArguments, {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }}) //its an array dumbass
 		miner.on('close', (code) => {
 			console.log(`\nMiner stopped!\n`);
