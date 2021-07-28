@@ -59,9 +59,9 @@ Supported OS: Windows, Linux, MacOS
 
 Supported GPUS: NVIDIA, AMD
 
-### GMiner
+### lolminer
 
-GMiner supports Ethash, Etchash, KawPow, beamv3 and 144_5 (Bitcoin Gold). It has a fee of 0.65% on Ethash and Etchash, 1% on KawPow, 2% on beamv3 and 2% on 144_5.
+lolminer supports Ethash, Etchash, beamv3 and EQUI144_5 (Bitcoin Gold). It has a fee of 0.75% on Ethash and Etchash, and 1% on beamv3 and EQUI144_5.
 
 Supported OS: Windows, Linux
 
@@ -75,8 +75,9 @@ Over 4GB of VRAM: Ethash
 
 3-4GB of VRAM: KawPow
 
-2GB of VRAM: 144_5 (Bitcoin Gold)
+2GB of VRAM: EQUI144_5 (Bitcoin Gold)
 
 ## Additional Commands
-To use additional commands select Add Additional Command before starting the miner, these arguments are passed directly to the miner.
-If you do not specift a wallet, pool or algorithm, the default will be used.
+
+To use additional commands select Set Additional Commands before starting the miner, these arguments are passed directly to the miner.
+If you do not specify a wallet, pool or algorithm, the default will be used.

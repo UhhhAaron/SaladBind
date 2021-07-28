@@ -8,7 +8,6 @@ const https = require('https');
 const path = require('path');
 const decompress = require('decompress');
 const decompressTargz = require('decompress-targz');
-const decompressTarxz = require('decompress-tarxz');
 const decompressUnzip = require('decompress-unzip');
 const mv = require('mv'); //what i forogt to save :bukky:
 const { menu } = require('./index');
@@ -17,7 +16,6 @@ let rawdata = fs.readFileSync(tempest);
 const config = JSON.parse(rawdata);
 const { win32 } = require('path');
 const { spawn } = require("child_process");
-const lzma_native = require(`lzma-native`);
 let spinner;
 
 function moveDupeFolder(folderName) {
@@ -42,7 +40,6 @@ async function extractFile(location, folderName, fileExtension) {
 	await decompress(location, `./data/miners/${folderName}`, {
 		plugins: [
 			decompressTargz(),
-			decompressTarxz(),
 			decompressUnzip()
 		],
 		map: (file) => {
@@ -158,9 +155,6 @@ async function run() {
 					var fileExtension = path.extname(downloadURL); //time for a really hacky solution. this 
 					if (fileExtension == ".gz") {
 						fileExtension = ".tar.gz"
-					}
-					if (fileExtension == ".xz") {
-						fileExtension = ".tar.xz"
 					}
 					const fileName = `${miner.miner.miner}-${miner.miner.version}`
 					const fileLocation = `./data/miners/${fileName}${fileExtension}`; 
@@ -314,26 +308,26 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 	let wallet
 	switch(pool.name) {
 		case "Ethermine":
-			wallet = "0x6ff85749ffac2d3a36efa2bc916305433fa93731" // i swear if this isnt the right address i will kill bob's mother
+			wallet = "0x6ff85749ffac2d3a36efa2bc916305433fa93731" // i swear if this isnt the right address i will kill bob's mother update: bob your mother is safe.
 		break;
 		case "NiceHash":
 			wallet = "33kJvAUL3Na2ifFDGmUPsZLTyDUBGZLhAi" // tested to work i swear
 		break;
 	}
 	let defaultArgs = {}
-	if (minerData.parameters.wallet != "") { //for phoenix this isnt null o
+	if (minerData.parameters.wallet != "") { // poo
 		console.log(minerData.parameters.wallet)
 		if(minerData.parameters.wallet == "PHOENIX") {
 			if(algo == "ethash") {
 				console.log("ethash")
 				defaultArgs.wallet = `-wal ${wallet}.${config.minerId}`
 				defaultArgs.algo = `-coin eth`
-				defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "GMiner" && algo == "144_5" ? " --pers BitcoinZ " : ""}${minerData.miner == "GMiner" ? ` --port ${pool.algos[algo].host.split(":")[2]} ` : ""}`
+				defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}`
 			} else if(algo == "etchash") {
 				console.log("etchash")
 				defaultArgs.wallet = `-wal ${wallet}.${config.minerId}`
 				defaultArgs.algo = `-coin etc`
-				defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "GMiner" && algo == "144_5" ? " --pers BitcoinZ " : ""}${minerData.miner == "GMiner" ? ` --port ${pool.algos[algo].host.split(":")[2]} ` : ""}`
+				defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}`
 			} else {
 				console.log(chalk.blue("something went badly wrong"))
 			}
@@ -344,8 +338,8 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 			} else {
 				defaultArgs.algo = ""
 			}
-			defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)} ${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? "-proto 4" : ""}`
-		}
+			defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}`
+			} //i grabbed this from an older build because i accidentally removed a part so it didnt have it yet im a fucking retard
 	} else {
 		let poolUrl = pool.algos[algo].host
 		let poolScheme = poolUrl.split("//")[0]
