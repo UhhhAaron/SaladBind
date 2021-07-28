@@ -66,6 +66,12 @@ async function continueSetup(clear) {
             }
             fs.writeFileSync("./data/config.json", JSON.stringify({"minerId": minerDetails.minerId}));
             spinner.stop();
+            console.clear();
+            console.log(chalk.bold.greenBright(`Congratulations!! :D`))
+            console.log("SaladBind has now been configured!\nStarting in 5 seconds...")
+            setTimeout(() => {
+                require("./index").menu();
+            }, 5000);
         } catch (e) {
             spinner.fail();
             console.log(e);
@@ -91,13 +97,13 @@ async function continueSetup(clear) {
         }
         fs.writeFileSync("./data/config.json", JSON.stringify({"minerId": worker.id}));
         spinner.stop();
+        console.clear();
+        console.log(chalk.bold.greenBright(`Congratulations!! :D`))
+        console.log("SaladBind has now been configured!\nStarting in 5 seconds...")
+        setTimeout(() => {
+            require("./index").menu();
+        }, 5000);
     }
-    console.clear();
-    console.log(chalk.bold.greenBright(`Congratulations!! :D`))
-    console.log("SaladBind has now been configured!\nStarting in 5 seconds...")
-    setTimeout(() => {
-        require("./index").menu();
-    }, 5000);
 }
 
 module.exports = {

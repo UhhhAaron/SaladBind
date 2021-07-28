@@ -21,7 +21,7 @@
             "parameters": {
                 "fileName": "PhoenixMiner",
                 "algo": "", 
-                "wallet": "-wal",
+                "wallet": "PHOENIX",
                 "pool": "-pool"
             }
         },

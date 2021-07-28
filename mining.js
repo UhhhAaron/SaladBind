@@ -9,9 +9,12 @@ const path = require('path');
 const decompress = require('decompress');
 const decompressTargz = require('decompress-targz');
 const decompressTarxz = require('decompress-tarxz');
+const decompressUnzip = require('decompress-unzip');
 const mv = require('mv'); //what i forogt to save :bukky:
 const { menu } = require('./index');
-const config = require("./data/config.json");
+let tempest = "./data/config.json";
+let rawdata = fs.readFileSync(tempest);
+const config = JSON.parse(rawdata);
 const { win32 } = require('path');
 const { spawn } = require("child_process");
 let spinner;
@@ -20,7 +23,7 @@ function moveDupeFolder(folderName) {
 	let folderData = fs.readdirSync(`./data/miners/${folderName}`)
 	if(folderData.length == 1) {
 		mv(`./data/miners/${folderName}/${folderData[0]}`, `./data/miners/${folderName}`, {clobber: false}, function(err) { //oh okers
-			// done. it tried fs.rename first, and then falls back to
+			// done. it tried fs.rename first, and then falls ba	ck to
 			// piping the source file to the dest file and then unlinking
 			// the source file. (docs lol) lol
 			if(err) {
@@ -38,8 +41,15 @@ async function extractFile(location, folderName, fileExtension) {
 	await decompress(location, `./data/miners/${folderName}`, {
 		plugins: [
 			decompressTargz(),
-			decompressTarxz()
-		]
+			decompressTarxz(),
+			decompressUnzip()
+		],
+		map: (file) => {
+			if (file.type === 'file' && file.path.endsWith('/')) {
+			  file.type = 'directory'
+			}
+			return file
+		}
 	}).then(() => {
 		fs.unlinkSync(location);
 		moveDupeFolder(folderName);
@@ -311,13 +321,30 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 	}
 	let defaultArgs = {}
 	if (minerData.parameters.wallet != "") { //for phoenix this isnt null o
-		defaultArgs.wallet = `${minerData.parameters.wallet} ${wallet}.${config.minerId}`
-		if (minerData.parameters.algo != "") {
-			defaultArgs.algo = `${minerData.parameters.algo} ${algo}`
+		console.log(minerData.parameters.wallet)
+		if(minerData.parameters.wallet == "PHOENIX") {
+			if(algo == "ethash") {
+				console.log("ethash")
+				defaultArgs.wallet = `-ewal ${wallet}.${config.minerId}`
+				defaultArgs.algo = `-coin eth`
+				defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "GMiner" && algo == "144_5" ? " --pers BitcoinZ " : ""}${minerData.miner == "GMiner" ? ` --port ${pool.algos[algo].host.split(":")[2]} ` : ""}`
+			} else if(algo == "etchash") {
+				console.log("etchash")
+				defaultArgs.wallet = `-ewal ${wallet}.${config.minerId}`
+				defaultArgs.algo = `-coin etc`
+				defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "GMiner" && algo == "144_5" ? " --pers BitcoinZ " : ""}${minerData.miner == "GMiner" ? ` --port ${pool.algos[algo].host.split(":")[2]} ` : ""}`
+			} else {
+				console.log(chalk.blue("something went badly wrong"))
+			}
 		} else {
-			defaultArgs.algo = ""
+			defaultArgs.wallet = `${minerData.parameters.wallet} ${wallet}.${config.minerId}`
+			if (minerData.parameters.algo != "") {
+				defaultArgs.algo = `${minerData.parameters.algo} ${algo}`
+			} else {
+				defaultArgs.algo = ""
+			}
+			defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)} ${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? "-proto 4" : ""}`
 		}
-		defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)} ${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? "-proto 4" : ""}`
 	} else {
 		let poolUrl = pool.algos[algo].host
 		let poolScheme = poolUrl.split("//")[0]

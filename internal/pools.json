@@ -13,7 +13,7 @@
                 "host": "stratum+tcp://daggerhashimoto.REGION.nicehash.com:3353"
             },
             "144_5": {
-                "host": "stratum+tcp://zhash.eu.nicehash.com:3369"
+                "host": "stratum+tcp://zhash.REGION.nicehash.com:3369"
             }
 
         }

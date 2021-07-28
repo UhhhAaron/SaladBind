@@ -10,11 +10,11 @@
 
 ### NiceHash
 
-Good if you know you're going to be stopping and starting instead of long mining sessions, more stable earnings.
+Good if you know you're going to be restarting the miner constantly instead of having long mining sessions. Has more stable earnings.
 
 ### Ethermine
 
-Good for longer sessions, earnings can be unstable. Can take up to 30 minutes for earnings to start appearing.
+Good for longer sessions, earnings can be unstable. Can take up to 30 minutes for earnings to start appearing on Salad.
 
 ## Miners
 
