@@ -59,12 +59,18 @@ async function continueSetup(clear) {
             }
         ]);
         const spinner = ora("Getting miner details...").start();
-        let minerDetails = await require("./internal/getMachine").getInfo(auth.auth);
-        if (!fs.existsSync("./data")){
-            fs.mkdirSync("./data");
+        try {
+            let minerDetails = await require("./internal/getMachine").getInfo(auth.auth);
+            if (!fs.existsSync("./data")){
+                fs.mkdirSync("./data");
+            }
+            fs.writeFileSync("./data/config.json", JSON.stringify({"minerId": minerDetails.minerId}));
+            spinner.stop();
+        } catch (e) {
+            spinner.fail();
+            console.log(e);
+            console.log(chalk.bold.red("An error occurred, please contact support on our Discord server (https://discord.gg/HfBAtQ2afz) and attach an image of the data above."));
         }
-        fs.writeFileSync("./data/config.json", JSON.stringify({"minerId": minerDetails.minerId}));
-        spinner.stop();
     } else {
         const worker = await inquirer.prompt([
             {

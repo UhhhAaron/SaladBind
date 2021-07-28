@@ -49,8 +49,10 @@ const updateCheck = new Promise((resolve, reject) => {
     })
 })();
 
-async function menu() {
-    console.clear();
+async function menu(clear) {
+    if(clear == undefined || clear == true) {
+        console.clear();
+    }
     console.log(chalk.bold.green(`SaladBind v${packageJson.version}`));
     const questions = [
         {

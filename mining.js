@@ -278,7 +278,7 @@ async function prepStart(minerData, algo, pool, region, advancedCommands) {
 				value: "n"
 			},
 			{
-				name: "Add advanced commands", 
+				name: "Set advanced commands", 
 				value: "advanced"
 			}
 		]
@@ -347,23 +347,51 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 		// i turned them into a string, it's because of inquirer remember, like when we have to do pool.pool
 		// *****user has set advanced commands*****					ok then???
 		let finalArguments = []
-		if(!advancedCommands.includes(minerData.parameters.wallet)) {
-			finalArguments.push(defaultArgs.wallet) //why null WHY NULL TELLL MMEEE
-		}
 		if(!advancedCommands.includes(minerData.parameters.pool)) {
 			finalArguments.push(defaultArgs.pool)
+		}
+		if(!advancedCommands.includes(minerData.parameters.wallet)) {
+			finalArguments.push(defaultArgs.wallet) //why null WHY NULL TELLL MMEEE
 		}
 		if(!advancedCommands.includes(minerData.parameters.algo)) {
 			finalArguments.push(defaultArgs.algo)
 		}
-		advancedCommands.split(" ").forEach(arg => {
-			finalArguments.push(arg);
+		//advancedCommands.split(" ").forEach(arg => {
+		//	finalArguments.push(arg);
+		//}); time for a hacky fix!
+
+		finalArguments.push(advancedCommands)
+		console.log(finalArguments)
+		let miner = spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${minerData.parameters.fileName}`, finalArguments, {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }}) //its an array dumbass
+		miner.on('close', (code) => {
+			console.log(`\nMiner stopped!\n`);
+			require("./index").menu(false);
 		});
-		spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${minerData.parameters.fileName}`, [finalArguments], {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }}) //its an array dumbass
+		miner.on('SIGINT', () => {
+			console.log(`\nMiner stopped!\n`);
+			require("./index").menu(false);
+		});
+		process.on('SIGINT', () => {
+			console.log(chalk.yellow("Returning to SaladBind menu..."));
+		});
 	} else {
-		spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${minerData.parameters.fileName}`, [defaultArgs.pool, defaultArgs.algo, defaultArgs.wallet], {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }})
+		console.log([defaultArgs.pool, defaultArgs.algo, defaultArgs.wallet])
+		let miner = spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${minerData.parameters.fileName}`, [defaultArgs.pool, defaultArgs.algo, defaultArgs.wallet], {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }})
+		miner.on('close', (code) => {
+			console.log(`\nMiner stopped!\n`);
+			require("./index").menu(false);
+		});
+		miner.on('SIGINT', () => { // Bukky be Retarded
+			console.log(`\nMiner stopped!\n`);
+			require("./index").menu(false);
+		});// nvm
+		process.on('SIGINT', () => {
+			console.log(chalk.yellow("Returning to SaladBind menu...")); // hadnt saved lol
+			
+		}) 
+		// This spaghetti is powered by https://stackoverflow.com/a/44851254
 	}
-}
+} 
 
 module.exports = { 
 	run

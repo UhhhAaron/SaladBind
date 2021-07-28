@@ -4,6 +4,7 @@
 
 const si = require("systeminformation");
 const fetch = require("node-fetch");
+const chalk = require('chalk');
 async function getInfo(sAccessToken){
     var temp = await si.osInfo()
     const systemInfo = {
@@ -25,7 +26,13 @@ async function getInfo(sAccessToken){
         },
         "body": `{\"systemInfo\":{\"version\":\"${systemInfo.version}\",\"system\":${JSON.stringify(systemInfo.system)},\"cpu\":${JSON.stringify(systemInfo.cpu)},\"memLayout\":${JSON.stringify(systemInfo.memLayout)},\"graphics\":${JSON.stringify(systemInfo.graphics)},\"os\":${JSON.stringify(systemInfo.os)},\"platform\":${JSON.stringify(systemInfo.platform)},\"uuid\":${JSON.stringify(systemInfo.uuid)}}}`,
         "method": "POST"
-        }).then(res => {poo = res.json()}); 
+        }).then(res => {
+            if(res.statusCode == 201) {
+                poo = res.json()
+            } else {
+                throw res;
+            }
+        }); 
     return poo;
 };
    

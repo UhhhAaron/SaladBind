@@ -3,7 +3,8 @@
         "ethash": 4300,
         "etchash": 2700,
         "kawpow": 2900,
-        "beamv3": 3000
+        "beamv3": 3000,
+        "144_5": 2000
     },
     "miners": {
         "phoenixminer": {
@@ -97,6 +98,27 @@
                 "algo": "",
                 "wallet": "", 
                 "pool": "-P"
+            }
+        },
+        "gminer": {
+            "miner": "GMiner",
+            "download": {"win32": "https://github.com/develsoftware/GMinerRelease/releases/download/2.63/gminer_2_63_windows64.zip", "linux": "https://github.com/develsoftware/GMinerRelease/releases/download/2.63/gminer_2_63_linux64.tar.xz"},
+            "algos": [
+                "ethash",
+                "etchash",
+                "kawpow",
+                "beamv3",
+                "144_5"
+            ],
+            "supported_gpus": ["nvidia", "amd"],
+            "supported_os": ["win32", "linux"],
+            "fee": 1.0,
+            "version": "2.63",
+            "parameters": {
+                "fileName": "gminer",
+                "algo": "--algo",
+                "wallet": "--user", 
+                "pool": "--server"
             }
         }
     }
