@@ -59,9 +59,9 @@ Supported OS: Windows, Linux, MacOS
 
 Supported GPUS: NVIDIA, AMD
 
-### lolminer
+### lolMiner
 
-lolminer supports Ethash, Etchash, beamv3 and EQUI144_5 (Bitcoin Gold). It has a fee of 0.75% on Ethash and Etchash, and 1% on beamv3 and EQUI144_5.
+lolMiner supports Ethash, Etchash, beamv3 and EQUI144_5 (Bitcoin Gold). It has a fee of 0.75% on Ethash and Etchash, and 1% on beamv3 and EQUI144_5.
 
 Supported OS: Windows, Linux
 
