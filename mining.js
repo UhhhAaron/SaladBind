@@ -301,12 +301,6 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 	console.clear();
 	console.log(`${chalk.bold.greenBright("Starting miner!")}\nPlease wait, this might take a few seconds.\n`);
 	let minerFiles = fs.readdirSync(`data/miners/${minerData.miner}-${minerData.version}`);
-	if(minerData.miner == "PhoenixMiner") {
-		let logs = minerFiles.filter(file => file.startsWith("log") || file.endsWith("log"));
-		if(logs.length > 0) { //woo! time for pools.json (and more fucking tokens) oh piss
-			logs.forEach(log => fs.unlinkSync(`./data/miners/${minerData.miner}-${minerData.version}/${log}`));
-		}
-	}
 	let wallet
 	switch(pool.name) {
 		case "Ethermine":
@@ -324,12 +318,12 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 				console.log("ethash")
 				defaultArgs.wallet = `-wal ${wallet}.${config.minerId}`
 				defaultArgs.algo = `-coin eth`
-				defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "lolMiner" ? "--pers BgoldPoW" : ""}`
+				defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "lolMiner" ? " --pers BgoldPoW " : ""}`
 			} else if(algo == "etchash") {
 				console.log("etchash")
 				defaultArgs.wallet = `-wal ${wallet}.${config.minerId}`
 				defaultArgs.algo = `-coin etc`
-				defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "lolMiner" ? "--pers BgoldPoW" : ""}`
+				defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "lolMiner" ? " --pers BgoldPoW " : ""}`
 			} else {
 				console.log(chalk.blue("something went badly wrong"))
 			}
@@ -340,7 +334,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 			} else {
 				defaultArgs.algo = ""
 			}
-			defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "lolMiner" ? "--pers BgoldPoW" : ""}`
+			defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "lolMiner" ? " --pers BgoldPoW " : ""}`
 			} //i grabbed this from an older build because i accidentally removed a part so it didnt have it yet im a fucking retard
 	} else {
 		let poolUrl = pool.algos[algo].host
@@ -350,7 +344,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 		let restOfPool = poolUrl.split("://")[1].replace("REGION", region)
 		defaultArgs = {
 			"algo": "",
-			"pool": `${minerData.parameters.pool} ${poolScheme}//${wallet}.${config.minerId}@${restOfPool}`,
+			"pool": `${minerData.parameters.pool} ${poolScheme}://${wallet}.${config.minerId}@${restOfPool}`,
 			"wallet": ""
 		} //thats behind the if statement
 		if (minerData.parameters.algo != "") {
