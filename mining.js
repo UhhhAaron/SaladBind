@@ -301,9 +301,11 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 	console.clear();
 	console.log(`${chalk.bold.greenBright("Starting miner!")}\nPlease wait, this might take a few seconds.\n`);
 	let minerFiles = fs.readdirSync(`data/miners/${minerData.miner}-${minerData.version}`);
-	let logs = minerFiles.filter(file => file.startsWith("log") || file.endsWith("log"));
-	if(logs.length > 0) { //woo! time for pools.json (and more fucking tokens) oh piss
-		logs.forEach(log => fs.unlinkSync(`./data/miners/${minerData.miner}-${minerData.version}/${log}`));
+	if(minerData.miner == "PhoenixMiner") {
+		let logs = minerFiles.filter(file => file.startsWith("log") || file.endsWith("log"));
+		if(logs.length > 0) { //woo! time for pools.json (and more fucking tokens) oh piss
+			logs.forEach(log => fs.unlinkSync(`./data/miners/${minerData.miner}-${minerData.version}/${log}`));
+		}
 	}
 	let wallet
 	switch(pool.name) {
