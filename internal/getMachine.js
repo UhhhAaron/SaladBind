@@ -11,7 +11,7 @@ async function getInfo(sAccessToken){
         version: await si.version(),
         system: await si.system(),
         cpu: await si.cpu(),
-        grpahics: await si.graphics(),
+        graphics: await si.graphics(),
         memLayout: await si.memLayout(),
         os: temp,
         platform: temp.platform,
