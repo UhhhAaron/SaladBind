@@ -35,7 +35,7 @@ async function extractFile(location, folderName, fileExtension) {
     if (!fs.existsSync(`./data/miners/${folderName}`)){
 		fs.mkdirSync(`./data/miners/${folderName}`); // me too
 	}
-	decompress(location, `./data/miners/${folderName}`, {
+	await decompress(location, `./data/miners/${folderName}`, {
 		plugins: [
 			decompressTargz(),
 			decompressTarxz()

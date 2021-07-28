@@ -115,7 +115,7 @@
             "fee": 1.0,
             "version": "2.63",
             "parameters": {
-                "fileName": "gminer",
+                "fileName": "miner",
                 "algo": "--algo",
                 "wallet": "--user", 
                 "pool": "--server"
