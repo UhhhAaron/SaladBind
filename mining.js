@@ -325,12 +325,12 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 		if(minerData.parameters.wallet == "PHOENIX") {
 			if(algo == "ethash") {
 				console.log("ethash")
-				defaultArgs.wallet = `-ewal ${wallet}.${config.minerId}`
+				defaultArgs.wallet = `-wal ${wallet}.${config.minerId}`
 				defaultArgs.algo = `-coin eth`
 				defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "GMiner" && algo == "144_5" ? " --pers BitcoinZ " : ""}${minerData.miner == "GMiner" ? ` --port ${pool.algos[algo].host.split(":")[2]} ` : ""}`
 			} else if(algo == "etchash") {
 				console.log("etchash")
-				defaultArgs.wallet = `-ewal ${wallet}.${config.minerId}`
+				defaultArgs.wallet = `-wal ${wallet}.${config.minerId}`
 				defaultArgs.algo = `-coin etc`
 				defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "GMiner" && algo == "144_5" ? " --pers BitcoinZ " : ""}${minerData.miner == "GMiner" ? ` --port ${pool.algos[algo].host.split(":")[2]} ` : ""}`
 			} else {

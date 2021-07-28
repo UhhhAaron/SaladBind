@@ -5,6 +5,7 @@
 [Pools](#Pools) <br>
 [Miners](#Miners) <br>
 [Algorithms](#Algorithms) <br>
+[Additional Commands](#Additional-Commands) <br>
 
 ## Pools
 
@@ -75,3 +76,7 @@ Over 4GB of VRAM: Ethash
 3-4GB of VRAM: KawPow
 
 2GB of VRAM: 144_5 (Bitcoin Gold)
+
+## Additional Commands
+To use additional commands select Add Additional Command before starting the miner, these arguments are passed directly to the miner.
+If you do not specift a wallet, pool or algorithm, the default will be used.
