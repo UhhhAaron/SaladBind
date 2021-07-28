@@ -19,14 +19,15 @@
   "homepage": "https://github.com/VukkyLtd/SaladBind#readme",
   "dependencies": {
     "chalk": "^4.1.1",
-    "extract-zip": "^2.0.1",
+    "decompress": "^4.2.1",
+    "decompress-targz": "^4.1.1",
+    "decompress-tarxz": "^3.0.0",
     "https": "^1.0.0",
     "inquirer": "^8.1.2",
     "mv": "^2.1.1",
     "node-fetch": "^2.6.1",
     "open": "^8.2.1",
     "ora": "^5.4.1",
-    "systeminformation": "^5.7.8",
-    "tar": "^6.1.2"
+    "systeminformation": "^5.7.8"
   }
 }

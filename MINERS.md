@@ -20,7 +20,7 @@ Good for longer sessions, earnings can be unstable. Can take up to 30 minutes fo
 
 ### PhoenixMiner
 
-PhoenixMiner supports Ethash and Etchash. It has a lower fee than most other miners.
+PhoenixMiner supports Ethash and Etchash. It has a lower fee than most other miners of 0.65%.
 
 Supported OS: Windows, Linux
 
@@ -55,6 +55,14 @@ Supported GPUS: AMD
 Ethminer supports Ethash. It has no fee.
 
 Supported OS: Windows, Linux, MacOS
+
+Supported GPUS: NVIDIA, AMD
+
+### GMiner
+
+GMiner supports Ethash, Etchash, KawPow, beamv3 and 144_5 (Bitcoin Gold). It has a fee of 0.65% on Ethash and Etchash, 1% on KawPow, 2% on beamv3 and 2% on 144_5.
+
+Supported OS: Windows, Linux
 
 Supported GPUS: NVIDIA, AMD
 

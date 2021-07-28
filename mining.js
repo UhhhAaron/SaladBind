@@ -6,8 +6,9 @@ const fetch = require("node-fetch");
 const si = require("systeminformation");
 const https = require('https');
 const path = require('path');
-const extract = require('extract-zip');
-const tar = require('tar');
+const decompress = require('decompress');
+const decompressTargz = require('decompress-targz');
+const decompressTarxz = require('decompress-tarxz');
 const mv = require('mv'); //what i forogt to save :bukky:
 const { menu } = require('./index');
 const config = require("./data/config.json");
@@ -34,29 +35,15 @@ async function extractFile(location, folderName, fileExtension) {
     if (!fs.existsSync(`./data/miners/${folderName}`)){
 		fs.mkdirSync(`./data/miners/${folderName}`); // me too
 	}
-	switch (fileExtension) {
-		case ".zip":
-    		await extract(require('path').resolve(location), { dir: path.resolve(`./data/miners/${folderName}`) });
-			fs.unlinkSync(location);
-			moveDupeFolder(folderName);
-		break;
-		case ".tgz":
-		case ".tar.gz":
-			fs.createReadStream(location).pipe(
-				tar.x({
-				  strip: 0,
-				  C: path.resolve(`./data/miners/${folderName}`),
-				  filter: function(path, entry) {
-				    return !path.endsWith('.sh') && !path.endsWith('.bat') && !path.endsWith('.md'); //how would we go about this for extract thoughh? can't find anything since it wraps the yauzl stuff
-				  },
-				  sync: true
-				})
-			).on("end", () => {
-				fs.unlinkSync(location)
-				moveDupeFolder(folderName);
-			})
-		break;
-	}
+	decompress(location, `./data/miners/${folderName}`, {
+		plugins: [
+			decompressTargz(),
+			decompressTarxz()
+		]
+	}).then(() => {
+		fs.unlinkSync(location);
+		moveDupeFolder(folderName);
+	})
 	spinner.succeed(chalk.bold.green(`Extracted ${folderName}`));
 } 
 
@@ -160,6 +147,9 @@ async function run() {
 					var fileExtension = path.extname(downloadURL); //time for a really hacky solution. this 
 					if (fileExtension == ".gz") {
 						fileExtension = ".tar.gz"
+					}
+					if (fileExtension == ".xz") {
+						fileExtension = ".tar.xz"
 					}
 					const fileName = `${miner.miner.miner}-${miner.miner.version}`
 					const fileLocation = `./data/miners/${fileName}${fileExtension}`; 
