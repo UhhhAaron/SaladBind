@@ -91,7 +91,7 @@ async function run() {
 			let temp = await si.osInfo()
 			let temp2 = await si.graphics() 
 			let userPlatform = temp.platform; 
-			let GPUs = [];  
+			let GPUs = [];
 			for (let i = 0; i < temp2.controllers.length; i++) {
 				let compatibleAlgos = []
 				for (let j = 0; j < Object.keys(data.algos).length; j++) {
@@ -105,11 +105,16 @@ async function run() {
 					GPUs.push({"algos": compatibleAlgos, "vendor": temp2.controllers[i].vendor.toLowerCase()});
 				}
 			}
+			if(temp2.controllers.length == 0) {
+				spinner.stop();
+				GPUs.push({"algos": Object.keys(data.algos), "vendor": "BYPASS"})
+				console.log(chalk.bold.yellow("We couldn't find any GPUs on your machine, so we'll show all options, regardless of your specs.\nPlease read the miner guide at https://bit.ly/bindminers to get help with what to pick."))
+			}
 			for (let i = 0; i < Object.keys(data.miners).length; i++) {
 				let minerData = data.miners[Object.keys(data.miners)[i]];
 				const minerSupportsOS = minerData.supported_os.includes(userPlatform)
 				const algosSupportsGPU = minerData.algos.filter(algo => GPUs.filter(gpu => gpu.algos.includes(algo)).length > 0).length > 0
-				const minerSupportsGPU = GPUs.filter(gpu => minerData.supported_gpus.includes(gpu.vendor)).length > 0
+				const minerSupportsGPU = GPUs.filter(gpu => minerData.supported_gpus.includes(gpu.vendor) || gpu.vendor == "BYPASS").length > 0
 				if(minerSupportsOS && minerSupportsGPU && algosSupportsGPU) {
 					if (GPUs.filter(gpu => minerData.algos.filter(algo => gpu.algos.includes(algo)).length > 0).length != GPUs.length) {
 						minerList.push({
@@ -125,7 +130,7 @@ async function run() {
 				}
 			}
 			spinner.stop();
-			if (minerList.length == 0) {
+			if (minerList.length == 0 && temp2.controllers.length != 0) {
 				spinner.stop();
 				console.log(chalk.bold.red("No miners are available for your machine D:\nIf you think this is a mistake, talk to us on our Discord server."));
 				setTimeout(() => {
