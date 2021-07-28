@@ -12,7 +12,7 @@ And the best part: It's open source! And another best part (heh) is that we don'
 
 Oh, and did we mention the insane data savings? SaladBind downloads miners on demand, so there's no need to download 460MB of miners you'll never use, AND you don't have to install Python, Java, or whatever on your computer. Just download SaladBind, and you're good to go - it's only 40-50MB!
 
-Oh, and did we mention it's not for-profit? We don't have hidden fees and pools.
+Oh and, did we mention it's not for-profit? We don't have hidden fees and pools.
 
 Welcome to the next generation of Salad CLIs!
 
