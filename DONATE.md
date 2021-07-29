@@ -1,7 +1,7 @@
 # Donate to the SaladBind developers
 Although SaladBind does not require funding to operate, you can send the developers money to show your support.
 
-We greatly appreciate anything you send! More donation options coming soon.
+We greatly appreciate anything you send, although you don't have to do this! The only reason this page exists is because people have asked for it - SaladBind is still not a for-profit application, and it never will be. More donation options coming soon.
 
 ## Vukky
 
