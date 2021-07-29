@@ -305,7 +305,7 @@ async function prepStart(minerData, algo, pool, region, advancedCommands) {
 
 async function startMiner(minerData, algo, pool, region, advancedCommands) {
 	console.clear();
-	console.log(`${chalk.bold.greenBright("Starting miner!")}\nPlease wait, this might take a few seconds.\n`);
+	console.log(`${chalk.bold.greenBright(`Starting ${minerData.miner}!`)}\nPlease wait, this might take a few seconds.\n`);
 	let temp = await si.osInfo();
 	let userPlatform = temp.platform;
 	let wallet

@@ -20,7 +20,7 @@ const updateCheck = new Promise((resolve, reject) => {
                 console.log("Download it from https://bit.ly/saladbind\n");
                 setTimeout(() => {
                     resolve();
-                },2500);
+                },3500);
             } else {
                 spinner.succeed(chalk.bold.green(`SaladBind is up to date!\n`));
                 setTimeout(() => {
