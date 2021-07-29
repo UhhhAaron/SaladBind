@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "compile": "pkg index.js --targets node16-linux-x64,node16-macos-x64,node16-win-x64 --output bin/saladbind",
-    "postversion": "git push && git push --tags"
+    "compile": "pkg index.js --targets node16-linux-x64,node16-macos-x64,node16-win-x64 --output bin/saladbind"
   },
   "repository": {
     "type": "git",
