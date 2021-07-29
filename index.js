@@ -25,7 +25,7 @@ const updateCheck = new Promise((resolve, reject) => {
                 spinner.succeed(chalk.bold.green(`SaladBind is up to date!\n`));
                 setTimeout(() => {
                     resolve();
-                },500);
+                },1000);
             }
         })
         .catch(err => {
@@ -41,7 +41,7 @@ const updateCheck = new Promise((resolve, reject) => {
     updateCheck.then(() => {
         console.log(chalk.bold.green(`SaladBind v${packageJson.version}`))
         if(!fs.existsSync('./data/config.json')) {
-            console.log("Welcome to SaladBind! Let's set things up now :)\n");
+            console.log("Looks like this is your first time using SaladBind!\nLet's set it up. :)\n");
             require("./setup").run(false);
         } else {
             menu();
