@@ -75,7 +75,7 @@ async function continueSetup(clear) {
         } catch (e) {
             spinner.fail();
             console.log(e);
-            console.log(chalk.bold.red("An error occurred, please contact support on our Discord server (https://discord.gg/HfBAtQ2afz) and attach an image of the data above."));
+            console.log(chalk.bold.red("Failed to get your Rig ID! Please contact support on our Discord server (https://discord.gg/HfBAtQ2afz) and attach an image of the data above."));
         }
     } else {
         const worker = await inquirer.prompt([
