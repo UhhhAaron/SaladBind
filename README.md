@@ -46,7 +46,7 @@ On those platforms, you'll have to run SaladBind from the terminal like this, re
 
 #### Windows 7
 
-SaladBind does not by default support Windows 7.
+**SaladBind does not by default support Windows 7. Only use these steps if you know what you are doing**
 
 However, [you can make a bat file](https://www.wikihow.com/Write-a-Batch-File#Saving-the-Batch-File) with Notepad in the same location as SaladBind to allow it to run, and use it to open SaladBind instead of the exe.
 
