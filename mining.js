@@ -318,6 +318,9 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 		break;
 	}
 	let defaultArgs = {}
+	if(minerData.miner == "TeamRedMiner" && pool.name == "Ethermine") {
+		pool.algos[algo].host = pool.algos[algo].host.replace("ethproxy+ssl", "stratum+ssl");
+	}
 	if (minerData.parameters.wallet != "") { // poo
 		if(minerData.parameters.wallet == "PHOENIX") {
 			if(algo == "ethash") {
