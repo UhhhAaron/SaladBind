@@ -28,6 +28,7 @@ Oh and one last thing, did we mention it's **not-for-profit**? We don't any have
 
 Head to our [GitHub Releases](https://github.com/VukkyLtd/SaladBind/releases/latest) page, download the latest release for your operating system, and run it. **BUT KEEP READING!**
 
+### macOS & Linux
 If you are on macOS or Linux, please note that these platforms are untested and you may encounter bugs.
 
 On those platforms, you'll have to run SaladBind from the terminal like this, respectively:
@@ -38,6 +39,16 @@ On those platforms, you'll have to run SaladBind from the terminal like this, re
 
 ```bash
 ./saladbind-linux
+```
+
+### Windows 7
+SaladBind does not by default support Windows 7.
+
+However, you can make a bat file in the same location as SaladBind to allow it to run, and use it to open SaladBind instead of the exe file.
+
+```bat
+set NODE_SKIP_PLATFORM_CHECK="1"
+saladbind-win
 ```
 
 ### Configuration
