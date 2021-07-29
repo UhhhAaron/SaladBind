@@ -70,7 +70,7 @@ To get your access token follow these steps:
 2. Click the lock symbol in the address bar
 3. Open Cookies and uncollapse app-api.salad.io
 4. Look for sAccessToken and copy it (right click and select all as it is very long)
-5. Paste the token into the terminal (on Windows, use right-click)
+5. Paste the token into the terminal (on Windows, right-click in the SaladBind window to paste)
 
 #### Manual
 
@@ -78,7 +78,7 @@ To get your access token follow these steps:
 2. Mine for around 5-15 minutes (Chopping stage)
 3. Find your Salad logs. A guide can be found [here](https://support.salad.com/hc/en-us/articles/360042215512-How-To-Find-Your-Salad-Log-Files)
 4. Search for "rig ID" in the main.log file and copy it. Both Ethermine worker ID and Nicehash rig ID are supported.
-5. Paste the Rig ID into the terminal (on Windows, use right-click)
+5. Paste the Rig ID into the terminal (on Windows, right-click in the SaladBind window to paste)
 
 You are now ready to go!
 
