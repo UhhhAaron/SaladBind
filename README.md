@@ -31,6 +31,7 @@ Head to our [GitHub Releases](https://github.com/VukkyLtd/SaladBind/releases/lat
 ### Platform-specific prequisites
 
 #### macOS & Linux
+
 If you are on macOS or Linux, please note that these platforms are untested and you may encounter bugs.
 
 On those platforms, you'll have to run SaladBind from the terminal like this, respectively:
@@ -44,6 +45,7 @@ On those platforms, you'll have to run SaladBind from the terminal like this, re
 ```
 
 #### Windows 7
+
 SaladBind does not by default support Windows 7.
 
 However, [you can make a bat file](https://www.wikihow.com/Write-a-Batch-File#Saving-the-Batch-File) with Notepad in the same location as SaladBind to allow it to run, and use it to open SaladBind instead of the exe.
@@ -84,12 +86,11 @@ You are now ready to go!
 
 If you don't know what miner, algorithm or pool to pick, we have a [handy guide](MINERS.md).
 
-
 ## Compiling
 
 If you don't want to use our pre-compiled binaries you can compile SaladBind yourself. You'll need to install Node.js.
 
 1. Clone the repository
-2. Open a terminal in the folder and run `npm install`	
+2. Open a terminal in the folder and run `npm install`
 3. Run `npm run compile` (This may display a warning, but it's safe to ignore it)
 4. Your complied binary will be in the `bin` folder
