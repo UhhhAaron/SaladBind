@@ -28,6 +28,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           body: "Installation instructions at [README](https://github.com/VukkyLtd/SaladBind#Installation)"
+          token: ${{ secrets.BEEPBOOP_TOKEN }}
           files: |
             bin/saladbind-win.exe
             bin/saladbind-macos
