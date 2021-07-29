@@ -339,7 +339,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 				defaultArgs.algo = ""
 			}
 			defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "lolMiner" ? " --pers BgoldPoW " : ""}`
-			} //i grabbed this from an older build because i accidentally removed a part so it didnt have it yet im a fucking retard
+			} //i grabbed this from an older build because i accidentally removed a part so it didnt have it yet im a idiot
 	} else {
 		let poolUrl = pool.algos[algo].host
 		let poolScheme = poolUrl.split("://")[0]
