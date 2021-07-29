@@ -391,7 +391,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 			console.log(`\nMiner stopped!\n`);
 			require("./index").menu(false);
 		});
-		miner.on('SIGINT', () => { // Bukky be Retarded
+		miner.on('SIGINT', () => { // Bukky be Stupid
 			console.log(`\nMiner stopped!\n`);
 			require("./index").menu(false);
 		});// nvm
