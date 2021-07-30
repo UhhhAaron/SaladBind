@@ -22,10 +22,8 @@ const updateCheck = new Promise((resolve, reject) => {
                     resolve();
                 },3500);
             } else {
-                spinner.succeed(chalk.bold.green(`SaladBind is up to date!\n`));
-                setTimeout(() => {
-                    resolve();
-                },1000);
+                spinner.stop();
+                resolve();
             }
         })
         .catch(err => {

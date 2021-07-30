@@ -2,6 +2,7 @@ const ora = require('ora');
 const chalk = require('chalk');
 const inquirer = require('inquirer');
 const fs = require('fs');
+const path = require('path');
 
 function run(clear) {
     if(clear == undefined || clear == true) {
@@ -30,19 +31,62 @@ async function continueSetup(clear) {
         console.clear();
         console.log(chalk.bold.cyan(`Configure SaladBind`))
     }
-    const useapi = await inquirer.prompt([{
+    const promptResult = await inquirer.prompt([{
         type: 'list',
         name: "useapi",
         message: "How would you like to provide your mining details?",
-        choices: [{
+        choices: [
+            {
+                name: `Automatic ${chalk.yellow("(Read from salad logs)")}`,
+                value: "auto"
+            },
+            {
             name: `Automatic ${chalk.yellow("(Salad auth token required!)")}`,
             value: "api"
         }, {
-            name: `Manual`,
+            name: `Manual ${chalk.yellow("(Input worker ID manually)")}`,
             value: "manual"
         }]
     }]);
-    if (useapi.useapi == "api") {
+    if(promptResult.useapi == "auto") {
+        let logPath;
+        if(process.platform == "win32") {
+            logPath = path.join(process.env.APPDATA, "Salad", "logs", "main.log");
+        } else if(process.platform == "linux") {
+            logPath = path.join(process.env.HOME, ".config", "Salad", "logs", "main.log");
+        } else if(process.platform == "darwin") {
+            logPath = path.join(process.env.HOME, "Library", "Logs", "Salad", "main.log"); // untested, google says it works
+        }
+        let logFileContent;
+        try {
+            logFileContent = fs.readFileSync(logPath).toString();
+        } catch(err) {
+            console.log(chalk.bold.red("A error occured while reading the log files, make sure that you have ran Salad and that SaladBind has permission to access it."))
+            setTimeout(() => continueSetup(), 3500);
+            return;
+        }
+        const rigIDRegex = /^NiceHash rig ID: [a-z0-9]{15}$/m;
+        let rigID = logFileContent.match(rigIDRegex);
+        if(rigID) rigID = rigID.join(" ");
+        if(rigID) rigID = rigID.split(": ")[1];
+        if(!rigID) {
+            console.log(chalk.bold.red("Could not find your Rig ID! Please make sure that you have mined for at least 5 minutes using Salad's official application."));
+            setTimeout(() => continueSetup(), 3500);
+            return;
+        }
+        const spinner = ora("Saving...").start();
+        if (!fs.existsSync("./data")){
+            fs.mkdirSync("./data");
+        }
+        fs.writeFileSync("./data/config.json", JSON.stringify({"minerId": rigID}));
+        spinner.stop();
+        console.clear();
+        console.log(chalk.bold.greenBright(`Congratulations!! :D`))
+        console.log(`${chalk.bold.green(`Saved ${rigID} to the config.`)}\nYou're done - you can now start using SaladBind!\nStarting in 5 seconds...`)
+        setTimeout(() => {
+            require("./index").menu();
+        }, 5000);
+    } else if (promptResult.useapi == "api") {
         //auth
         console.log(chalk.green("We need the token to get your Wallet and Rig ID automatically.\nThey will not be stored!"))
         const auth = await inquirer.prompt([
