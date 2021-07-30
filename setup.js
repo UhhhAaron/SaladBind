@@ -37,11 +37,11 @@ async function continueSetup(clear) {
         message: "How would you like to provide your mining details?",
         choices: [
             {
-                name: `Automatic ${chalk.yellow("(Read from salad logs)")}`,
+                name: `Automatic ${chalk.yellow("(Read from Salad logs)")}`,
                 value: "auto"
             },
             {
-            name: `Automatic ${chalk.yellow("(Salad auth token required!)")}`,
+            name: `Automatic ${chalk.yellow("(Get with Salad Auth token)")}`,
             value: "api"
         }, {
             name: `Manual ${chalk.yellow("(Input worker ID manually)")}`,
@@ -82,7 +82,7 @@ async function continueSetup(clear) {
         spinner.stop();
         console.clear();
         console.log(chalk.bold.greenBright(`Congratulations!! :D`))
-        console.log(`${chalk.bold.green(`Saved ${rigID} to the config.`)}\nYou're done - you can now start using SaladBind!\nStarting in 5 seconds...`)
+        console.log(`\nYou're done - you can now start using SaladBind!\nStarting in 5 seconds...`)
         setTimeout(() => {
             require("./index").menu();
         }, 5000);
