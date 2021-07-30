@@ -10,3 +10,4 @@ Salad referral code: EYGTQ4
 ## Skelly
 
 Salad referral code: MOGUS
+Bitcoin Wallet: `bc1qrqrpyugqdzy4942yf9vcc6dng93s5tegr0psl5`
