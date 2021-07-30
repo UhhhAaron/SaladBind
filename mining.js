@@ -17,6 +17,7 @@ const config = JSON.parse(rawdata);
 const { win32 } = require('path');
 const { spawn } = require("child_process");
 let spinner;
+let isDev = config.dev != undefined && config.dev == true;
 
 function moveDupeFolder(folderName) {
 	let folderData = fs.readdirSync(`./data/miners/${folderName}`)
@@ -83,7 +84,7 @@ async function run() {
 	console.clear();
 	console.log(chalk.bold.cyan(`Configure your miner`))
 	spinner = ora("Loading miner list").start();
-	fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/miners.json') //fuck you token
+	fetch(`https://raw.githubusercontent.com/VukkyLtd/SaladBind/${isDev ? "dev" : "main"}/internal/miners.json`)
 		.then(res => res.json())
 		.then(async data => {
 			spinner.text = "Checking your specs";
@@ -214,7 +215,7 @@ async function selectPool(minerData, algo) {
 	console.clear();
 	console.log(chalk.bold.cyan(`Configure your miner`))
 	spinner = ora("Loading pool list").start();
-	fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/pools.json') //fuck you token
+	fetch(`https://raw.githubusercontent.com/VukkyLtd/SaladBind/${isDev ? "dev" : "main"}/internal/pools.json`)
 		.then(res => res.json())
 		.then(async poolData => {
 			spinner.stop();
