@@ -59,9 +59,16 @@ saladbind-win
 
 Once you start SaladBind for the first time, it'll prompt you to enter your mining details.
 
-You can do this by entering your Salad Auth token, which grabs your Rig ID automatically, or you can enter your Rig ID manually.
+You can do this by letting SaladBind search your log file, entering your Salad Auth token, which grabs your Rig ID automatically, or you can enter your Rig ID manually.
 
-#### Automatic
+#### Automatic (Read from Salad logs)
+
+SaladBind will search your Salad's log file for your Rig ID and save it automatically.
+
+1. Mine for 5-15 minutes (Chopping stage)
+2. Choose Automatic (Read from Salad logs)
+
+#### Automatic (Get with Salad Auth token)
 
 You will be prompted to enter your access token. It is recommended to use a Chromium-based browser like Google Chrome or the new Microsoft Edge.
 To get your access token follow these steps:
