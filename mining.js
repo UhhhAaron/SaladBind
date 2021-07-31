@@ -142,8 +142,15 @@ async function run() {
 					type: "list",
 					name: "miner",
 					message: "Choose a miner",
-					choices: minerList
+					choices: [...minerList, {
+						name: chalk.bold.redBright("Go back"),
+						value: "go_back"
+					}]
 				});
+				if(miner.miner == "go_back") {
+					menu(true);
+					return;
+				}
 				if (fs.existsSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`)) {
 					let minerFolder = fs.readdirSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`);
 					if (!minerFolder.filter(file => file.startsWith(miner.miner.parameters.fileName)).length > 0) {
@@ -206,8 +213,15 @@ async function selectAlgo(minerData, GPUs) {
 		type: "list", 
 		name: "algo",
 		message: "Choose an algorithm",
-		choices: algoList
+		choices: [...algoList, {
+			name: chalk.bold.redBright("Go back"),
+			value: "go_back"
+		}]
 	});
+	if(algo.algo == "go_back") {
+		console.clear();
+		return run();
+	}
 	selectPool(minerData, algo.algo);
 }
 
