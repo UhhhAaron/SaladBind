@@ -308,6 +308,13 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 	console.clear();
 	console.log(`${chalk.bold.greenBright(`Starting ${minerData.miner}!`)}\nPlease wait, this might take a few seconds.\n`);
 	let temp = await si.osInfo();
+	let temp2 = await si.graphics();
+	let hasAMD = false;
+	for(let o = 0; o < temp2.controllers.length;o++) {
+		if (temp2.controllers[o].vendor == "AMD" || temp2.controllers[o].vendor == "Advanced Micro Devices, Inc.") {
+			if(temp2.controllers[o].vram > 2000) hasAMD = true;
+		}
+	}
 	let userPlatform = temp.platform;
 	let wallet
 	switch(pool.name) {
@@ -327,11 +334,11 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 			if(algo == "ethash") {
 				defaultArgs.wallet = `-wal ${wallet}.${config.minerId}`
 				defaultArgs.algo = `-coin eth`
-				defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "lolMiner" ? " --pers BgoldPoW " : ""}`
+				defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "PhoenixMiner" && hasAMD ? " -clKernel 0 " : ""}${minerData.miner == "lolMiner" ? " --pers BgoldPoW " : ""}`
 			} else if(algo == "etchash") {
 				defaultArgs.wallet = `-wal ${wallet}.${config.minerId}`
 				defaultArgs.algo = `-coin etc`
-				defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "lolMiner" ? " --pers BgoldPoW " : ""}`
+				defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "PhoenixMiner" && hasAMD ? " -clKernel 0 " : ""}${minerData.miner == "lolMiner" ? " --pers BgoldPoW " : ""}`
 			}
 		} else {
 			defaultArgs.wallet = `${minerData.parameters.wallet} ${wallet}.${config.minerId}`
@@ -340,7 +347,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 			} else {
 				defaultArgs.algo = ""
 			}
-			defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "lolMiner" ? " --pers BgoldPoW " : ""}`
+			defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "PhoenixMiner" && hasAMD ? " -clKernel 0 " : ""}${minerData.miner == "lolMiner" ? " --pers BgoldPoW " : ""}`
 			} //i grabbed this from an older build because i accidentally removed a part so it didnt have it yet im a idiot
 	} else {
 		let poolUrl = pool.algos[algo].host
