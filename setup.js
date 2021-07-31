@@ -82,7 +82,7 @@ async function continueSetup(clear) {
         spinner.stop();
         console.clear();
         console.log(chalk.bold.greenBright(`Congratulations!! :D`))
-        console.log(`\nYou're done - you can now start using SaladBind!\nStarting in 5 seconds...`)
+        console.log(`You're done - you can now start using SaladBind!\nStarting in 5 seconds...`)
         setTimeout(() => {
             require("./index").menu();
         }, 5000);
