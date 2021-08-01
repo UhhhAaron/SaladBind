@@ -93,4 +93,4 @@ If you don't want to use our pre-compiled binaries you can compile SaladBind you
 1. Clone the repository
 2. Open a terminal in the folder and run `npm install` and `npm install pkg -g`
 3. Run `npm run compile` (This may display a warning, but it's safe to ignore it)
-4. Your complied binary will be in the `bin` folder
+4. Your compiled binary will be in the `bin` folder
