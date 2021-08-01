@@ -66,7 +66,7 @@ You can do this by entering your Salad Auth token, which grabs your Rig ID autom
 You will be prompted to enter your access token. It is recommended to use a Chromium-based browser like Google Chrome or the new Microsoft Edge.
 To get your access token follow these steps:
 
-1. Log in to [https://app.salad.io/](app.salad.io)
+1. Log in to [https://app.salad.io/](https://app.salad.io)
 2. Click the lock symbol in the address bar
 3. Open Cookies and uncollapse app-api.salad.io
 4. Look for sAccessToken and copy it (right click and select all as it is very long)
