@@ -13,3 +13,7 @@ Salad referral code: EYGTQ4
 Salad referral code: MOGUS
 
 Bitcoin Wallet: `bc1qrqrpyugqdzy4942yf9vcc6dng93s5tegr0psl5`
+
+## Alfur
+
+You may not donate to Alfur.
