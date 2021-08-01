@@ -10,19 +10,11 @@ var CLImode = false;
 var CLIArgs = []
 console.clear();
 process.title = `SaladBind v${packageJson.version}`;
-
-if(process.argv[0] == "node") {
-	if(process.argv[2]) {
-		CLImode = true
-		CLIArgs = process.argv.slice(3);
-	}
-} else {
-	if(process.argv[1]) {
-		CLImode = true
-		CLIArgs = process.argv.slice(2);
-	}
+console.log(process.argv)
+if(process.argv[2]) {
+	CLImode = true
+	CLIArgs = process.argv.slice(2);
 }
-
 
 const updateCheck = new Promise((resolve, reject) => {
 	const spinner = ora('Checking for updates...').start();
