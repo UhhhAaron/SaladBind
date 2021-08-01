@@ -1,6 +1,6 @@
 # SaladBind
 
-If you want to contribute to SaladBind, please see our [CONTRIBUTING.md](CONTRIBUTING.md) file.
+If you want to contribute to SaladBind, please read our [contributing guide](CONTRIBUTING.md).
 
 ## Table of Contents
 
