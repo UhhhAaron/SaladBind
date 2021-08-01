@@ -63,17 +63,18 @@ async function CLIMode() {
 		console.log(chalk.green(`SaladBind CLI v${packageJson.version}`));
 		console.log("Arguments:")
 		console.log(`
-			-help 	Display this help message
+	-help 	Display this help message
 
-			-miner	Choose miner (for example: "phoenixminer") (REQUIRED)
+	-miner	Choose miner (for example: "phoenixminer") (REQUIRED)
 
-			-algo	Choose algorithm (for example: "ethash") (REQUIRED)
+	-algo	Choose algorithm (for example: "ethash") (REQUIRED)
 
-			-pool	Choose pool (for example: "nicehash") (REQUIRED)
+	-pool	Choose pool (for example: "nicehash") (REQUIRED)
 
-			-wallet	Choose wallet (for example: "0x6ff85749ffac2d3a36efa2bc916305433fa93731.123123123123123")
+	-wallet	Choose wallet (for example: "0x6ff85749ffac2d3a36efa2bc916305433fa93731.123123123123123")
 
-			-advanced	Choose advanced settings (for example: "-advanced [-w a -u 123 ]")
+	-advanced	Choose advanced settings (for example: "-advanced [-w a -u 123 ]")
+				Anything put inside these square brackets will be passed to the miner directly.
 		`);
 	}
 }
