@@ -93,6 +93,6 @@ If you don't know what miner, algorithm or pool to pick, we have a [handy guide]
 If you don't want to use our pre-compiled binaries you can compile SaladBind yourself. You'll need to install [Node.js](https://nodejs.org/).
 
 1. Clone the repository
-2. Open a terminal in the folder and run `npm install` and `npm install pkg -g`
+2. Open a terminal in the folder and run `npm install`
 3. Run `npm run compile` (This may display a warning, but it's safe to ignore it)
 4. Your compiled binary will be in the `bin` folder
