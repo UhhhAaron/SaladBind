@@ -39,7 +39,7 @@ If you are on macOS or Linux, please note that these platforms are untested and 
 On those platforms, you'll have to run SaladBind from the terminal like this, respectively:
 
 ```bash
-open saladbind-macos
+./saladbind-macos
 ```
 
 ```bash
