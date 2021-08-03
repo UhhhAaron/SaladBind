@@ -117,7 +117,6 @@ async function run() {
 				const minerSupportsOS = minerData.supported_os.includes(userPlatform)
 				const algosSupportsGPU = minerData.algos.filter(algo => GPUs.filter(gpu => gpu.algos.includes(algo)).length > 0).length > 0
 				const minerSupportsGPU = GPUs.filter(gpu => minerData.supported_gpus.includes(gpu.vendor) || gpu.vendor == "BYPASS").length > 0
-				console.log(minerSupportsGPU,algosSupportsGPU,minerSupportsGPU)
 				if(minerSupportsOS && minerSupportsGPU && algosSupportsGPU) {
 					if (GPUs.filter(gpu => minerData.algos.filter(algo => gpu.algos.includes(algo)).length > 0).length != GPUs.length) {
 						minerList.push({
