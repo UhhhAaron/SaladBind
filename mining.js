@@ -96,7 +96,8 @@ async function run() {
 			for (let i = 0; i < temp2.controllers.length; i++) {
 				let compatibleAlgos = []
 				for (let j = 0; j < Object.keys(data.algos).length; j++) {
-					if(temp2.controllers[i].vendor == "Advanced Micro Devices, Inc." || temp2.controllers[i].vendor == "Advanced Micro Devices, Inc. [AMD/ATI]") temp2.controllers[i].vendor = "AMD";
+					if(temp2.controllers[i].vendor == "Advanced Micro Devices, Inc.") temp2.controllers[i].vendor = "AMD";
+					if(temp2.controllers[i].vendor == "Advanced Micro Devices, Inc. [AMD/ATI]") temp2.controllers[i].vendor = "BYPASS"
 					if(temp2.controllers[i].vendor == "NVIDIA Corporation") temp2.controllers[i].vendor = "NVIDIA";
 					if(temp2.controllers[i].vram > data.algos[Object.keys(data.algos)[j]]) { 
 						compatibleAlgos.push(Object.keys(data.algos)[j])
@@ -116,6 +117,7 @@ async function run() {
 				const minerSupportsOS = minerData.supported_os.includes(userPlatform)
 				const algosSupportsGPU = minerData.algos.filter(algo => GPUs.filter(gpu => gpu.algos.includes(algo)).length > 0).length > 0
 				const minerSupportsGPU = GPUs.filter(gpu => minerData.supported_gpus.includes(gpu.vendor) || gpu.vendor == "BYPASS").length > 0
+				console.log(minerSupportsGPU,algosSupportsGPU,minerSupportsGPU)
 				if(minerSupportsOS && minerSupportsGPU && algosSupportsGPU) {
 					if (GPUs.filter(gpu => minerData.algos.filter(algo => gpu.algos.includes(algo)).length > 0).length != GPUs.length) {
 						minerList.push({
