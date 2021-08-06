@@ -9,24 +9,25 @@ const path = require('path');
 const decompress = require('decompress');
 const decompressTargz = require('decompress-targz');
 const decompressUnzip = require('decompress-unzip');
-const mv = require('mv'); //what i forogt to save :bukky:
+const mv = require('mv'); // bukky 
 const { menu } = require('./index');
 let tempest = "./data/config.json";
 let rawdata = fs.readFileSync(tempest);
 const config = JSON.parse(rawdata);
 const { win32 } = require('path');
 const { spawn } = require("child_process");
+const presence = require('./presence');
 let spinner;
 let isDev = config.dev != undefined && config.dev == true;
 
 function moveDupeFolder(folderName) {
 	let folderData = fs.readdirSync(`./data/miners/${folderName}`)
-	if(folderData.length == 1) {
-		mv(`./data/miners/${folderName}/${folderData[0]}`, `./data/miners/${folderName}`, {clobber: false}, function(err) { //oh okers
+	if (folderData.length == 1) {
+		mv(`./data/miners/${folderName}/${folderData[0]}`, `./data/miners/${folderName}`, { clobber: false }, function(err) { //oh okers
 			// done. it tried fs.rename first, and then falls ba	ck to
 			// piping the source file to the dest file and then unlinking
 			// the source file. (docs lol) lol
-			if(err) {
+			if (err) {
 				console.log(chalk.bold.red(err));
 				spinner.fail();
 			}
@@ -35,7 +36,7 @@ function moveDupeFolder(folderName) {
 }
 
 async function extractFile(location, folderName, fileExtension) {
-    if (!fs.existsSync(`./data/miners/${folderName}`)){
+	if (!fs.existsSync(`./data/miners/${folderName}`)) {
 		fs.mkdirSync(`./data/miners/${folderName}`); // me too
 	}
 	await decompress(location, `./data/miners/${folderName}`, {
@@ -45,7 +46,7 @@ async function extractFile(location, folderName, fileExtension) {
 		],
 		map: (file) => {
 			if (file.type === 'file' && file.path.endsWith('/')) {
-			  file.type = 'directory'
+				file.type = 'directory'
 			}
 			return file
 		}
@@ -54,31 +55,31 @@ async function extractFile(location, folderName, fileExtension) {
 		moveDupeFolder(folderName);
 	})
 	spinner.succeed(chalk.bold.green(`Extracted ${folderName}`));
-} 
+}
 
 const downloadFile = async function(url, location, name) {
-    return new Promise(async (resolve, reject) => {
-        const stream = fs.createWriteStream(location);
-        const request = https.get(url, function(response) {
-            if(parseInt(response.statusCode) >= 200 && parseInt(response.statusCode) < 300) { 
-                response.pipe(stream);
-                stream.on('finish', function() {
-                    stream.close(function(){
-                        spinner.succeed(chalk.bold.green(`Downloaded ${name}`));
-                        resolve();
-                    });
-                });
-            } else {
-                downloadFile(response.headers.location, location, name).then(() => {
+	return new Promise(async(resolve, reject) => {
+		const stream = fs.createWriteStream(location);
+		const request = https.get(url, function(response) {
+			if (parseInt(response.statusCode) >= 200 && parseInt(response.statusCode) < 300) {
+				response.pipe(stream);
+				stream.on('finish', function() {
+					stream.close(function() {
+						spinner.succeed(chalk.bold.green(`Downloaded ${name}`));
+						resolve();
+					});
+				});
+			} else {
+				downloadFile(response.headers.location, location, name).then(() => {
 					resolve();
 				});
 			}
-        });
-    });
+		});
+	});
 }
 
 async function run() {
-	if (!fs.existsSync("./data/miners")){
+	if (!fs.existsSync("./data/miners")) {
 		fs.mkdirSync("./data/miners");
 	}
 	console.clear();
@@ -90,29 +91,26 @@ async function run() {
 			spinner.text = "Checking your specs";
 			let minerList = [];
 			let temp = await si.osInfo()
-			let temp2 = await si.graphics() 
-			let userPlatform = temp.platform; 
+			let temp2 = await si.graphics()
+			let userPlatform = temp.platform;
 			let GPUs = [];
 			for (let i = 0; i < temp2.controllers.length; i++) {
 				let compatibleAlgos = []
 				for (let j = 0; j < Object.keys(data.algos).length; j++) {
-					if(temp2.controllers[i].vendor == "Advanced Micro Devices, Inc.") temp2.controllers[i].vendor = "AMD";
-					if(temp2.controllers[i].vendor == "NVIDIA Corporation") temp2.controllers[i].vendor = "NVIDIA";
-					if(temp2.controllers[i].vram > data.algos[Object.keys(data.algos)[j]]) { 
+					if (temp2.controllers[i].vendor == "Advanced Micro Devices, Inc.") temp2.controllers[i].vendor = "AMD";
+					if (temp2.controllers[i].vendor == "Advanced Micro Devices, Inc. [AMD/ATI]") temp2.controllers[i].vendor = "BYPASS"
+					if (temp2.controllers[i].vendor == "NVIDIA Corporation") temp2.controllers[i].vendor = "NVIDIA";
+					if (temp2.controllers[i].vram > data.algos[Object.keys(data.algos)[j]]) {
 						compatibleAlgos.push(Object.keys(data.algos)[j])
 					}
 				}
 				if (compatibleAlgos.length > 0) {
-					GPUs.push({"algos": compatibleAlgos, "vendor": temp2.controllers[i].vendor.toLowerCase()});
-				} else {
-					if(temp2.controllers[i].vendor.includes("Advanced Micro Devices, Inc.")) {
-						GPUs.push({"algos": Object.keys(data.algos), "vendor": "BYPASS"})
-					}
+					GPUs.push({ "algos": compatibleAlgos, "vendor": temp2.controllers[i].vendor.toLowerCase() });
 				}
 			}
-			if(temp2.controllers.length == 0) {
+			if (temp2.controllers.length == 0) {
 				spinner.stop();
-				GPUs.push({"algos": Object.keys(data.algos), "vendor": "BYPASS"})
+				GPUs.push({ "algos": Object.keys(data.algos), "vendor": "BYPASS" })
 				console.log(chalk.bold.yellow("We couldn't find any GPUs on your machine, so we'll show all options, regardless of your specs.\nPlease read the miner guide at https://bit.ly/bindminers to get help with what to pick."))
 			}
 			for (let i = 0; i < Object.keys(data.miners).length; i++) {
@@ -120,7 +118,7 @@ async function run() {
 				const minerSupportsOS = minerData.supported_os.includes(userPlatform)
 				const algosSupportsGPU = minerData.algos.filter(algo => GPUs.filter(gpu => gpu.algos.includes(algo)).length > 0).length > 0
 				const minerSupportsGPU = GPUs.filter(gpu => minerData.supported_gpus.includes(gpu.vendor) || gpu.vendor == "BYPASS").length > 0
-				if(minerSupportsOS && minerSupportsGPU && algosSupportsGPU) {
+				if (minerSupportsOS && minerSupportsGPU && algosSupportsGPU) {
 					if (GPUs.filter(gpu => minerData.algos.filter(algo => gpu.algos.includes(algo)).length > 0).length != GPUs.length) {
 						minerList.push({
 							name: `${minerData.miner} ${chalk.yellow("(Not supported by some of your GPUs)")}`,
@@ -151,22 +149,23 @@ async function run() {
 						value: "go_back"
 					}]
 				});
-				if(miner.miner == "go_back") {
+				if (miner.miner == "go_back") {
+					presence.mainmenu()
 					menu(true);
 					return;
 				}
 				if (fs.existsSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`)) {
 					let minerFolder = fs.readdirSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`);
 					if (!minerFolder.filter(file => file.startsWith(miner.miner.parameters.fileName)).length > 0) {
-						fs.rmSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`, {recursive: true});
+						fs.rmSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`, { recursive: true });
 					}
 				}
-				if(!fs.existsSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`)) {
+				if (!fs.existsSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`)) {
 					let miners = fs.readdirSync("./data/miners");
 					let oldMiners = miners.filter(minery => minery.startsWith(miner.miner.miner));
-					if(oldMiners.length > 0) { //woo! time for pools.json (and more fucking tokens) oh piss
+					if (oldMiners.length > 0) { //woo! time for pools.json (and more fucking tokens) oh piss
 						console.log(chalk.yellow(`A ${miner.miner.miner} update has been found! Updating now..`));
-						oldMiners.forEach(miner => fs.rmSync(`./data/miners/${miner}`, {recursive: true}));
+						oldMiners.forEach(miner => fs.rmSync(`./data/miners/${miner}`, { recursive: true }));
 					}
 					spinner = ora(`Downloading ${miner.miner.miner}-${miner.miner.version}`).start();
 					var downloadURL = miner.miner.download[userPlatform];
@@ -175,8 +174,8 @@ async function run() {
 						fileExtension = ".tar.gz"
 					}
 					const fileName = `${miner.miner.miner}-${miner.miner.version}`
-					const fileLocation = `./data/miners/${fileName}${fileExtension}`; 
-					downloadFile(downloadURL, fileLocation, fileName).then(async () => {
+					const fileLocation = `./data/miners/${fileName}${fileExtension}`;
+					downloadFile(downloadURL, fileLocation, fileName).then(async() => {
 						spinner = ora(`Extracting ${miner.miner.miner}-${miner.miner.version}`).start();
 						await extractFile(fileLocation, fileName, fileExtension)
 						selectAlgo(miner.miner, GPUs);
@@ -184,7 +183,7 @@ async function run() {
 				} else {
 					selectAlgo(miner.miner, GPUs);
 				}
-			} 
+			}
 		}).catch(err => {
 			spinner.fail(chalk.bold.red(`Could not start the miner, please try again later.`)); // haha screw you
 			console.log(err);
@@ -203,18 +202,18 @@ async function selectAlgo(minerData, GPUs) {
 	for (let i = 0; i < gpuSupportsAlgo.length; i++) { //im having a really bhig stroke
 		let notSupportedByAll;
 		for (let j = 0; j < GPUs.length; j++) {
-			if(!GPUs[j].algos.includes(gpuSupportsAlgo[i])) {
+			if (!GPUs[j].algos.includes(gpuSupportsAlgo[i])) {
 				notSupportedByAll = true;
 			}
 		}
 		if (notSupportedByAll == true) { // now. the cursed. pool selection and miner running. ok pool selection is only needed if ethash is selected
-			algoList.push({name: `${gpuSupportsAlgo[i]} ${chalk.yellow("(Not supported by some of your GPUs)")}`, value: gpuSupportsAlgo[i]});
+			algoList.push({ name: `${gpuSupportsAlgo[i]} ${chalk.yellow("(Not supported by some of your GPUs)")}`, value: gpuSupportsAlgo[i] });
 		} else {
-			algoList.push({name: gpuSupportsAlgo[i], value: gpuSupportsAlgo[i]});
+			algoList.push({ name: gpuSupportsAlgo[i], value: gpuSupportsAlgo[i] });
 		}
-	} 
+	}
 	const algo = await inquirer.prompt({
-		type: "list", 
+		type: "list",
 		name: "algo",
 		message: "Choose an algorithm",
 		choices: [...algoList, {
@@ -222,7 +221,7 @@ async function selectAlgo(minerData, GPUs) {
 			value: "go_back"
 		}]
 	});
-	if(algo.algo == "go_back") {
+	if (algo.algo == "go_back") {
 		console.clear();
 		return run();
 	}
@@ -242,17 +241,17 @@ async function selectPool(minerData, algo) {
 				let pooly = poolData[Object.keys(poolData)[i]];
 				if (Object.keys(pooly.algos).includes(algo)) {
 					if (minerData.miner != "Ethminer") {
-						poolList.push({name: pooly.name, value: pooly});
+						poolList.push({ name: pooly.name, value: pooly });
 					} else if (pooly.name == "Ethermine") {
-						poolList.push({name: pooly.name, value: pooly});
+						poolList.push({ name: pooly.name, value: pooly });
 					}
 				}
 			}
 			let pool;
-			if(poolList.length > 1) {
+			if (poolList.length > 1) {
 				pool = await inquirer.prompt({
 					type: "list",
-					name: "pool",	
+					name: "pool",
 					message: "Choose a pool",
 					choices: poolList
 				});
@@ -262,7 +261,7 @@ async function selectPool(minerData, algo) {
 			const regionList = [];
 			const poolsy = poolList.length > 1 ? pool.pool : poolList[0].value;
 			for (let i = 0; i < poolsy.regions.length; i++) {
-				regionList.push({name: poolsy.regions[i], value: poolsy.regions[i]});
+				regionList.push({ name: poolsy.regions[i], value: poolsy.regions[i] });
 			}
 			const region = await inquirer.prompt({
 				type: "list",
@@ -281,35 +280,35 @@ async function selectPool(minerData, algo) {
 }
 
 async function prepStart(minerData, algo, pool, region, advancedCommands) {
-	if(advancedCommands == undefined) advancedCommands = ""
+	if (advancedCommands == undefined) advancedCommands = ""
 	console.clear();
 	console.log(chalk.bold.cyan(`Configure your miner`))
 	const startNow = await inquirer.prompt({
 		type: "list",
 		name: "startNow",
 		message: "Start miner now?",
-		choices: [
-			{
-				name: "Yes", 
+		choices: [{
+				name: "Yes",
 				value: "y"
-			}, 
+			},
 			{
-				name: "No", 
+				name: "No",
 				value: "n"
 			},
 			{
-				name: "Set advanced commands", 
+				name: "Set advanced commands",
 				value: "advanced"
 			}
 		]
 	});
 	switch (startNow.startNow) {
 		case "y":
+			presence.mine(minerData.miner)
 			startMiner(minerData, algo, pool, region, advancedCommands);
-		break;
+			break;
 		case "n":
 			require("./index").menu();
-		break;
+			break;
 		case "advanced":
 			console.log("To exit, just press enter without typing anything.");
 			const advancedCommandsy = await inquirer.prompt({
@@ -317,7 +316,7 @@ async function prepStart(minerData, algo, pool, region, advancedCommands) {
 				name: "advancedCommands",
 				message: "Enter arguments for miner",
 			});
-			prepStart(minerData, algo, pool, region, advancedCommandsy.advancedCommands); 
+			prepStart(minerData, algo, pool, region, advancedCommandsy.advancedCommands);
 			break;
 	}
 }
@@ -359,7 +358,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 				defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "PhoenixMiner" && hasAMD ? " -clKernel 0 " : ""}${minerData.miner == "lolMiner" ? " --pers BgoldPoW " : ""}`
 			}
 		} else {
-			defaultArgs.wallet = `${minerData.parameters.wallet} ${wallet}.${config.minerId}${minerData.miner == "T-Rex" ? ` -w ${config.minerId}` : ""}`
+			defaultArgs.wallet = `${minerData.parameters.wallet} ${wallet}.${config.minerId}`
 			if (minerData.parameters.algo != "") {
 				defaultArgs.algo = `${minerData.parameters.algo} ${minerData.miner == "lolMiner" ? algo == "beamv3" ? "BEAM-III" : algo.toUpperCase() : algo}`
 			} else {
