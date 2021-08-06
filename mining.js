@@ -97,7 +97,6 @@ async function run() {
 				let compatibleAlgos = []
 				for (let j = 0; j < Object.keys(data.algos).length; j++) {
 					if(temp2.controllers[i].vendor == "Advanced Micro Devices, Inc.") temp2.controllers[i].vendor = "AMD";
-					if(temp2.controllers[i].vendor == "Advanced Micro Devices, Inc. [AMD/ATI]") temp2.controllers[i].vendor = "BYPASS"
 					if(temp2.controllers[i].vendor == "NVIDIA Corporation") temp2.controllers[i].vendor = "NVIDIA";
 					if(temp2.controllers[i].vram > data.algos[Object.keys(data.algos)[j]]) { 
 						compatibleAlgos.push(Object.keys(data.algos)[j])
@@ -105,6 +104,10 @@ async function run() {
 				}
 				if (compatibleAlgos.length > 0) {
 					GPUs.push({"algos": compatibleAlgos, "vendor": temp2.controllers[i].vendor.toLowerCase()});
+				} else {
+					if(temp2.controllers[i].vendor.includes("Advanced Micro Devices, Inc.")) {
+						GPUs.push({"algos": Object.keys(data.algos), "vendor": "BYPASS"})
+					}
 				}
 			}
 			if(temp2.controllers.length == 0) {
