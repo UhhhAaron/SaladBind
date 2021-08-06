@@ -88,7 +88,7 @@ async function continueSetup(clear) {
         }, 5000);
     } else if (promptResult.useapi == "api") {
         //auth
-        console.log(chalk.green("We need the token to get your Wallet and Rig ID automatically.\nThey will not be stored!"))
+        console.log(chalk.green("We need the token to get your Wallet and Rig ID automatically.\nThey will not be stored!\n\nIf you do not know how to find your sAccess Token / Salad Authentication token please read this:\nhttps://bit.ly/saladbindconfig (copy this to read it)"))
         const auth = await inquirer.prompt([
             {
                 type: 'input',
@@ -98,7 +98,7 @@ async function continueSetup(clear) {
                     if (input.length == 778) {
                         return true;
                     }
-                    return `Your Salad Access Token is required for automatic mode. If you don't want this, restart SaladBind and select manual. ${chalk.yellow.bold("You may be seeing this if you entered the token incorrectly, the token is 778 chars long!")}`;
+                    return `Your Salad Access Token is required for automatic mode. If you don't want this, restart SaladBind and select manual\nor select to get them automatically from the logs of Salad. ${chalk.yellow.bold("\nYou may be seeing this if you entered the token incorrectly, the token is 778 chars long!\nIf you do not know how to configure read this\nhttps://bit.ly/saladbindconfig (copy this to read it)")}`;
                 }
             }
         ]);

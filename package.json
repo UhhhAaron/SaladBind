@@ -19,7 +19,7 @@
   },
   "homepage": "https://github.com/VukkyLtd/SaladBind#readme",
   "dependencies": {
-    "chalk": "^4.1.1",
+    "chalk": "^4.1.2",
     "decompress": "^4.2.1",
     "decompress-targz": "^4.1.1",
     "decompress-unzip": "^4.0.1",
@@ -29,7 +29,7 @@
     "node-fetch": "^2.6.1",
     "open": "^8.2.1",
     "ora": "^5.4.1",
-    "systeminformation": "^5.7.8"
+    "systeminformation": "^5.8.0"
   },
   "devDependencies": {
     "pkg": "^5.3.1"
