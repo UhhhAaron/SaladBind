@@ -359,7 +359,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 				defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "PhoenixMiner" && hasAMD ? " -clKernel 0 " : ""}${minerData.miner == "lolMiner" ? " --pers BgoldPoW " : ""}`
 			}
 		} else {
-			defaultArgs.wallet = `${minerData.parameters.wallet} ${wallet}.${config.minerId}`
+			defaultArgs.wallet = `${minerData.parameters.wallet} ${wallet}.${config.minerId}${minerData.miner == "T-Rex" ? ` -w ${config.minerId}` : ""}`
 			if (minerData.parameters.algo != "") {
 				defaultArgs.algo = `${minerData.parameters.algo} ${minerData.miner == "lolMiner" ? algo == "beamv3" ? "BEAM-III" : algo.toUpperCase() : algo}`
 			} else {
