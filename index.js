@@ -42,7 +42,6 @@ var CLImode = false;
 var CLIArgs = []
 console.clear();
 process.title = `SaladBind v${packageJson.version}`;
-console.log(process.argv)
 if(process.argv[2]) {
 	CLImode = true
 	CLIArgs = process.argv.slice(2);
