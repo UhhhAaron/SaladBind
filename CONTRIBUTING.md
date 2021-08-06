@@ -1,6 +1,12 @@
 # Contributing to SaladBind
 
-## Setting up the environment
+## Contributing to issues and PRs
+
+Please remember that the GitHub [Community Guidelines](https://docs.github.com/en/github/site-policy/github-community-guidelines), [Terms of Service](https://docs.github.com/en/github/site-policy/github-terms-of-service), and other relevant policies apply here and elsewhere on GitHub - we're human beings too. ~~(well not alfur)~~
+
+## Contributing code
+
+### Setting up the environment
 
 You'll need to install [Node.js](https://nodejs.org).
 
@@ -10,7 +16,7 @@ Once you have cloned the repository, open a terminal in your folder and run `npm
 
 You can run SaladBind by typing `node index` in the terminal window.
 
-## Compiling
+### Compiling
 
 If you want to try out your changes with a real binary, you can compile SaladBind.
 
