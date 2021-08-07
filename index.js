@@ -1,4 +1,4 @@
-const ora = require('ora');
+const ora = require('ora'); // ara ara
 const chalk = require('chalk');
 const packageJson = require('./package.json');
 const fs = require('fs');
@@ -6,6 +6,7 @@ const inquirer = require('inquirer');
 const fetch = require("node-fetch");
 const open = require("open");
 const si = require("systeminformation");
+const update = require("./update.js")
 const presence = require("./presence.js");
 
 presence.state.on('ready', () => {
@@ -54,34 +55,11 @@ if (process.argv[2]) {
 	CLIArgs = process.argv.slice(2);
 }
 
-const updateCheck = new Promise((resolve, reject) => {
-	const spinner = ora('Checking for updates...').start();
-	fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/package.json')
-		.then(res => res.json())
-		.then(data => {
-			if (data.version !== packageJson.version) {
-				spinner.succeed(chalk.bold.green(`SaladBind ${data.version} is available!`));
-				console.log("Download it from https://bit.ly/saladbind\n");
-				setTimeout(() => {
-					resolve();
-				}, 3500);
-			} else {
-				spinner.stop();
-				resolve();
-			}
-		})
-		.catch(err => {
-			spinner.fail(chalk.bold.red(`Could not check for updates, please try again later.`));
-			console.log(err);
-			setTimeout(() => {
-				resolve();
-			}, 3500);
-		});
-});
 
-(async() => {
-	updateCheck.then(() => {
-		if (!CLImode) {
+
+(async () => {
+	update.updateCheck.then(() => {
+		if(!CLImode) {
 			console.log(chalk.bold.green(`SaladBind v${packageJson.version}`))
 			if (!fs.existsSync('./data/config.json')) {
 				console.log("Looks like this is your first time using SaladBind!\nLet's set it up. :)\n");
