@@ -1,8 +1,11 @@
 const RPC = require('discord-rpc');
-const client = new RPC.Client({ transport: 'ipc' });
+client = new RPC.Client({ transport: 'ipc' })
+
+
 const fs = require("fs");
 var presenceEnabled = false;
 let tempest = "./data/config.json";
+
 
 
 if (!fs.existsSync(tempest)) {
@@ -14,14 +17,20 @@ if (!fs.existsSync(tempest)) {
 
 
 if (config.discordPresence == true) { //If the user opts-in to having the Rich Presence then try connent to the rich presence application
+
+
+
+
 	try {
 		client.login({
 			clientId: '872392087440621579'
 		});
+
 	} catch (error) { //An error will be thrown if this fails. The most common issue is the user does not have discord running.
-		throw "Discord not detected. Rich presence will not work. If you belive this is an error please re-open the SaladBind app.";
-		return
+		throw ("Discord not detected. Rich presence will not work. If you belive this is an error please re-open the SaladBind app.");
 	}
+
+
 }
 
 function presence(details, state, time, large_image, large_text, small_image, small_text) {
@@ -47,7 +56,11 @@ function presence(details, state, time, large_image, large_text, small_image, sm
 		if (time != undefined && time != null) {
 			activity.activity.timestamps = { start: time }
 		}
-		client.request('SET_ACTIVITY', activity);
+		try {
+			client.request('SET_ACTIVITY', activity);
+		} catch {
+			throw ("Something isn't right. Failed to set RPC. Do you have discord open?")
+		}
 
 	}
 }
