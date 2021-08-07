@@ -148,9 +148,6 @@ const installNew = async function(location) {
 						console.log(chalk.bold.red("Closing this window. Please do not touch anything until instructed."))
 						setTimeout(function() { process.exit(0) }, 5000)
 
-
-
-
 					}, 5000)
 
 				} else {
