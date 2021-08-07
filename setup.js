@@ -131,7 +131,7 @@ async function continueSetup(clear) {
 			if (!fs.existsSync("./data")) {
 				fs.mkdirSync("./data");
 			}
-			fs.writeFileSync("./data/config.json", JSON.stringify({ "minerId": minerDetails.minerId }));
+			fs.writeFileSync("./data/config.json", JSON.stringify({ "minerId": minerDetails.minerId, "discordPresence": isPresenceEnabled }));
 			spinner.stop();
 			console.clear();
 			console.log(chalk.bold.greenBright(`Congratulations!! :D`))
@@ -160,7 +160,7 @@ async function continueSetup(clear) {
 		if (!fs.existsSync("./data")) {
 			fs.mkdirSync("./data");
 		}
-		fs.writeFileSync("./data/config.json", JSON.stringify({ "minerId": worker.id }));
+		fs.writeFileSync("./data/config.json", JSON.stringify({ "minerId": worker.id, "discordPresence": isPresenceEnabled }));
 		spinner.stop();
 		console.clear();
 		console.log(chalk.bold.greenBright(`Congratulations!! :D`))
