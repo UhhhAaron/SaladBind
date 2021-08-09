@@ -12,7 +12,6 @@ const presence = require("./presence.js");
 process.on("uncaughtException", err => { try { return } catch { return } })
 
 presence.state.on('ready', () => {
-
 	presence.enable();
 	presence.mainmenu();
 	process.on("uncaughtException", err => {

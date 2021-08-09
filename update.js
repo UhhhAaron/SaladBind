@@ -38,12 +38,18 @@ const updateCheck = new Promise((resolve, reject) => {
 			}, 5000)
 
 		}
-
+		let updateFailed = false;
+		let timer = setTimeout(() => {
+			spinner.fail("Could not search for updates!")
+			setTimeout(() => resolve(), 3000);
+		}, 10000);
 
 		const spinner = ora('Checking for updates...').start();
 		fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/package.json')
 			.then(res => res.json())
 			.then(data => {
+				clearTimeout(timer);
+				if(updateFailed) return; // to not mess up stuff if it recovers
 				version = data.version
 				files = { //files to download if the user decides to autoupdate.
 					"win32": { "file": `https://github.com/VukkyLtd/SaladBind/releases/download/v${version}/saladbind-win.exe`, "name": `SaladBind-win-${version}.exe` },
