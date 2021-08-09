@@ -9,42 +9,41 @@ const si = require("systeminformation");
 const update = require("./update.js")
 const presence = require("./presence.js");
 
-process.on("uncaughtException", err => { try { return } catch { return } })
-
+process.on("uncaughtException", err => {
+	try {
+		if(err.message.includes("Could not connect")) return "Discord RPC Broken I guess, as always"; // no one will see this message :)
+		console.log(chalk.bold.red("An unexpected error occured! Technical details:\n" + err.message));
+		inquirer.prompt({
+			name: "exit",
+			message: "What do you want to do?",
+			type: "list",
+			choices: [{
+					name: "Write to log and exit",
+					value: "write_log"
+				},
+				{
+					name: "Exit",
+					value: "exit"
+				}
+			]
+		}).then(out => {
+			if (out.exit == "exit") process.exit(1)
+			else if (out.exit == "write_log") {
+				fs.writeFileSync("saladbind_error.txt", `An error occured.\nError: ${err}\n\nStacktrace: ${err.stack}`);
+				process.exit(1);
+			}
+		})
+	} catch (newError) {
+		console.log("ERROR: ", {
+			err,
+			newError
+		});
+		process.exit(1);
+	}
+});
 presence.state.on('ready', () => {
 	presence.enable();
 	presence.mainmenu();
-	process.on("uncaughtException", err => {
-		try {
-			console.log(chalk.bold.red("An unexpected error occured! Technical details:\n" + err.message));
-			inquirer.prompt({
-				name: "exit",
-				message: "What do you want to do?",
-				type: "list",
-				choices: [{
-						name: "Write to log and exit",
-						value: "write_log"
-					},
-					{
-						name: "Exit",
-						value: "exit"
-					}
-				]
-			}).then(out => {
-				if (out.exit == "exit") process.exit(1)
-				else if (out.exit == "write_log") {
-					fs.writeFileSync("saladbind_error.txt", `An error occured.\nError: ${err}\n\nStacktrace: ${err.stack}`);
-					process.exit(1);
-				}
-			})
-		} catch (newError) {
-			console.log("ERROR: ", {
-				err,
-				newError
-			});
-			process.exit(1);
-		}
-	});
 })
 
 

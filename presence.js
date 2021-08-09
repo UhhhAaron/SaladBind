@@ -59,7 +59,7 @@ function presence(details, state, time, large_image, large_text, small_image, sm
 		try {
 			client.request('SET_ACTIVITY', activity);
 		} catch {
-			throw ("Something isn't right. Failed to set RPC. Do you have discord open?")
+			
 		}
 
 	}
