@@ -36,7 +36,7 @@
             "supported_gpus": ["nvidia"],
             "supported_os": ["win32", "linux"],
             "fee": 1.0,
-            "version": "0.21.5",
+            "version": "0.21.6",
             "parameters": {
                 "fileName": "t-rex",
                 "algo": "-a",
