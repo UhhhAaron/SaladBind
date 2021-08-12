@@ -66,38 +66,35 @@ async function continueSetup(clear) {
 		]
 	}]);
 	if (promptResult.useapi == "auto") {
-		let logPath;
-		if (process.platform == "win32") {
-			logPath = path.join(process.env.APPDATA, "Salad", "logs", "main.log");
-		} else if (process.platform == "linux") {
-			logPath = path.join(process.env.HOME, ".config", "Salad", "logs", "main.log");
-		} else if (process.platform == "darwin") {
-			logPath = path.join(process.env.HOME, "Library", "Logs", "Salad", "main.log"); // untested, google says it works
+		function getIDFromLogs(filename) {
+			let logPath;
+			if (process.platform == "win32") {
+				logPath = path.join(process.env.APPDATA, "Salad", "logs", filename);
+			} else if (process.platform == "linux") {
+				logPath = path.join(process.env.HOME, ".config", "Salad", "logs", filename);
+			} else if (process.platform == "darwin") {
+				logPath = path.join(process.env.HOME, "Library", "Logs", "Salad", filename); // untested, google says it works
+			}
+			let logFileContent;
+			try {
+				logFileContent = fs.readFileSync(logPath).toString();
+			} catch (err) {
+				console.log(chalk.bold.red("A error occured while reading the log files, make sure that you have ran Salad and that SaladBind has permission to access it."))
+				setTimeout(() => continueSetup(), 3500);
+				return;
+			}
+			const rigIDRegex = /^NiceHash rig ID: [a-z0-9]{15}$/m;
+			let rigID = logFileContent.match(rigIDRegex);
+			if (rigID) rigID = rigID.join(" ");
+			if (rigID) rigID = rigID.split(": ")[1];
+			return rigID;
 		}
-		let logFileContent;
-		try {
-			logFileContent = fs.readFileSync(logPath).toString();
-		} catch (err) {
-			console.log(chalk.bold.red("A error occured while reading the log files, make sure that you have ran Salad and that SaladBind has permission to access it."))
-			setTimeout(() => continueSetup(), 3500);
-			return;
-		}
-		const rigIDRegex = /^NiceHash rig ID: [a-z0-9]{15}$/m;
-		let rigID = logFileContent.match(rigIDRegex);
-		if (rigID) rigID = rigID.join(" ");
-		if (rigID) rigID = rigID.split(": ")[1];
+		let rigID = getIDFromLogs("main.log") ?? getIDFromLogs("main.old.log")
 		if (!rigID) {
 			console.log(chalk.bold.red("Could not find your Rig ID! Please make sure that you have mined for at least 5 minutes using Salad's official application."));
 			setTimeout(() => continueSetup(), 3500);
 			return;
 		}
-
-
-
-
-
-
-
 
 		const spinner = ora("Saving...").start();
 		if (!fs.existsSync("./data")) {
