@@ -34,21 +34,19 @@ Head to our [GitHub Releases](https://github.com/VukkyLtd/SaladBind/releases/lat
 
 #### macOS & Linux
 
-If you are on macOS or Linux, please note that these platforms are untested and you may encounter bugs. You need to make SaladBind executable using chmod.
+If you are on macOS or Linux, please note that these platforms are untested and you may encounter bugs.
+
+You need to run SaladBind from the terminal. If you need help with using the terminal, don't be afraid to Google a bit - you'll have to use `cd` to be in the same folder that SaladBind is in.
+
+Use these commands to start SaladBind, for macOS or Linux respectively:
+
 ```bash
 chmod +x ./saladbind-macos
-```
-```bash
-chmod +x ./saladbind-linux
-```
-
-On those platforms, you'll have to run SaladBind from the terminal like this, respectively:
-
-```bash
 ./saladbind-macos
 ```
 
 ```bash
+chmod +x ./saladbind-linux
 ./saladbind-linux
 ```
 
