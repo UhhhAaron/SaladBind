@@ -28,11 +28,11 @@ Oh and one last thing, did we mention it's **not-for-profit**? We don't any have
 
 ## Installation
 
-Head to our [GitHub Releases](https://github.com/VukkyLtd/SaladBind/releases/latest) page, download the latest release for your operating system, and run it. **BUT KEEP READING!**
+Head to our [GitHub Releases](https://github.com/VukkyLtd/SaladBind/releases/latest) page, download the latest release for your operating system, and just run it if you're on Windows.  **BUT KEEP READING!** (see below for macOS and Linux)
 
 ### Platform-specific prequisites
 
-#### macOS & Linux
+#### macOS and Linux
 
 If you are on macOS or Linux, please note that these platforms are untested and you may encounter bugs.
 
