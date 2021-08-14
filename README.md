@@ -36,7 +36,7 @@ Head to our [GitHub Releases](https://github.com/VukkyLtd/SaladBind/releases/lat
 
 If you are on macOS or Linux, please note that these platforms are untested and you may encounter bugs.
 
-You need to run SaladBind from the terminal. If you need help with using the terminal, don't be afraid to Google a bit - you'll have to use `cd` to be in the same folder that SaladBind is in.
+For these platforms, you'll need to run SaladBind from the terminal, due to how SaladBind works. If you need help with using the terminal, don't be afraid to Google a bit - you'll have to use `cd` to be in the same folder that SaladBind is in.
 
 Use these commands to start SaladBind, for macOS or Linux respectively:
 
