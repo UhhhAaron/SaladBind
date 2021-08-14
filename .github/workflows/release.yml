@@ -27,7 +27,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          body: "Installation instructions at [README](https://github.com/VukkyLtd/SaladBind#Installation) (please read them...)"
+          body: "# I BEG YOU PLEASE READ THE [README](https://github.com/VukkyLtd/SaladBind#Installation)"
           token: ${{ secrets.BEEPBOOP_TOKEN }}
           files: |
             bin/saladbind-win.exe
