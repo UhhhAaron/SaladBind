@@ -4,6 +4,8 @@
 
 Please remember that the GitHub [Community Guidelines](https://docs.github.com/en/github/site-policy/github-community-guidelines), [Terms of Service](https://docs.github.com/en/github/site-policy/github-terms-of-service), and other relevant policies apply here and elsewhere on GitHub - we're human beings too. ~~(well not alfur)~~
 
+Violating these repeatedly may result in being blocked from contributing to Vukky Limited projects and/or being banned from GitHub. Constructive contributions are important to us. Thank you!
+
 ## Contributing code
 
 ### Setting up the environment
