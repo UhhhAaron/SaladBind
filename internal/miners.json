@@ -46,7 +46,7 @@
         },
         "nbminer": {
             "miner": "NBMiner",  
-            "download": {"win32": "https://github.com/NebuTech/NBMiner/releases/download/v38.1/NBMiner_38.1_win.zip", "linux": "https://github.com/NebuTech/NBMiner/releases/download/v38.1/NBMiner_38.1_Linux.tgz"},
+            "download": {"win32": "https://github.com/NebuTech/NBMiner/releases/download/v39.0/NBMiner_39.0_Win.zip", "linux": "https://github.com/NebuTech/NBMiner/releases/download/v39.0/NBMiner_39.0_Linux.tgz"},
             "algos": [
                 "ethash",
                 "etchash",
@@ -56,7 +56,7 @@
             "supported_gpus": ["nvidia", "amd"],
             "supported_os": ["win32", "linux"],
             "fee": 2.0,
-            "version": "38.1",
+            "version": "39.0",
             "parameters": {
                 "fileName": "nbminer",
                 "algo": "-a",
