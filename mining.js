@@ -17,6 +17,7 @@ const config = JSON.parse(rawdata);
 const { win32 } = require('path');
 const { spawn } = require("child_process");
 const presence = require('./presence');
+const cache = require("./internal/getMachine.js")
 let spinner;
 let isDev = config.dev != undefined && config.dev == true;
 
@@ -79,9 +80,28 @@ const downloadFile = async function(url, location, name) {
 }
 
 async function run() {
+	spinner = ora("Checking System cache").start();
 	if (!fs.existsSync("./data/miners")) {
 		fs.mkdirSync("./data/miners");
 	}
+	if (!fs.existsSync("./data/cache.json")) {
+		spinner.text = "Genrating Cache...";
+		cache.updateCache().then(() => {
+			spinner.succeed(chalk.green.bold("Cache Genrated!"))
+			continueMiner();
+		})
+
+	} else {
+		spinner.succeed(chalk.green.bold("Cache found!"))
+		continueMiner()
+	}
+
+
+}
+
+
+async function continueMiner() {
+
 	console.clear();
 	console.log(chalk.bold.cyan(`Configure your miner`))
 	spinner = ora("Loading miner list").start();
@@ -89,25 +109,27 @@ async function run() {
 		.then(res => res.json())
 		.then(async data => {
 			spinner.text = "Checking your specs";
+			var systemCache = JSON.parse(fs.readFileSync("./data/cache.json"))
+			cache.updateCache()
 			let minerList = [];
-			let temp = await si.osInfo()
-			let temp2 = await si.graphics()
+			let temp = systemCache.os
+			let temp2 = systemCache.graphics
 			let userPlatform = temp.platform;
 			let GPUs = [];
 			for (let i = 0; i < temp2.controllers.length; i++) {
 				let compatibleAlgos = []
 				for (let j = 0; j < Object.keys(data.algos).length; j++) {
-					if(temp2.controllers[i].vendor == "Advanced Micro Devices, Inc.") temp2.controllers[i].vendor = "AMD";
-					if(temp2.controllers[i].vendor == "NVIDIA Corporation") temp2.controllers[i].vendor = "NVIDIA";
-					if(temp2.controllers[i].vram > data.algos[Object.keys(data.algos)[j]]) {
+					if (temp2.controllers[i].vendor == "Advanced Micro Devices, Inc.") temp2.controllers[i].vendor = "AMD";
+					if (temp2.controllers[i].vendor == "NVIDIA Corporation") temp2.controllers[i].vendor = "NVIDIA";
+					if (temp2.controllers[i].vram > data.algos[Object.keys(data.algos)[j]]) {
 						compatibleAlgos.push(Object.keys(data.algos)[j])
 					}
 				}
-				if (compatibleAlgos.length > 0) {	
-					GPUs.push({"algos": compatibleAlgos, "vendor": temp2.controllers[i].vendor.toLowerCase()});
+				if (compatibleAlgos.length > 0) {
+					GPUs.push({ "algos": compatibleAlgos, "vendor": temp2.controllers[i].vendor.toLowerCase() });
 				} else {
-					if(temp2.controllers[i].vendor.includes("Advanced Micro Devices, Inc.")) {
-						GPUs.push({"algos": Object.keys(data.algos), "vendor": "BYPASS"})
+					if (temp2.controllers[i].vendor.includes("Advanced Micro Devices, Inc.")) {
+						GPUs.push({ "algos": Object.keys(data.algos), "vendor": "BYPASS" })
 					}
 				}
 			}
@@ -195,6 +217,8 @@ async function run() {
 			}, 3500);
 		});
 }
+
+
 
 async function selectAlgo(minerData, GPUs) {
 	console.clear();
