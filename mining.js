@@ -317,13 +317,91 @@ async function prepStart(minerData, algo, pool, region, advancedCommands) {
 			require("./index").menu();
 			break;
 		case "advanced":
-			console.log("To exit, just press enter without typing anything.");
-			const advancedCommandsy = await inquirer.prompt({
-				type: "input",
-				name: "advancedCommands",
-				message: "Enter arguments for miner",
-			});
-			prepStart(minerData, algo, pool, region, advancedCommandsy.advancedCommands);
+			let args = "";
+			async function promptForAdvancedArgs() {
+				console.log("To exit, just press enter without typing anything.");
+				const advancedCommandsy = await inquirer.prompt({
+					type: "input",
+					name: "advancedCommands",
+					message: "Enter arguments for miner",
+				});
+				if(advancedCommandsy.advancedCommands != "") {
+				let saveCommand = await inquirer.prompt({
+					type: "confirm",
+					default: "Y",
+					name: "saveArgs",
+					message: "Would you like to save the advanced args?"
+				});
+				if(saveCommand.saveArgs) {
+					let name;
+					async function askName() {
+						name = await inquirer.prompt({
+							type: "input",
+							message: "What name would you like to use?",
+							name: "name",
+						});
+						if(data[name.name]) {
+							if(!(await inquirer.prompt({
+								type: "confirm",
+								message: "This name already exists, do you want to overwrite it?",
+								name: "overwrite",
+								default: false
+							})).overwrite) return await askName();
+						}
+					}
+					await askName();
+
+					if(name.name != "") fs.writeFileSync("data/saved-args.json", JSON.stringify({
+						...data,
+						[name.name]: {
+							data: advancedCommandsy.advancedCommands
+						}
+					}))
+				}
+				args = advancedCommandsy.advancedCommands;
+			} else args = "";
+			}
+			if (!fs.existsSync("data/saved-args.json")) fs.writeFileSync("data/saved-args.json", JSON.stringify({}));
+			let data;
+			try {
+				data = JSON.parse(fs.readFileSync("data/saved-args.json"))
+			} catch (err) {
+				let resetArgs = await inquirer.prompt({
+					type: "confirm",
+					name: "resetSavedArgs",
+					message: "The saved-args.json seems to be corrupted! If you have edited this please confirm that it is valid JSON. Would you like to reset the saved args? Please note that all of your saved advanced args will be lost!",
+					default: "y"
+				});
+				if(resetArgs.resetSavedArgs) {
+					fs.writeFileSync("data/saved-args.json", JSON.stringify({}));
+					console.log(chalk.bold.green("Successfully reset!"));
+					data = JSON.parse(fs.readFileSync("data/saved-args.json"))
+				}
+			}
+			if(Object.keys(data).length != 0) {
+				const useSavedArgs = await inquirer.prompt({
+					type: "confirm",
+					name: "useSavedArgs",
+					message: "You have saved advanced arg(s)! Do you want to use one of them?",
+					default: "Y"
+				});
+				if(useSavedArgs.useSavedArgs) {
+					let arg = await inquirer.prompt({
+						type: "list",
+						choices: Object.keys(data).map((arg) => {return {
+							name: arg,
+							value: arg
+						}}),
+						name: "argName",
+						message: "Which saved arg do you want to use?"
+					});
+					args = data[arg.argName].data;
+
+
+
+				} else await promptForAdvancedArgs();
+			} else await promptForAdvancedArgs();
+			prepStart(minerData, algo, pool, region, args);
 			break;
 	}
 }
