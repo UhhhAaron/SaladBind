@@ -5,6 +5,7 @@ If you want to contribute to SaladBind, please read our [contributing guide](CON
 ## Table of Contents
 
 [About](#About) <br>
+[Features](#Features) <br>
 [Installation](#Installation) <br>
 [Configuration](#Configuration) <br>
 [Miner Setup Guide](#Miner-Setup-Guide) <br>
@@ -18,7 +19,7 @@ If you want to contribute to SaladBind, please read our [contributing guide](CON
 
 It's like if CLI and CLI+ had a baby: Switch between miners, pools, **and algorithms** with ease using a fancy UI and some brand-new extras, like an interactive configuration editor built right in to the program; **no website needed**!
 
-And the best part: It's **open-source**! We also never use your token, except for **once** in the configuration process. Using your token, you are able to get your Rig ID automatically! Once you've done that, **never again**. You will never have to enter your token again, and we don't store it either! But you don't have to give your token, you can enter your Rig ID manually too! Security first!
+And the best part: It's **open-source**! We also never use your token, except for **once** in the configuration process. Using your token, you are able to get your Rig ID automatically! Once you've done that, **never again**. You will never have to enter your token again, and we don't store it either! But you don't have to give your token, you can let SaladBind scan for your Rig ID or enter your Rig ID manually too! Security first!
 
 Oh, and did we mention the **insane data savings**? SaladBind downloads miners on demand, so there's no need to download 460MB of miners that you'll never use, and you don't have to install Python, Java, or anything else on your computer. Just download SaladBind, and you're good to go - it's only **40-50MB**!
 
@@ -26,11 +27,23 @@ Oh and one last thing, did we mention it's **not-for-profit**? We don't any have
 
 **Welcome to the next generation of Salad CLIs!**
 
+## Features
+- Switch between miners, pools, and algorithms
+- Shows only miners and algorithms that are supported by your GPU
+- Easy to use interface
+- Built-in configuration editor
+- Automatic updates, miners and the app itself
+- Three methods of setting up SaladBind: scanning for the Rig ID, getting it from your Salad Auth token, and entering your Rig ID manually
+- Discord Rich Presence
+- No extra programs needed
+- Set advanced miner arguments
+- Save your advanced miner arguments
+
 ## Installation
 
-Head to our [GitHub Releases](https://github.com/VukkyLtd/SaladBind/releases/latest) page, download the latest release for your operating system, and just run it if you're on Windows.  **BUT KEEP READING!** (see below for macOS and Linux)
+Head to our [GitHub Releases](https://github.com/VukkyLtd/SaladBind/releases/latest) page, download the latest release for your operating system, and just run it if you're on Windows. **BUT KEEP READING!** (see below for macOS and Linux)
 
-### Platform-specific prequisites
+### Platform-specific prerequisites
 
 #### macOS and Linux
 
@@ -52,7 +65,7 @@ chmod +x ./saladbind-linux
 
 #### Windows 7
 
-**SaladBind does not by default support Windows 7. Only use these steps if you know what you are doing.**
+**SaladBind does not, by default, support Windows 7. Only use these steps if you know what you are doing.**
 
 However, [you can make a bat file](https://www.wikihow.com/Write-a-Batch-File#Saving-the-Batch-File) with Notepad in the same location as SaladBind to allow it to run, and use it to open SaladBind instead of the exe.
 
@@ -65,14 +78,14 @@ saladbind-win
 
 Once you start SaladBind for the first time, it'll prompt you to enter your mining details.
 
-You can do this by letting SaladBind search your log file, entering your Salad Auth token, which grabs your Rig ID automatically, or you can enter your Rig ID manually.
+You can do this by letting SaladBind search your log file, enter your Salad Auth token, which grabs your Rig ID automatically, or enter your Rig ID manually.
 
 #### Automatic (Read from Salad logs)
 
 SaladBind will search your Salad's log file for your Rig ID and save it automatically.
 
-1. Mine for 5-15 minutes (Chopping stage)
-2. Choose Automatic (Read from Salad logs)
+1. Start mining with the Salad app normally for 5-15 minutes (the "Chopping" stage)
+2. Choose Automatic on SaladBind (Read from Salad logs)
 
 #### Automatic (Get with Salad Auth token)
 
