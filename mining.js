@@ -85,9 +85,9 @@ async function run() {
 		fs.mkdirSync("./data/miners");
 	}
 	if (!fs.existsSync("./data/cache.json")) {
-		spinner.text = "Genrating Cache...";
+		spinner.text = "Generating Cache...";
 		cache.updateCache().then(() => {
-			spinner.succeed(chalk.green.bold("Cache Genrated!"))
+			spinner.succeed(chalk.green.bold("Cache Generated!"))
 			continueMiner();
 		})
 
