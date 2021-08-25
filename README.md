@@ -100,7 +100,7 @@ To get your access token follow these steps:
 
 #### Manual
 
-1. Start mining with the Salad app normally
+1. Start mining with the Salad app normally, if you have already been mining for over ~3h you need to restart Salad 
 2. Mine for around 5-15 minutes (the "Chopping" stage)
 3. Find your Salad logs. A guide can be found [here](https://support.salad.com/hc/en-us/articles/360042215512-How-To-Find-Your-Salad-Log-Files)
 4. Search for "rig ID" in the main.log file and copy it. Both Ethermine worker ID and Nicehash rig ID are supported
