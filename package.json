@@ -29,7 +29,7 @@
     "mv": "^2.1.1",
     "node-fetch": "^2.6.1",
     "open": "^8.2.1",
-    "ora": "^6.0.0",
+    "ora": "^5.4.1",
     "systeminformation": "^5.8.2"
   },
   "devDependencies": {
