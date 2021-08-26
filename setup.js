@@ -79,8 +79,7 @@ async function continueSetup(clear) {
 			try {
 				logFileContent = fs.readFileSync(logPath).toString();
 			} catch (err) {
-				console.log(chalk.bold.red("A error occured while reading the log files, make sure that you have ran Salad and that SaladBind has permission to access it."))
-				setTimeout(() => continueSetup(), 3500);
+				console.log(chalk.bold.red(`A error occured while reading the log file ${filename}, make sure that you have ran Salad and that SaladBind has permission to access it.`))
 				return;
 			}
 			const rigIDRegex = /^NiceHash rig ID: [a-z0-9]{15}$/m;
@@ -92,7 +91,9 @@ async function continueSetup(clear) {
 		let rigID = getIDFromLogs("main.log") ?? getIDFromLogs("main.old.log")
 		if (!rigID) {
 			console.log(chalk.bold.red("Could not find your Rig ID! Please make sure that you have mined for at least 5 minutes using Salad's official application."));
-			setTimeout(() => continueSetup(), 3500);
+			setTimeout(() => {
+				continueSetup()
+			}, 3500);
 			return;
 		}
 
