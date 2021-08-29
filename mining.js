@@ -502,7 +502,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 		//}); time for a hacky fix!
 
 		finalArguments.push(advancedCommands)
-		let miner = spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${userPlatform == "linux" ? "./" : ""}${minerData.parameters.fileName}`, finalArguments, {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }}) //its an array dumbass
+		let miner = spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${userPlatform == "linux" || userPlatform == "darwin" ? "./" : ""}${minerData.parameters.fileName}`, finalArguments, {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }}) //its an array dumbass
 		miner.on('close', (code) => {
 			console.log(`\nMiner stopped!\n`);
 			require("./index").menu(false);
@@ -515,7 +515,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 			console.log(chalk.yellow("Returning to SaladBind menu..."));
 		});
 	} else {
-		let miner = spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${userPlatform == "linux" ? "./" : ""}${minerData.parameters.fileName}`, [defaultArgs.pool, defaultArgs.algo, defaultArgs.wallet], {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }})
+		let miner = spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${userPlatform == "linux" || userPlatform == "darwin" ? "./" : ""}${minerData.parameters.fileName}`, [defaultArgs.pool, defaultArgs.algo, defaultArgs.wallet], {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }})
 		miner.on('close', (code) => {
 			console.log(`\nMiner stopped!\n`);
 			require("./index").menu(false);
