@@ -135,9 +135,9 @@ async function continueMiner() {
 				const algosSupportsGPU = minerData.algos.filter(algo => GPUs.filter(gpu => gpu.algos.includes(algo)).length > 0).length > 0
 				const minerSupportsGPU = GPUs.filter(gpu => minerData.supported_gpus.includes(gpu.vendor) || gpu.vendor == "BYPASS").length > 0
 				const minerSupportsCPU = minerData.supports_cpu;
-				if(minerSupportsCPU && minerData.supported_gpus.length == 0){
+				if(minerSupportsCPU) {
 					minerList.push({
-						name: `${minerData.miner} ${chalk.yellow("(CPU only)")}`,
+						name: `${minerData.miner}${minerData.supported_gpus.length == 0 ? chalk.yellow(" (CPU only)") : ""}`,
 						value: minerData
 					});
 				} else if (minerSupportsOS && minerSupportsGPU && algosSupportsGPU) {
