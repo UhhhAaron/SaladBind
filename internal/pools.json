@@ -14,6 +14,9 @@
             },
             "EQUI144_5": {
                 "host": "stratum+tcp://zhash.REGION.nicehash.com:3369"
+            },
+            "randomx": {
+                "host": "stratum+tcp://randomxmonero.REGION.nicehash.com:3380"
             }
 
         }

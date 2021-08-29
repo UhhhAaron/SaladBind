@@ -80,28 +80,24 @@ const downloadFile = async function(url, location, name) {
 }
 
 async function run() {
-	spinner = ora("Checking System cache").start();
+	spinner = ora("Checking system data...").start();
 	if (!fs.existsSync("./data/miners")) {
 		fs.mkdirSync("./data/miners");
 	}
 	if (!fs.existsSync("./data/cache.json")) {
-		spinner.text = "Generating Cache...";
+		spinner.text = "Generating system data...";
 		cache.updateCache().then(() => {
-			spinner.succeed(chalk.green.bold("Cache Generated!"))
+			spinner.succeed(chalk.green.bold("System data generated!"))
 			continueMiner();
 		})
-
 	} else {
-		spinner.succeed(chalk.green.bold("Cache found!"))
+		spinner.succeed(chalk.green.bold("System data found!"))
 		continueMiner()
 	}
-
-
 }
 
 
 async function continueMiner() {
-
 	console.clear();
 	console.log(chalk.bold.cyan(`Configure your miner`))
 	spinner = ora("Loading miner list").start();
@@ -133,17 +129,18 @@ async function continueMiner() {
 					}
 				}
 			}
-			if (temp2.controllers.length == 0) {
-				spinner.stop();
-				GPUs.push({ "algos": Object.keys(data.algos), "vendor": "BYPASS" })
-				console.log(chalk.bold.yellow("We couldn't find any GPUs on your machine, so we'll show all options, regardless of your specs.\nPlease read the miner guide at https://bit.ly/bindminers to get help with what to pick."))
-			}
 			for (let i = 0; i < Object.keys(data.miners).length; i++) {
 				let minerData = data.miners[Object.keys(data.miners)[i]];
 				const minerSupportsOS = minerData.supported_os.includes(userPlatform)
 				const algosSupportsGPU = minerData.algos.filter(algo => GPUs.filter(gpu => gpu.algos.includes(algo)).length > 0).length > 0
 				const minerSupportsGPU = GPUs.filter(gpu => minerData.supported_gpus.includes(gpu.vendor) || gpu.vendor == "BYPASS").length > 0
-				if (minerSupportsOS && minerSupportsGPU && algosSupportsGPU) {
+				const minerSupportsCPU = minerData.supports_cpu;
+				if(minerSupportsCPU && minerData.supported_gpus.length == 0){
+					minerList.push({
+						name: `${minerData.miner} ${chalk.yellow("(CPU only)")}`,
+						value: minerData
+					});
+				} else if (minerSupportsOS && minerSupportsGPU && algosSupportsGPU) {
 					if (GPUs.filter(gpu => minerData.algos.filter(algo => gpu.algos.includes(algo)).length > 0).length != GPUs.length) {
 						minerList.push({
 							name: `${minerData.miner} ${chalk.yellow("(Not supported by some of your GPUs)")}`,
@@ -420,9 +417,6 @@ async function prepStart(minerData, algo, pool, region, advancedCommands) {
 						message: "Which saved arg do you want to use?"
 					});
 					args = data[arg.argName].data;
-
-
-
 				} else await promptForAdvancedArgs();
 			} else await promptForAdvancedArgs();
 			prepStart(minerData, algo, pool, region, args);
