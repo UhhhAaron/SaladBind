@@ -117,7 +117,7 @@ async function continueMiner() {
 				for (let j = 0; j < Object.keys(data.algos).length; j++) {
 					if (temp2.controllers[i].vendor == "Advanced Micro Devices, Inc.") temp2.controllers[i].vendor = "AMD";
 					if (temp2.controllers[i].vendor == "NVIDIA Corporation") temp2.controllers[i].vendor = "NVIDIA";
-					if (temp2.controllers[i].vram > data.algos[Object.keys(data.algos)[j]]) {
+					if (temp2.controllers[i].vram > data.algos[Object.keys(data.algos)[j]] || data.algos[Object.keys(data.algos)[j]] == null) {
 						compatibleAlgos.push(Object.keys(data.algos)[j])
 					}
 				}
