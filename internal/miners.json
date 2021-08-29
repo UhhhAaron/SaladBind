@@ -5,7 +5,7 @@
         "kawpow": 2900,
         "beamv3": 3000,
         "EQUI144_5": 2000,
-	"randomx": 3380
+	    "randomx": null
     },
     "miners": {
         "phoenixminer": {
@@ -118,14 +118,15 @@
                 "pool": "--pool"
             }
         },
-	"xmrig": {
+	    "xmrig": {
             "miner": "xmrig",
             "download": { "win32": "https://github.com/xmrig/xmrig/releases/download/v6.14.1/xmrig-6.14.1-gcc-win64.zip", "linux": "https://github.com/xmrig/xmrig/releases/download/v6.14.1/xmrig-6.14.1-linux-x64.tar.gz", "darwin": "https://github.com/xmrig/xmrig/releases/download/v6.14.1/xmrig-6.14.1-macos-x64.tar.gz" },
             "algos": [
-                "randomx"
+                "randomx",
+                "kawpow"
 			],
             "supports_cpu": true,
-            "supported_gpus": [],
+            "supported_gpus": ["amd"],
             "supported_os": ["win32", "linux", "darwin"],
             "fee": 1,
             "version": "6.14.1",

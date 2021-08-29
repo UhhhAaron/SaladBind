@@ -467,8 +467,8 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 			} else {
 				defaultArgs.algo = ""
 			}
-			defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "PhoenixMiner" && hasAMD ? " -clKernel 0 " : ""}${minerData.miner == "lolMiner" ? " --pers BgoldPoW " : ""}`
-			} //i grabbed this from an older build because i accidentally removed a part so it didnt have it yet im a idiot
+			defaultArgs.pool = `${minerData.parameters.pool} ${pool.algos[algo].host.replace("REGION", region)}${minerData.miner == "PhoenixMiner" && pool.name == "NiceHash" ? " -proto 4 " : ""}${minerData.miner == "PhoenixMiner" && hasAMD ? " -clKernel 0 " : ""}${minerData.miner == "lolMiner" ? " --pers BgoldPoW " : ""}${minerData.miner == "xmrig" && algo == "kawpow" ? " --no-cpu --opencl " : ""}`
+		} //i grabbed this from an older build because i accidentally removed a part so it didnt have it yet im a idiot
 	} else {
 		let poolUrl = pool.algos[algo].host
 		let poolScheme = poolUrl.split("://")[0]
