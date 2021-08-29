@@ -128,11 +128,10 @@ async function menu(clear) {
 	const answers = await inquirer.prompt(questions);
 	switch (answers.menu) {
 		case 'mining':
-			presence.configuring()
 			require("./mining").run();
 			break;
 		case 'config':
-			presence.configuring()
+			presence.configuring("Changing settings")
 			require("./setup").run();
 			break;
 		case 'discord':

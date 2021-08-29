@@ -28,6 +28,7 @@ Oh and one last thing, did we mention it's **not-for-profit**? We don't any have
 **Welcome to the next generation of Salad CLIs!**
 
 ## Features
+
 - Switch between miners, pools, and algorithms
 - Shows only miners and algorithms that are supported by your GPU
 - Easy to use interface

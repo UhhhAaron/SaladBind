@@ -100,6 +100,7 @@ async function run() {
 async function continueMiner() {
 	console.clear();
 	console.log(chalk.bold.cyan(`Configure your miner`))
+	presence.configuring("Selecting miner");
 	spinner = ora("Loading miner list").start();
 	fetch(`https://raw.githubusercontent.com/VukkyLtd/SaladBind/${isDev ? "dev" : "main"}/internal/miners.json`)
 		.then(res => res.json())
@@ -220,6 +221,7 @@ async function continueMiner() {
 async function selectAlgo(minerData, GPUs) {
 	console.clear();
 	console.log(chalk.bold.cyan(`Configure your miner`))
+	presence.configuring("Selecting algorithm");
 	let algoList = [];
 	const gpuSupportsAlgo = minerData.algos.filter(algo => GPUs.filter(gpu => gpu.algos.includes(algo)).length > 0)
 	const temptemp = GPUs.filter(gpu => minerData.algos.filter(algo => gpu.algos.includes(algo)).length > 0)
@@ -255,6 +257,7 @@ async function selectAlgo(minerData, GPUs) {
 async function selectPool(minerData, algo) {
 	console.clear();
 	console.log(chalk.bold.cyan(`Configure your miner`))
+	presence.configuring("Selecting pool");
 	spinner = ora("Loading pool list").start();
 	fetch(`https://raw.githubusercontent.com/VukkyLtd/SaladBind/${isDev ? "dev" : "main"}/internal/pools.json`)
 		.then(res => res.json())
@@ -282,6 +285,7 @@ async function selectPool(minerData, algo) {
 			} else {
 				console.log(chalk.green(`Only one pool available with these settings, using ${poolList[0].name}`))
 			}
+			presence.configuring("Selecting pool region");
 			const regionList = [];
 			const poolsy = poolList.length > 1 ? pool.pool : poolList[0].value;
 			for (let i = 0; i < poolsy.regions.length; i++) {
@@ -307,6 +311,7 @@ async function prepStart(minerData, algo, pool, region, advancedCommands) {
 	if (advancedCommands == undefined) advancedCommands = ""
 	console.clear();
 	console.log(chalk.bold.cyan(`Configure your miner`))
+	presence.configuring("About to start!");
 	if (advancedCommands.length > 0) {
 		console.log("Current Advanced Commands:")
 		console.log(advancedCommands)
@@ -331,7 +336,7 @@ async function prepStart(minerData, algo, pool, region, advancedCommands) {
 	});
 	switch (startNow.startNow) {
 		case "y":
-			presence.mine(minerData.miner)
+			presence.mine(minerData.miner, algo, pool.name)
 			startMiner(minerData, algo, pool, region, advancedCommands);
 			break;
 		case "n":
