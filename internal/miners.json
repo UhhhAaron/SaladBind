@@ -10,7 +10,7 @@
     "miners": {
         "phoenixminer": {
             "miner": "PhoenixMiner",
-            "download": {"win32": "https://phoenixminer.info/downloads/PhoenixMiner_5.6d_Windows.zip", "linux": "https://phoenixminer.info/downloads/PhoenixMiner_5.6d_Linux.tar.gz"},
+            "download": {"win32": "https://phoenixminer.info/downloads/PhoenixMiner_5.7b_Windows.zip", "linux": "https://phoenixminer.info/downloads/PhoenixMiner_5.7b_Linux.tar.gz"},
             "algos": [
                 "ethash",
                 "etchash"
@@ -18,7 +18,7 @@
             "supported_gpus": ["nvidia", "amd"],
             "supported_os": ["win32", "linux"],
             "fee": 0.65,
-            "version": "5.6d",
+            "version": "5.7b",
             "parameters": {
                 "fileName": "PhoenixMiner",
                 "algo": "", 
