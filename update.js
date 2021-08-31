@@ -8,35 +8,26 @@ const https = require('https');
 const { exec } = require('child_process');
 const si = require("systeminformation");
 
-
 if (!fs.existsSync("./data")) {
 	fs.mkdirSync("./data");
 }
-
-
 
 const updateCheck = new Promise((resolve, reject) => {
 		let dirCont = fs.readdirSync("./");
 		let instances = []
 		var i = 0;
 
-
 		for (i = 0; i < dirCont.length; i++) {
 			if (dirCont[i].toLowerCase().includes("saladbind") || dirCont[i].toLowerCase().includes("salad bind")) {
 				instances.push(dirCont[i])
 			}
 		}
-
-
 		if (instances.length > 1) {
 			setTimeout(function() {
 				for (i = 0; i < instances.length; i++) {
 					fs.unlink(`./${instances[i]}`, function() {})
-
-
 				}
 			}, 5000)
-
 		}
 		let updateFailed = false;
 		let timer = setTimeout(() => {
@@ -45,7 +36,7 @@ const updateCheck = new Promise((resolve, reject) => {
 		}, 10000);
 
 		const spinner = ora('Checking for updates...').start();
-		fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/package.json')
+		fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/changelog.json')
 			.then(res => res.json())
 			.then(data => {
 				clearTimeout(timer);
@@ -58,7 +49,9 @@ const updateCheck = new Promise((resolve, reject) => {
 				}
 				if (version !== packageJson.version) {
 					spinner.succeed(chalk.bold.green(`SaladBind ${data.version} is available!`));
-					console.log("Download it from https://bit.ly/saladbind\n");
+					for(thing in data.changelog) {
+						console.log(`- ${thing}`)
+					} // done. time to test!! kill me
 					inquirer.prompt({
 						name: "updatePrompt",
 						message: "What do you want to do?",

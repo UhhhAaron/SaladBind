@@ -187,7 +187,7 @@ async function continueMiner() {
 					let miners = fs.readdirSync("./data/miners");
 					let oldMiners = miners.filter(minery => minery.startsWith(miner.miner.miner));
 					if (oldMiners.length > 0) { //woo! time for pools.json (and more fucking tokens) oh piss
-						console.log(chalk.yellow(`A ${miner.miner.miner} update has been found! Updating now..`));
+						console.log(chalk.yellow(`Updating ${miner.miner.miner} to ${miner.miner.version}...`));
 						oldMiners.forEach(miner => fs.rmSync(`./data/miners/${miner}`, { recursive: true }));
 					}
 					spinner = ora(`Downloading ${miner.miner.miner}-${miner.miner.version}`).start();
