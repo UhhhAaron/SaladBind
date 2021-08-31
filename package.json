@@ -4,7 +4,7 @@
   "description": "BIND-ing the good features from other projects together (and fucking nuking the bad ones)",
   "main": "index.js",
   "scripts": {
-    "start": "node index",
+    "start": "node src/index",
     "compile": "pkg src/index.js --targets node16-linux-x64,node16-macos-x64,node16-win-x64 --output bin/saladbind",
     "preversion": "node internal/alfurValidator.js",
     "postversion": "git push && git push --tags"
