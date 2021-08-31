@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index",
-    "compile": "pkg index.js --targets node16-linux-x64,node16-macos-x64,node16-win-x64 --output bin/saladbind",
+    "compile": "pkg src/index.js --targets node16-linux-x64,node16-macos-x64,node16-win-x64 --output bin/saladbind",
     "preversion": "node internal/alfurValidator.js",
     "postversion": "git push && git push --tags"
   },

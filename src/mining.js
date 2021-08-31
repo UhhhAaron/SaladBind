@@ -17,7 +17,7 @@ const config = JSON.parse(rawdata);
 const { win32 } = require('path');
 const { spawn } = require("child_process");
 const presence = require('./presence');
-const cache = require("./internal/getMachine.js")
+const cache = require("./getMachine.js")
 let spinner;
 let isDev = config.dev != undefined && config.dev == true;
 

@@ -125,7 +125,7 @@ async function continueSetup(clear) {
 		}]);
 		const spinner = ora("Getting miner details...").start();
 		try {
-			let minerDetails = await require("./internal/getMachine").getInfo(auth.auth);
+			let minerDetails = await require("./getMachine").getInfo(auth.auth);
 			if (!fs.existsSync("./data")) {
 				fs.mkdirSync("./data");
 			}

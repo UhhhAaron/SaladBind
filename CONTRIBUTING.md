@@ -16,7 +16,7 @@ Once you have cloned the repository, open a terminal in your folder and run `npm
 
 ## Testing your changes
 
-You can run SaladBind by typing `node index` in the terminal window.
+You can run SaladBind by typing `node src/index` in the terminal window.
 
 ### Compiling
 

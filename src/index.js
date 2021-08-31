@@ -1,6 +1,6 @@
 const ora = require('ora'); // ara ara
 const chalk = require('chalk');
-const packageJson = require('./package.json');
+const packageJson = require('../package.json');
 const fs = require('fs');
 const inquirer = require('inquirer');
 const fetch = require("node-fetch");
