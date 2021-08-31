@@ -63,8 +63,8 @@ module.exports = {
 		}
 	}, //Not technically disconnecting but idfk its basically the same
 	enable: function() { presenceEnabled = true; },
-	mainmenu: function() { presence("In main menu", "   ", null, "icon", `v${pjson.version} - Join me on salad.com`, "idle", "Not mining") },
-	configuring: function(state) { presence("Configuring miner", state, null, "icon", `v${pjson.version} - Join me on salad.com`, "idle", "Not mining") },
-	mine: function(miner, algo, pool) { presence(`Mining with ${miner}`, `Using ${algo} on ${pool}`, Date.now(), "icon", `v${pjson.version} - Join me on salad.com`, "mining", "Mining") },
+	mainmenu: function() { presence("In main menu", "   ", null, "icon", `v${pjson.version}`, "idle", "Not mining") },
+	configuring: function(state) { presence("Configuring miner", state, null, "icon", `v${pjson.version}`, "idle", "Not mining") },
+	mine: function(miner, algo, pool) { presence(`Mining with ${miner}`, `Using ${algo} on ${pool}`, Date.now(), "icon", `v${pjson.version}`, "mining", "Mining") },
 	state: client
 }
