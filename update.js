@@ -49,9 +49,10 @@ const updateCheck = new Promise((resolve, reject) => {
 				}
 				if (version !== packageJson.version) {
 					spinner.succeed(chalk.bold.green(`SaladBind ${data.version} is available!`));
-					for(thing in data.changelog) {
-						console.log(`- ${thing}`)
-					} // done. time to test!! kill me
+					data.changelog.forEach(item => {
+						console.log(`- ${item}`)
+					});
+					console.log();
 					inquirer.prompt({
 						name: "updatePrompt",
 						message: "What do you want to do?",
