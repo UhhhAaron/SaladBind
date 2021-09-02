@@ -120,6 +120,10 @@ async function menu(clear) {
 				value: 'discord'
 			},
 			{
+				name: 'Changelogs',
+				value: 'changes'
+			},
+			{
 				name: 'Exit SaladBind',
 				value: 'exit'
 			}
@@ -133,6 +137,33 @@ async function menu(clear) {
 		case 'config':
 			presence.configuring("Changing settings")
 			require("./setup").run();
+			break;
+		case 'changes':
+			presence.configuring("Reading the changelog")
+			const spinner = ora('Fetching the Changelogs').start();
+			fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/changelog.json')
+				.then(res => res.json())
+				.then(data => {
+					if (version == packageJson.version) {
+						spinner.succeed(chalk.bold.green(`Changelog of ${data.version}`));
+						data.changelog.forEach(item => {
+							console.log(`- ${item}`)
+						});
+						console.log();
+						inquirer.prompt({
+							type: 'confirm',
+							name: 'backtomenu',
+							message: chalk.yellow("Go back to the main menu"),
+							default: true
+						}).then(function(answers) {
+						if (answers.confirm) {
+							menu();
+						} else {
+							menu();
+						}
+					});
+					}
+				})
 			break;
 		case 'discord':
 			let temp = await si.osInfo()
