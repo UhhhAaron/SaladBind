@@ -120,7 +120,7 @@ async function menu(clear) {
 				value: 'discord'
 			},
 			{
-				name: 'Changelogs',
+				name: 'What\'s new?',
 				value: 'changes'
 			},
 			{
@@ -144,25 +144,19 @@ async function menu(clear) {
 			fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/changelog.json')
 				.then(res => res.json())
 				.then(data => {
-					if (version == packageJson.version) {
-						spinner.succeed(chalk.bold.green(`Changelog of ${data.version}`));
-						data.changelog.forEach(item => {
-							console.log(`- ${item}`)
-						});
-						console.log();
-						inquirer.prompt({
-							type: 'confirm',
-							name: 'backtomenu',
-							message: chalk.yellow("Go back to the main menu"),
-							default: true
-						}).then(function(answers) {
-						if (answers.confirm) {
-							menu();
-						} else {
-							menu();
-						}
+					console.clear();
+					spinner.succeed(chalk.bold.green(`What's new in the latest update - ${data.version}`));
+					data.changelog.forEach(item => {
+						console.log(`- ${item}`)
 					});
-					}
+					console.log();
+					inquirer.prompt({
+						type: 'input',
+						name: 'backtomenu',
+						message: 'Press ENTER to return to the menu.'
+					}).then(function() {
+						menu();
+					});
 				})
 			break;
 		case 'discord':
