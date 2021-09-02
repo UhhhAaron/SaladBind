@@ -5,7 +5,7 @@
         "kawpow": 2900,
         "beamv3": 3000,
         "EQUI144_5": 2000,
-	    "randomx": null
+        "randomx": null
     },
     "miners": {
         "phoenixminer": {
@@ -121,7 +121,7 @@
                 "pool": "--pool"
             }
         },
-	    "xmrig": {
+        "xmrig": {
             "miner": "xmrig",
             "download": { "win32": "https://github.com/xmrig/xmrig/releases/download/v6.15.0/xmrig-6.15.0-gcc-win64.zip", "linux": "https://github.com/xmrig/xmrig/releases/download/v6.15.0/xmrig-6.15.0-macos-x64.tar.gz" },
             "algos": [
@@ -137,7 +137,7 @@
                 "algo": "-a",
                 "wallet": "-u",
                 "pool": "-o"
-			}
-		}
+            }
+        }
     }
 }
