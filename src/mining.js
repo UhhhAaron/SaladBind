@@ -123,7 +123,9 @@ async function continueMiner() {
 					}
 				}
 				if (compatibleAlgos.length > 0) {
-					GPUs.push({ "algos": compatibleAlgos, "vendor": temp2.controllers[i].vendor.toLowerCase() });
+					if(!temp2.controllers[i].vendor.includes("Intel")) {
+						GPUs.push({ "algos": compatibleAlgos, "vendor": temp2.controllers[i].vendor.toLowerCase() });
+					}
 				} else {
 					if (temp2.controllers[i].vendor.includes("Advanced Micro Devices, Inc.")) {
 						GPUs.push({ "algos": Object.keys(data.algos), "vendor": "BYPASS" })
