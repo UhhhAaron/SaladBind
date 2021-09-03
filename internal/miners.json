@@ -123,7 +123,7 @@
         },
         "xmrig": {
             "miner": "xmrig",
-            "download": { "win32": "https://github.com/xmrig/xmrig/releases/download/v6.15.0/xmrig-6.15.0-gcc-win64.zip", "linux": "https://github.com/xmrig/xmrig/releases/download/v6.15.0/xmrig-6.15.0-linux-x64.tar.gz" },
+            "download": { "win32": "https://github.com/xmrig/xmrig/releases/download/v6.15.0/xmrig-6.15.0-gcc-win64.zip", "linux": "https://github.com/xmrig/xmrig/releases/download/v6.15.0/xmrig-6.15.0-linux-x64.tar.gz", "darwin":"https://github.com/xmrig/xmrig/releases/download/v6.15.0/xmrig-6.15.0-macos-x64.tar.gz" },
             "algos": [
                 "randomx"
             ],
