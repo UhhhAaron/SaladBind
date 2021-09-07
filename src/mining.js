@@ -22,9 +22,9 @@ let spinner;
 let isDev = config.dev != undefined && config.dev == true;
 
 function moveDupeFolder(folderName) {
-	let folderData = fs.readdirSync(`./data/miners/${folderName}`)
+	let folderData = fs.readdirSync(`./data/temp/${folderName}`)
 	if (folderData.length == 1) {
-		mv(`./data/miners/${folderName}/${folderData[0]}`, `./data/miners/${folderName}`, { clobber: false }, function(err) { //oh okers
+		mv(`./data/temp/${folderName}/${folderData[0]}`, `./data/miners/${folderName}`, { clobber: false }, function(err) { //oh okers
 			// done. it tried fs.rename first, and then falls ba	ck to
 			// piping the source file to the dest file and then unlinking
 			// the source file. (docs lol) lol
@@ -33,14 +33,24 @@ function moveDupeFolder(folderName) {
 				spinner.fail();
 			}
 		});
+	} else {
+		mv(`./data/temp/${folderName}/`, `./data/miners/${folderName}`, { clobber: false }, function(err) { //oh okers
+			if (err) {
+				console.log(chalk.bold.red(err));
+				spinner.fail();
+			}
+		})
 	}
 }
 
 async function extractFile(location, folderName, fileExtension) {
-	if (!fs.existsSync(`./data/miners/${folderName}`)) {
-		fs.mkdirSync(`./data/miners/${folderName}`); // me too
+	if (!fs.existsSync(`./data/temp/${folderName}`)) {
+		fs.mkdirSync(`./data/temp/${folderName}`); // me too
 	}
-	await decompress(location, `./data/miners/${folderName}`, {
+	if (!fs.existsSync(`./data/miners/`)) {
+		fs.mkdirSync(`./data/miners/`); // me too
+	}
+	await decompress(location, `./data/temp/${folderName}`, {
 		plugins: [
 			decompressTargz(),
 			decompressUnzip()
@@ -81,8 +91,8 @@ const downloadFile = async function(url, location, name) {
 
 async function run() {
 	spinner = ora("Checking system data...").start();
-	if (!fs.existsSync("./data/miners")) {
-		fs.mkdirSync("./data/miners");
+	if (!fs.existsSync("./data/temp")) {
+		fs.mkdirSync("./data/temp");
 	}
 	if (!fs.existsSync("./data/cache.json")) {
 		spinner.text = "Generating system data...";
@@ -138,7 +148,7 @@ async function continueMiner() {
 				const algosSupportsGPU = minerData.algos.filter(algo => GPUs.filter(gpu => gpu.algos.includes(algo)).length > 0).length > 0
 				const minerSupportsGPU = GPUs.filter(gpu => minerData.supported_gpus.includes(gpu.vendor) || gpu.vendor == "BYPASS").length > 0
 				const minerSupportsCPU = minerData.supports_cpu;
-				if(minerSupportsCPU) {
+				if (minerSupportsCPU) {
 					minerList.push({
 						name: `${minerData.miner}${minerData.supported_gpus.length == 0 ? chalk.yellow(" (CPU only)") : ""}`,
 						value: minerData
@@ -180,17 +190,17 @@ async function continueMiner() {
 					return;
 				}
 				if (fs.existsSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`)) {
-					let minerFolder = fs.readdirSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`);
+					let minerFolder = fs.readdirSync(`./data/temp/${miner.miner.miner}-${miner.miner.version}`);
 					if (!minerFolder.filter(file => file.startsWith(miner.miner.parameters.fileName)).length > 0) {
-						fs.rmSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`, { recursive: true });
+						fs.rmSync(`./data/temp/${miner.miner.miner}-${miner.miner.version}`, { recursive: true });
 					}
 				}
 				if (!fs.existsSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`)) {
-					let miners = fs.readdirSync("./data/miners");
+					let miners = fs.readdirSync("./data/temp");
 					let oldMiners = miners.filter(minery => minery.startsWith(miner.miner.miner));
 					if (oldMiners.length > 0) { //woo! time for pools.json (and more fucking tokens) oh piss
 						console.log(chalk.yellow(`Updating ${miner.miner.miner} to ${miner.miner.version}...`));
-						oldMiners.forEach(miner => fs.rmSync(`./data/miners/${miner}`, { recursive: true }));
+						oldMiners.forEach(miner => fs.rmSync(`./data/temp/${miner}`, { recursive: true }));
 					}
 					spinner = ora(`Downloading ${miner.miner.miner}-${miner.miner.version}`).start();
 					var downloadURL = miner.miner.download[userPlatform];
@@ -199,7 +209,7 @@ async function continueMiner() {
 						fileExtension = ".tar.gz"
 					}
 					const fileName = `${miner.miner.miner}-${miner.miner.version}`
-					const fileLocation = `./data/miners/${fileName}${fileExtension}`;
+					const fileLocation = `./data/temp/${fileName}${fileExtension}`;
 					downloadFile(downloadURL, fileLocation, fileName).then(async() => {
 						spinner = ora(`Extracting ${miner.miner.miner}-${miner.miner.version}`).start();
 						await extractFile(fileLocation, fileName, fileExtension)
@@ -353,41 +363,41 @@ async function prepStart(minerData, algo, pool, region, advancedCommands) {
 					name: "advancedCommands",
 					message: "Enter arguments for miner",
 				});
-				if(advancedCommandsy.advancedCommands != "") {
-				let saveCommand = await inquirer.prompt({
-					type: "confirm",
-					default: "Y",
-					name: "saveArgs",
-					message: "Would you like to save the advanced args?"
-				});
-				if(saveCommand.saveArgs) {
-					let name;
-					async function askName() {
-						name = await inquirer.prompt({
-							type: "input",
-							message: "What name would you like to use?",
-							name: "name",
-						});
-						if(data[name.name]) {
-							if(!(await inquirer.prompt({
-								type: "confirm",
-								message: "This name already exists, do you want to overwrite it?",
-								name: "overwrite",
-								default: false
-							})).overwrite) return await askName();
+				if (advancedCommandsy.advancedCommands != "") {
+					let saveCommand = await inquirer.prompt({
+						type: "confirm",
+						default: "Y",
+						name: "saveArgs",
+						message: "Would you like to save the advanced args?"
+					});
+					if (saveCommand.saveArgs) {
+						let name;
+						async function askName() {
+							name = await inquirer.prompt({
+								type: "input",
+								message: "What name would you like to use?",
+								name: "name",
+							});
+							if (data[name.name]) {
+								if (!(await inquirer.prompt({
+										type: "confirm",
+										message: "This name already exists, do you want to overwrite it?",
+										name: "overwrite",
+										default: false
+									})).overwrite) return await askName();
+							}
 						}
-					}
-					await askName();
+						await askName();
 
-					if(name.name != "") fs.writeFileSync("data/saved-args.json", JSON.stringify({
-						...data,
-						[name.name]: {
-							data: advancedCommandsy.advancedCommands
-						}
-					}))
-				}
-				args = advancedCommandsy.advancedCommands;
-			} else args = "";
+						if (name.name != "") fs.writeFileSync("data/saved-args.json", JSON.stringify({
+							...data,
+							[name.name]: {
+								data: advancedCommandsy.advancedCommands
+							}
+						}))
+					}
+					args = advancedCommandsy.advancedCommands;
+				} else args = "";
 			}
 			if (!fs.existsSync("data/saved-args.json")) fs.writeFileSync("data/saved-args.json", JSON.stringify({}));
 			let data;
@@ -400,26 +410,28 @@ async function prepStart(minerData, algo, pool, region, advancedCommands) {
 					message: "The saved-args.json seems to be corrupted! If you have edited this please confirm that it is valid JSON. Would you like to reset the saved args? Please note that all of your saved advanced args will be lost!",
 					default: "y"
 				});
-				if(resetArgs.resetSavedArgs) {
+				if (resetArgs.resetSavedArgs) {
 					fs.writeFileSync("data/saved-args.json", JSON.stringify({}));
 					console.log(chalk.bold.green("Successfully reset!"));
 					data = JSON.parse(fs.readFileSync("data/saved-args.json"))
 				}
 			}
-			if(Object.keys(data).length != 0) {
+			if (Object.keys(data).length != 0) {
 				const useSavedArgs = await inquirer.prompt({
 					type: "confirm",
 					name: "useSavedArgs",
 					message: "You have saved advanced arg(s)! Do you want to use one of them?",
 					default: "Y"
 				});
-				if(useSavedArgs.useSavedArgs) {
+				if (useSavedArgs.useSavedArgs) {
 					let arg = await inquirer.prompt({
 						type: "list",
-						choices: Object.keys(data).map((arg) => {return {
-							name: arg,
-							value: arg
-						}}),
+						choices: Object.keys(data).map((arg) => {
+							return {
+								name: arg,
+								value: arg
+							}
+						}),
 						name: "argName",
 						message: "Which saved arg do you want to use?"
 					});
