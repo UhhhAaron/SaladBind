@@ -42,6 +42,10 @@ Oh and one last thing, did we mention it's **not-for-profit**? We don't any have
 
 ## Installation
 
+A video guide can be found here:
+
+[![SaladBind Video Tutorial](https://img.youtube.com/vi/OxFyikoAoco/0.jpg)](https://www.youtube.com/watch?v=OxFyikoAoco)
+
 Head to our [GitHub Releases](https://github.com/VukkyLtd/SaladBind/releases/latest) page, download the latest release for your operating system, and just run it if you're on Windows. **BUT KEEP READING!** (see below for macOS and Linux)
 
 ### Platform-specific prerequisites
