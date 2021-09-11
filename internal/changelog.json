@@ -1,8 +1,6 @@
 {
     "version": "1.3.1",
     "changelog": [
-        "NBMiner is now on 39.2",
-        "XMRig is now on 6.15.0",
         "Added changelogs to update message and menu screen",
         "Added support for more algorithms to lolMiner",
         "Fixed dupe folder mechanism on macOS/Linux"
