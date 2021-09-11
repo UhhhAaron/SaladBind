@@ -88,7 +88,8 @@
             "miner": "Ethminer",
             "download": {"win32": "https://github.com/ethereum-mining/ethminer/releases/download/v0.18.0/ethminer-0.18.0-cuda9.1-windows-amd64.zip", "linux": "https://github.com/ethereum-mining/ethminer/releases/download/v0.18.0/ethminer-0.18.0-cuda-9-linux-x86_64.tar.gz", "darwin": "https://github.com/ethereum-mining/ethminer/releases/download/v0.18.0/ethminer-0.18.0-cuda-9-darwin-x86_64.tar.gz"},
             "algos": [
-                "ethash"
+                "ethash",
+                "etchash"
             ],
             "supported_gpus": ["nvidia", "amd"],
             "supported_os": ["win32", "linux", "darwin"],
