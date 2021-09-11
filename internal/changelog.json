@@ -3,6 +3,7 @@
     "changelog": [
         "Added changelogs to update message and menu screen",
         "Added support for more algorithms to lolMiner",
-        "Fixed dupe folder mechanism on macOS/Linux"
+        "Fixed dupe folder mechanism on macOS/Linux",
+        "Minor bug fixes"
     ]
 }
