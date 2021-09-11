@@ -1,6 +1,6 @@
 {
     "algos": {
-        "ethash": 4300,
+        "ethash": 4400,
         "etchash": 2700,
         "kawpow": 3000,
         "beamv3": 3000,
