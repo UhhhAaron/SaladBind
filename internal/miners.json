@@ -2,7 +2,7 @@
     "algos": {
         "ethash": 4300,
         "etchash": 2700,
-        "kawpow": 2900,
+        "kawpow": 3000,
         "beamv3": 3000,
         "EQUI144_5": 2000,
         "randomx": null
