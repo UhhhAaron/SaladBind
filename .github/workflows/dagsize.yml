@@ -23,7 +23,7 @@ jobs:
           cache: 'npm'
       - name: Run update script
         run: |
-            npm install node-fetch
+            npm install node-fetch --no-save
             node internal/alfurDagUpdater
       - name: Push
         run: |
