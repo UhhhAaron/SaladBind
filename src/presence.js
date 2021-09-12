@@ -19,7 +19,6 @@ if (config.discordPresence == true) { //If the user opts-in to having the Rich P
 			clientId: '872392087440621579'
 		});
 	} catch (error) { //An error will be thrown if this fails. The most common issue is the user does not have discord running.
-		throw ("Discord not detected. Rich presence will not work. If you belive this is an error please re-open the SaladBind app.");
 	}
 }
 

@@ -417,26 +417,23 @@ async function prepStart(minerData, algo, pool, region, advancedCommands) {
 				}
 			}
 			if (Object.keys(data).length != 0) {
-				const useSavedArgs = await inquirer.prompt({
-					type: "confirm",
-					name: "useSavedArgs",
-					message: "You have saved advanced arg(s)! Do you want to use one of them?",
-					default: "Y"
-				});
-				if (useSavedArgs.useSavedArgs) {
 					let arg = await inquirer.prompt({
 						type: "list",
-						choices: Object.keys(data).map((arg) => {
+						choices: [...Object.keys(data).map((arg) => {
 							return {
 								name: arg,
 								value: arg
 							}
-						}),
+						}), {
+							"name": chalk.bold.greenBright("Other"),
+							"value": "_saladbind_other"
+						}],
 						name: "argName",
 						message: "Which saved arg do you want to use?"
 					});
-					args = data[arg.argName].data;
-				} else await promptForAdvancedArgs();
+					if(arg.argName == "_saladbind_other") {
+						await promptForAdvancedArgs();
+					} else args = data[arg.argName].data;
 			} else await promptForAdvancedArgs();
 			prepStart(minerData, algo, pool, region, args);
 			break;

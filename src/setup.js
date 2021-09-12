@@ -104,6 +104,7 @@ In order for this to work, you'll need to have the Discord desktop app installed
 			if (rigID) rigID = rigID.split(": ")[1];
 			return rigID;
 		}
+		let spinner = ora("Searching...").start();
 		let rigID = getIDFromLogs("main.log") ?? getIDFromLogs("main.old.log")
 		if (!rigID) {
 			console.log(chalk.bold.red("Could not find your Rig ID! Please make sure that you have mined for at least 5 minutes using Salad's official application."));
@@ -113,16 +114,17 @@ In order for this to work, you'll need to have the Discord desktop app installed
 			return;
 		}
 
-		const spinner = ora("Saving...").start();
+		spinner.succeed();
+		spinner = ora("Saving...").start();
 		if (!fs.existsSync("./data")) {
 			fs.mkdirSync("./data");
 		}
 		fs.writeFileSync("./data/config.json", JSON.stringify({ "minerId": rigID, "discordPresence": isPresenceEnabled }));
-		spinner.stop();
-		console.clear();
+		spinner.succeed();
 		console.log(chalk.bold.greenBright(`That's all there is to it!`))
 		console.log(`You're done - you can now start using SaladBind!\nStarting in 5 seconds...`)
 		setTimeout(() => {
+			console.clear();
 			require("./index").menu();
 		}, 5000);
 	} else if (promptResult.useapi == "api") {
