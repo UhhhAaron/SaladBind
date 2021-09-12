@@ -190,17 +190,17 @@ async function continueMiner() {
 					return;
 				}
 				if (fs.existsSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`)) {
-					let minerFolder = fs.readdirSync(`./data/temp/${miner.miner.miner}-${miner.miner.version}`);
+					let minerFolder = fs.readdirSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`);
 					if (!minerFolder.filter(file => file.startsWith(miner.miner.parameters.fileName)).length > 0) {
-						fs.rmSync(`./data/temp/${miner.miner.miner}-${miner.miner.version}`, { recursive: true });
+						fs.rmSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`, { recursive: true });
 					}
 				}
 				if (!fs.existsSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`)) {
-					let miners = fs.readdirSync("./data/temp");
+					let miners = fs.readdirSync("./data/miners");
 					let oldMiners = miners.filter(minery => minery.startsWith(miner.miner.miner));
 					if (oldMiners.length > 0) { //woo! time for pools.json (and more fucking tokens) oh piss
 						console.log(chalk.yellow(`Updating ${miner.miner.miner} to ${miner.miner.version}...`));
-						oldMiners.forEach(miner => fs.rmSync(`./data/temp/${miner}`, { recursive: true }));
+						oldMiners.forEach(miner => fs.rmSync(`./data/miners/${miner}`, { recursive: true }));
 					}
 					spinner = ora(`Downloading ${miner.miner.miner}-${miner.miner.version}`).start();
 					var downloadURL = miner.miner.download[userPlatform];
