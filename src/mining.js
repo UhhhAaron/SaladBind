@@ -341,7 +341,7 @@ async function selectPool(minerData, algo) {
 					})
 				}
 				region.region = pings.sort((a, b) => a.ping - b.ping)[0].region;
-				spinner.succeed("Using " + region.region);
+				spinner.succeed("Using " + region.region + " (" + pings.sort((a, b) => a.ping - b.ping)[0].ping + "ms)");
 				await (new Promise((res) => setTimeout(res, 1000)));
 			}
 			prepStart(minerData, algo, poolsy, region.region);
