@@ -18,7 +18,7 @@ if (config.discordPresence == true) { //If the user opts-in to having the Rich P
 		client.login({
 			clientId: '872392087440621579'
 		});
-	} catch (error) { //An error will be thrown if this fails. The most common issue is the user does not have discord running.
+	} catch (error) { // Ignoring the error since we dont want SaladBind dying when the user doesn't have Discord open
 	}
 }
 

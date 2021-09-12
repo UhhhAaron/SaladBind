@@ -142,6 +142,12 @@ async function continueMiner() {
 					}
 				}
 			}
+			if(config.bypassGPUChecks) {
+				GPUs.push({
+					"algos": Object.keys(data.algos),
+					"vendor": "BYPASS"
+				})
+			}
 			for (let i = 0; i < Object.keys(data.miners).length; i++) {
 				let minerData = data.miners[Object.keys(data.miners)[i]];
 				const minerSupportsOS = minerData.supported_os.includes(userPlatform)
