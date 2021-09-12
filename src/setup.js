@@ -177,7 +177,7 @@ In order for this to work, you'll need to have the Discord desktop app installed
 				if (input.length == 15 || input == "cancel") {
 					return true;
 				}
-				return `If you don't want to manually enter your Worker ID, type "${chalk.yellowBright("cancel")}". ${chalk.yellow.bold("You may be seeing this if you entered the Worker ID incorrectly!")}`;
+				return `If you don't want to manually enter your Worker ID, type "${chalk.yellowBright("cancel")}" and select an automatic mode. ${chalk.yellow.bold("You may be seeing this if you entered the Worker ID incorrectly!")}`;
 			}
 		}]);
 		if(worker.id == "cancel") {
