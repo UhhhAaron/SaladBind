@@ -54,54 +54,21 @@ presence.state.on('ready', () => {
 })
 
 
-var CLImode = false;
-var CLIArgs = []
 console.clear();
 process.title = `SaladBind v${packageJson.version}`;
-if (process.argv[2]) {
-	CLImode = true
-	CLIArgs = process.argv.slice(2);
-}
 
 
 
 (async() => {
 	update.updateCheck.then(() => {
-		if (!CLImode) {
 			if (!fs.existsSync('./data/config.json')) {
 				require("./setup").run(false);
 			} else {
 				console.log(chalk.bold.green(`SaladBind v${packageJson.version}`));
 				menu();
 			}
-		} else {
-			CLIMode()
-		}
 	})
 })();
-
-async function CLIMode() {
-	console.log(CLIArgs)
-	if (CLIArgs[0] == "-help") {
-		console.log(chalk.green(`SaladBind CLI v${packageJson.version}`));
-		console.log("Arguments:")
-		console.log(`
-	-help 	Display this help message
-
-	-miner	Choose miner (for example: "phoenixminer") (REQUIRED)
-
-	-algo	Choose algorithm (for example: "ethash") (REQUIRED)
-
-	-pool	Choose pool (for example: "nicehash") (REQUIRED)
-
-	-wallet	Choose wallet (for example: "0x6ff85749ffac2d3a36efa2bc916305433fa93731.123123123123123")
-
-	-advanced	Choose advanced settings (for example: "-advanced [-w a -u 123 ]")
-				Anything put inside these square brackets will be passed to the miner directly.
-		`);
-	}
-}
-
 
 async function menu(clear) {
 	if (clear == undefined || clear == true) {

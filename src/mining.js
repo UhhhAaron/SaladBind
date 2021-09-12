@@ -11,13 +11,13 @@ const decompressTargz = require('decompress-targz');
 const decompressUnzip = require('decompress-unzip');
 const mv = require('mv'); // bukky 
 const { menu } = require('./index');
-let tempest = "./data/config.json";
+let tempest = "./data/config.json"; // im temper than you
 let rawdata = fs.readFileSync(tempest);
 const config = JSON.parse(rawdata);
-const { win32 } = require('path');
+const { win32 } = require('path'); //sidenote: i have no clue why this is here but im too scared to remove it hahahah
 const { spawn } = require("child_process");
 const presence = require('./presence');
-const cache = require("./getMachine.js")
+const cache = require("./getMachine.js") // wtf how is this cache haha
 let spinner;
 let isDev = config.dev != undefined && config.dev == true;
 
