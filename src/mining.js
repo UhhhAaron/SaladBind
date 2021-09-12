@@ -176,7 +176,7 @@ async function continueMiner() {
 			spinner.stop();
 			if (minerList.length == 0 && temp2.controllers.length != 0) {
 				spinner.stop();
-				console.log(chalk.bold.red("No miners are available for your machine D:\nIf you think this is a mistake, talk to us on our Discord server."));
+				console.log(chalk.bold.red("No miners are available for your machine D:\nIf you think this is a mistake, talk to us on our Discord server.\nYou can also set " + chalk.bold.red("bypassGPUChecks") + " to true in data/config.json if you are sure your GPU supports mining."));
 				setTimeout(() => {
 					require("./index").menu();
 				}, 6000);
@@ -299,6 +299,7 @@ async function selectPool(minerData, algo) {
 			}
 			let pool;
 			if (poolList.length > 1) {
+				console.log(`Don't know which one to pick? Read ${chalk.bold(`MINERS.md`)} on github!`)
 				pool = await inquirer.prompt({
 					type: "list",
 					name: "pool",
