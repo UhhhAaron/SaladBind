@@ -319,8 +319,31 @@ async function selectPool(minerData, algo) {
 				type: "list",
 				name: "region",
 				message: "Choose a region",
-				choices: regionList
+				choices: [{
+					"name": chalk.yellow.bold("Automatic"),
+					"value": "automatic"
+				}, ...regionList]
 			});
+			if(region.region == "automatic") {
+				let spinner = ora("Calculating ping").start();
+				let pings = [];
+				for await(regionToTest of regionList) {
+					let domain = poolsy.algos[algo].host.split("://")[1].split(":")[0].replaceAll("REGION", regionToTest.value);
+					let timeStarted = Date.now();
+					try {
+					await fetch("http://" + domain);
+					} catch {
+						// i dont care, still sent the request
+					}
+					pings.push({
+						region: regionToTest.value,
+						ping: Date.now() - timeStarted
+					})
+				}
+				region.region = pings.sort((a, b) => a.ping - b.ping)[0].region;
+				spinner.succeed("Using " + region.region);
+				await (new Promise((res) => setTimeout(res, 1000)));
+			}
 			prepStart(minerData, algo, poolsy, region.region);
 		}).catch(err => {
 			spinner.fail(chalk.bold.red(`Could not select a pool, please try again later.`));
