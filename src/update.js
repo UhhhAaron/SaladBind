@@ -74,7 +74,7 @@ const updateCheck = new Promise((resolve, reject) => {
 					})
 
 				} else {
-					spinner.succeed(chalk.bold.green(`All up to date!`));
+					spinner.stop();
 					resolve();
 				}
 
