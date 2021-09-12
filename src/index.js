@@ -14,7 +14,7 @@ process.on("uncaughtException", err => {
 		if(err.message.includes("Could not connect") || err.message.includes("RPC_")) return "Discord RPC Broken I guess, as always"; // no one will see this message :)
 		console.clear();
 		console.log(chalk.bold.red("\n\nAn unexpected error occured! Technical details:\n" + err.message));
-		if(err.message.includes("EPERM")) console.log(chalk.blueBright("This could be your antivirus."))
+		if(err.message.includes("EPERM") || err.message.includes("used by another process") || err.message.includes("virus") || err.message.includes("Access denied")) console.log(chalk.blueBright("This could be your antivirus."))
 		inquirer.prompt({
 			name: "exit",
 			message: "What do you want to do?",
