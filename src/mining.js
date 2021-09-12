@@ -328,7 +328,7 @@ async function selectPool(minerData, algo) {
 				let spinner = ora("Calculating ping").start();
 				let pings = [];
 				for await(regionToTest of regionList) {
-					let domain = poolsy.algos[algo].host.split("://")[1].split(":")[0].replaceAll("REGION", regionToTest.value);
+					let domain = poolsy.algos[algo].host.split("://")[1].split(":")[0].replace("REGION", regionToTest.value);
 					let timeStarted = Date.now();
 					try {
 					await fetch("http://" + domain);
@@ -342,7 +342,7 @@ async function selectPool(minerData, algo) {
 				}
 				region.region = pings.sort((a, b) => a.ping - b.ping)[0].region;
 				spinner.succeed("Using " + region.region + " (" + pings.sort((a, b) => a.ping - b.ping)[0].ping + "ms)");
-				await (new Promise((res) => setTimeout(res, 1000)));
+				await (new Promise((res) => setTimeout(res, 1500)));
 			}
 			prepStart(minerData, algo, poolsy, region.region);
 		}).catch(err => {
