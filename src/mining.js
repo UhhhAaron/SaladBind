@@ -196,7 +196,12 @@ async function continueMiner() {
 					}
 				}
 				if (!fs.existsSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`)) {
-					let miners = fs.readdirSync("./data/miners");
+					let miners = null;
+					if (fs.existsSync("./data/miners")) {
+						miners = fs.readdirSync("./data/miners");
+					} else {
+						miners = []
+					}
 					let oldMiners = miners.filter(minery => minery.startsWith(miner.miner.miner));
 					if (oldMiners.length > 0) { //woo! time for pools.json (and more fucking tokens) oh piss
 						console.log(chalk.yellow(`Updating ${miner.miner.miner} to ${miner.miner.version}...`));
