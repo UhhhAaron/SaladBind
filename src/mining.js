@@ -133,7 +133,7 @@ async function continueMiner() {
 					}
 				}
 				if (compatibleAlgos.length > 0) {
-					if(!temp2.controllers[i].vendor.includes("Intel")) {
+					if (!temp2.controllers[i].vendor.includes("Intel")) {
 						GPUs.push({ "algos": compatibleAlgos, "vendor": temp2.controllers[i].vendor.toLowerCase() });
 					}
 				} else {
@@ -196,7 +196,12 @@ async function continueMiner() {
 					}
 				}
 				if (!fs.existsSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`)) {
-					let miners = fs.readdirSync("./data/miners");
+					let miners = null;
+					if (fs.existsSync("./data/miners")) {
+						miners = fs.readdirSync("./data/miners");
+					} else {
+						miners = []
+					}
 					let oldMiners = miners.filter(minery => minery.startsWith(miner.miner.miner));
 					if (oldMiners.length > 0) { //woo! time for pools.json (and more fucking tokens) oh piss
 						console.log(chalk.yellow(`Updating ${miner.miner.miner} to ${miner.miner.version}...`));
@@ -417,23 +422,26 @@ async function prepStart(minerData, algo, pool, region, advancedCommands) {
 				}
 			}
 			if (Object.keys(data).length != 0) {
+				const useSavedArgs = await inquirer.prompt({
+					type: "confirm",
+					name: "useSavedArgs",
+					message: "You have saved advanced arg(s)! Do you want to use one of them?",
+					default: "Y"
+				});
+				if (useSavedArgs.useSavedArgs) {
 					let arg = await inquirer.prompt({
 						type: "list",
-						choices: [...Object.keys(data).map((arg) => {
+						choices: Object.keys(data).map((arg) => {
 							return {
 								name: arg,
 								value: arg
 							}
-						}), {
-							"name": chalk.bold.greenBright("Other"),
-							"value": "_saladbind_other"
-						}],
+						}),
 						name: "argName",
 						message: "Which saved arg do you want to use?"
 					});
-					if(arg.argName == "_saladbind_other") {
-						await promptForAdvancedArgs();
-					} else args = data[arg.argName].data;
+					args = data[arg.argName].data;
+				} else await promptForAdvancedArgs();
 			} else await promptForAdvancedArgs();
 			prepStart(minerData, algo, pool, region, args);
 			break;
