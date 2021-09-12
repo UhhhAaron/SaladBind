@@ -44,7 +44,8 @@
             "algos": [
                 "ethash",
                 "etchash",
-                "kawpow"
+                "kawpow",
+                "autolykos2"
             ],
             "supported_gpus": [
                 "nvidia"
@@ -72,7 +73,8 @@
                 "ethash",
                 "etchash",
                 "kawpow",
-                "beamv3"
+                "beamv3",
+                "autolykos2"
             ],
             "supported_gpus": [
                 "nvidia",
