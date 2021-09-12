@@ -1,14 +1,3 @@
-const ora = require('ora'); // ara ara
-const chalk = require('chalk');
-const packageJson = require('../package.json');
-const fs = require('fs');
-const inquirer = require('inquirer');
-const fetch = require("node-fetch");
-const open = require("open");
-const si = require("systeminformation");
-const update = require("./update.js")
-const presence = require("./presence.js");
-
 process.on("uncaughtException", err => {
 	try {
 		if(err.message.includes("Could not connect") || err.message.includes("RPC_")) return "Discord RPC Broken I guess, as always"; // no one will see this message :)
@@ -47,6 +36,18 @@ process.on("uncaughtException", err => {
 		process.exit(1);
 	}
 });
+
+const ora = require('ora'); // ara ara
+const chalk = require('chalk');
+const packageJson = require('../package.json');
+const fs = require('fs');
+const inquirer = require('inquirer');
+const fetch = require("node-fetch");
+const open = require("open");
+const si = require("systeminformation");
+const update = require("./update.js")
+const presence = require("./presence.js");
+
 presence.state.on('ready', () => {
 	presence.enable();
 	presence.mainmenu();
