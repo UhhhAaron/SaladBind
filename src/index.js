@@ -11,7 +11,7 @@ const presence = require("./presence.js");
 
 process.on("uncaughtException", err => {
 	try {
-		if(err.message.includes("Could not connect")) return "Discord RPC Broken I guess, as always"; // no one will see this message :)
+		if(err.message.includes("Could not connect") || err.message.includes("RPC_")) return "Discord RPC Broken I guess, as always"; // no one will see this message :)
 		console.log(chalk.bold.red("An unexpected error occured! Technical details:\n" + err.message));
 		inquirer.prompt({
 			name: "exit",
