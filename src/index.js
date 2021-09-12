@@ -61,11 +61,10 @@ if (process.argv[2]) {
 (async() => {
 	update.updateCheck.then(() => {
 		if (!CLImode) {
-			console.log(chalk.bold.green(`SaladBind v${packageJson.version}`))
 			if (!fs.existsSync('./data/config.json')) {
-				console.log("Looks like this is your first time using SaladBind!\nLet's set it up. :)\n");
 				require("./setup").run(false);
 			} else {
+				console.log(chalk.bold.green(`SaladBind v${packageJson.version}`));
 				menu();
 			}
 		} else {
