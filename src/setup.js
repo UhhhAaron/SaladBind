@@ -171,12 +171,15 @@ In order for this to work, you'll need to have the Discord desktop app installed
 			name: 'id',
 			message: 'What is your Salad worker ID?',
 			validate: function(input) {
-				if (input.length == 15) {
+				if (input.length == 15 || input == "cancel") {
 					return true;
 				}
-				return `If you don't want to manually enter your Worker ID, restart SaladBind and select an automatic mode. ${chalk.yellow.bold("You may be seeing this if you entered the Worker ID incorrectly!")}`;
+				return `If you don't want to manually enter your Worker ID, type "cancel". ${chalk.yellow.bold("You may be seeing this if you entered the Worker ID incorrectly!")}`;
 			}
 		}]);
+		if(worker.id == "cancel") {
+			return await continueSetup(true);
+		}
 		const spinner = ora("Saving...").start();
 		if (!fs.existsSync("./data")) {
 			fs.mkdirSync("./data");
