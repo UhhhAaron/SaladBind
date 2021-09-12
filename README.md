@@ -46,12 +46,12 @@ For these platforms, you'll need to run SaladBind from the terminal, due to how 
 Use these commands to start SaladBind, for macOS or Linux respectively:
 
 ```bash
-chmod +x ./saladbind-macos # You only need to run this the once
+chmod +x ./saladbind-macos # You only need to run this once
 ./saladbind-macos
 ```
 
 ```bash
-chmod +x ./saladbind-linux # You only need to run this the once
+chmod +x ./saladbind-linux # You only need to run this once
 ./saladbind-linux
 ```
 
