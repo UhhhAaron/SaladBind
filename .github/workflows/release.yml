@@ -22,7 +22,6 @@ jobs:
       - name: Compile
         run: |
             npm install
-            npm install pkg
             npm run compile
       - name: Release
         uses: softprops/action-gh-release@v1
