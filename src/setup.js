@@ -5,7 +5,7 @@ const fs = require('fs');
 const path = require('path');
 const presence = require("./presence.js")
 var isPresenceEnabled = false;
-let firstTime = false;
+var firstTime = false;
 
 function run(clear) {
 	if (clear == undefined || clear == true) {
@@ -20,8 +20,7 @@ function run(clear) {
 			default: false
 		}]).then(function(answers) {
 			if (answers.overwrite) {
-				continueSetup()
-
+				continueSetup();
 			} else {
 				require("./index").menu();
 			}
@@ -37,17 +36,18 @@ async function continueSetup(clear) {
 		console.log(chalk.bold.cyan(`Configure SaladBind`))
 	}
 	if(firstTime) {
-		console.log(`
-${chalk.greenBright.bold("Welcome to SaladBind!")}
-This is a program that makes it easier to select miner, algorithm and pool for Salad! All of the money you mine using SaladBind goes to Salad, and all Salad boosts and XP will work in SaladBind.
-
-Discord Rich Presence means that your Discord friends and people in Discord servers are going to see that you use SaladBind. They will see your SaladBind version, miner, algorithm, and pool on your Discord profile.
-		`)
+		console.log(`${chalk.greenBright.bold("Welcome to SaladBind!")}
+This is a program that makes it easier to select miner, algorithm and pool for Salad! 
+All of the money you mine using SaladBind goes to Salad, and all Salad boosts and XP will work in SaladBind.
+		`);
 	}
-	const discordPresencePrompt = await inquirer.prompt([{
+	console.log(`Discord Rich Presence means that your Discord friends and people in Discord servers will see that you use SaladBind. 
+They will see your SaladBind version, miner, algorithm, and pool on your Discord profile.
+	`);
+	await inquirer.prompt([{
 		type: 'confirm',
 		name: 'presence',
-		message: chalk.yellow("Enable Discord Rich Presence? (May require app restart)"),
+		message: chalk.yellow("Enable Discord Rich Presence? (may require app restart)"),
 		default: false
 	}]).then(function(answers) {
 		if (answers.presence) {
@@ -57,12 +57,16 @@ Discord Rich Presence means that your Discord friends and people in Discord serv
 		}
 	});
 	
-	console.log(`Now it's time to get your Rig ID. This is needed in order for Salad to see which account to put the mined money in.`);
+	if(firstTime) {
+		console.clear();
+		console.log(chalk.greenBright.bold("Welcome to SaladBind!"));
+	}
+	console.log(`Now it's time to get your Rig ID.\nThis is needed in order for Salad to see which account to put the mined money in.\n`);
 
 	const promptResult = await inquirer.prompt([{
 		type: 'list',
 		name: "useapi",
-		message: "\nHow would you like to provide your mining details?",
+		message: "How would you like to provide your mining details?",
 		choices: [{
 				name: `Automatic ${chalk.yellow("(Read from Salad logs)")}`,
 				value: "auto"
@@ -115,7 +119,7 @@ Discord Rich Presence means that your Discord friends and people in Discord serv
 		fs.writeFileSync("./data/config.json", JSON.stringify({ "minerId": rigID, "discordPresence": isPresenceEnabled }));
 		spinner.stop();
 		console.clear();
-		console.log(chalk.bold.greenBright(`Congratulations!! :D`))
+		console.log(chalk.bold.greenBright(`That's all there is to it!`))
 		console.log(`You're done - you can now start using SaladBind!\nStarting in 5 seconds...`)
 		setTimeout(() => {
 			require("./index").menu();
@@ -143,8 +147,8 @@ Discord Rich Presence means that your Discord friends and people in Discord serv
 			fs.writeFileSync("./data/config.json", JSON.stringify({ "minerId": minerDetails.minerId, "discordPresence": isPresenceEnabled }));
 			spinner.stop();
 			console.clear();
-			console.log(chalk.bold.greenBright(`Congratulations!! :D`))
-			console.log("SaladBind has now been configured!\nStarting in 5 seconds...")
+			console.log(chalk.bold.greenBright(`That's all there is to it!`))
+			console.log("You are now ready to use SaladBind.\nStarting in 5 seconds...")
 			setTimeout(() => {
 				require("./index").menu();
 			}, 5000);
@@ -154,15 +158,20 @@ Discord Rich Presence means that your Discord friends and people in Discord serv
 			console.log(chalk.bold.red("Failed to get your Rig ID! Please contact support on our Discord server (https://discord.gg/HfBAtQ2afz) and attach an image of the data above."));
 		}
 	} else {
+		if(firstTime) {
+			console.clear();
+			console.log(chalk.greenBright.bold("Welcome to SaladBind!"));
+		}
+		console.log("You can enter NiceHash's Rig ID or Ethermine's Worker ID, both are the same.")
 		const worker = await inquirer.prompt([{
 			type: 'input',
 			name: 'id',
-			message: 'What is your Salad worker ID? (both NiceHash\'s Rig ID and Ethermine\'s Worker ID work)',
+			message: 'What is your Salad worker ID?',
 			validate: function(input) {
 				if (input.length == 15) {
 					return true;
 				}
-				return `If you don't want to manually enter your Worker ID, you can use automatic mode. ${chalk.yellow.bold("You may be seeing this if you entered the Worker ID incorrectly!")}`;
+				return `If you don't want to manually enter your Worker ID, restart SaladBind and select an automatic mode. ${chalk.yellow.bold("You may be seeing this if you entered the Worker ID incorrectly!")}`;
 			}
 		}]);
 		const spinner = ora("Saving...").start();
@@ -172,7 +181,7 @@ Discord Rich Presence means that your Discord friends and people in Discord serv
 		fs.writeFileSync("./data/config.json", JSON.stringify({ "minerId": worker.id, "discordPresence": isPresenceEnabled }));
 		spinner.stop();
 		console.clear();
-		console.log(chalk.bold.greenBright(`Congratulations!! :D`))
+		console.log(chalk.bold.greenBright(`That's all there is to it!`))
 		console.log("You're done - you can now start using SaladBind!\nStarting in 5 seconds...")
 		setTimeout(() => {
 			presence.mainmenu()
