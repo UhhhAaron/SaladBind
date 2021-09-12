@@ -78,3 +78,4 @@ typings/
 
 # FuseBox cache
 .fusebox/
+saladbind_error.txt

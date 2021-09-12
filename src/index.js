@@ -12,7 +12,9 @@ const presence = require("./presence.js");
 process.on("uncaughtException", err => {
 	try {
 		if(err.message.includes("Could not connect") || err.message.includes("RPC_")) return "Discord RPC Broken I guess, as always"; // no one will see this message :)
-		console.log(chalk.bold.red("An unexpected error occured! Technical details:\n" + err.message));
+		console.clear();
+		console.log(chalk.bold.red("\n\nAn unexpected error occured! Technical details:\n" + err.message));
+		if(err.message.includes("EPERM")) console.log(chalk.blueBright("This could be your antivirus."))
 		inquirer.prompt({
 			name: "exit",
 			message: "What do you want to do?",
@@ -24,10 +26,14 @@ process.on("uncaughtException", err => {
 				{
 					name: "Exit",
 					value: "exit"
+				},
+				{
+					"name": "",
+					"value": ""
 				}
 			]
 		}).then(out => {
-			if (out.exit == "exit") process.exit(1)
+			if (out.exit == "exit" || out.exit == "") process.exit(1)
 			else if (out.exit == "write_log") {
 				fs.writeFileSync("saladbind_error.txt", `An error occured.\nError: ${err}\n\nStacktrace: ${err.stack}`);
 				process.exit(1);

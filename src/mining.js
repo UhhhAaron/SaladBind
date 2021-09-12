@@ -90,19 +90,19 @@ const downloadFile = async function(url, location, name) {
 }
 
 async function run() {
-	spinner = ora("Checking system data...").start();
+	spinner = ora("Checking system specs...").start();
 	if (!fs.existsSync("./data/temp")) {
 		fs.mkdirSync("./data/temp");
 	}
 	if (!fs.existsSync("./data/cache.json")) {
-		spinner.text = "Generating system data...";
+		spinner.text = "Saving system specs...";
 		cache.updateCache().then(() => {
-			spinner.succeed(chalk.green.bold("System data generated!"))
+			spinner.succeed(chalk.green.bold("System specs saved!"))
 			continueMiner();
 		})
 	} else {
-		spinner.succeed(chalk.green.bold("System data found!"))
-		continueMiner()
+		spinner.succeed(chalk.green.bold("Loaded system specs!"))
+		continueMiner();
 	}
 }
 

@@ -43,6 +43,7 @@ All of the money you mine using SaladBind goes to Salad, and all Salad boosts an
 	}
 	console.log(`Discord Rich Presence means that your Discord friends and people in Discord servers will see that you use SaladBind. 
 They will see your SaladBind version, miner, algorithm, and pool on your Discord profile.
+In order for this to work, you'll need to have the Discord desktop app installed.
 	`);
 	await inquirer.prompt([{
 		type: 'confirm',
