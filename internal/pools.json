@@ -17,6 +17,9 @@
             },
             "randomx": {
                 "host": "stratum+tcp://randomxmonero.REGION.nicehash.com:3380"
+            },
+            "autolykos2": {
+                "host": "stratum+tcp://autolykos.REGION.nicehash.com:3390"
             }
 
         }
