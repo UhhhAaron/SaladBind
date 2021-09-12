@@ -512,6 +512,13 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 			defaultArgs.algo = `${minerData.parameters.algo} ${algo}`
 		}
 	}
+	let timeStarted = Date.now();
+	function stopped() {
+		let currentTime = Date.now();
+		if((timeStarted + 10000) > currentTime) { // miner stopped within 10 seconds of starting
+			console.log(chalk.blueBright.bold("If you did not stop the miner, it might be your AntiVirus. Please whitelist the data folder located at the same location as SaladBind.\n"))
+		}
+	}
 	if(advancedCommands.length > 0) { // didnt workkkk
 		// i turned them into a string, it's because of inquirer remember, like when we have to do pool.pool
 		// *****user has set advanced commands*****					ok then???
@@ -533,10 +540,12 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 		let miner = spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${userPlatform == "linux" || userPlatform == "darwin" ? "./" : ""}${minerData.parameters.fileName}`, finalArguments, {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }}) //its an array dumbass
 		miner.on('close', (code) => {
 			console.log(`\nMiner stopped!\n`);
+			stopped();
 			require("./index").menu(false);
 		});
 		miner.on('SIGINT', () => {
 			console.log(`\nMiner stopped!\n`);
+			stopped();
 			require("./index").menu(false);
 		});
 		process.on('SIGINT', () => {
@@ -546,10 +555,12 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 		let miner = spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${userPlatform == "linux" || userPlatform == "darwin" ? "./" : ""}${minerData.parameters.fileName}`, [defaultArgs.pool, defaultArgs.algo, defaultArgs.wallet], {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }})
 		miner.on('close', (code) => {
 			console.log(`\nMiner stopped!\n`);
+			stopped();
 			require("./index").menu(false);
 		});
 		miner.on('SIGINT', () => { // Bukky be Stupid
 			console.log(`\nMiner stopped!\n`);
+			stopped();
 			require("./index").menu(false);
 		});// nvm
 		process.on('SIGINT', () => {
