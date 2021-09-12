@@ -135,12 +135,15 @@ In order for this to work, you'll need to have the Discord desktop app installed
 			name: 'auth',
 			message: 'What is your Salad Access Token?',
 			validate: function(input) {
-				if (input.length == 778) {
+				if (input.length == 778 || input == "cancel") {
 					return true;
 				}
-				return `Your Salad Access Token is required for automatic mode. If you don't want this, restart SaladBind and select manual\nor select to get them automatically from the logs of Salad. ${chalk.yellow.bold("\nYou may be seeing this if you entered the token incorrectly, the token is 778 chars long!\nIf you do not know how to configure read this\nhttps://bit.ly/saladbindconfig (copy this to read it)")}`;
+				return `Your Salad Access Token is required for automatic mode. If you don't want this, type "${chalk.yellowBright("cancel")}" and select manual\nor select to get them automatically from the logs of Salad. ${chalk.yellow.bold("\nYou may be seeing this if you entered the token incorrectly, the token is 778 chars long!\nIf you do not know how to configure read this\nhttps://bit.ly/saladbindconfig (copy this to read it)")}`;
 			}
 		}]);
+		if(auth.auth == "cancel") {
+			return await continueSetup(true);
+		}
 		const spinner = ora("Getting miner details...").start();
 		try {
 			let minerDetails = await require("./getMachine").getInfo(auth.auth);
@@ -174,7 +177,7 @@ In order for this to work, you'll need to have the Discord desktop app installed
 				if (input.length == 15 || input == "cancel") {
 					return true;
 				}
-				return `If you don't want to manually enter your Worker ID, type "cancel". ${chalk.yellow.bold("You may be seeing this if you entered the Worker ID incorrectly!")}`;
+				return `If you don't want to manually enter your Worker ID, type "${chalk.yellowBright("cancel")}". ${chalk.yellow.bold("You may be seeing this if you entered the Worker ID incorrectly!")}`;
 			}
 		}]);
 		if(worker.id == "cancel") {
