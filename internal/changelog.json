@@ -7,6 +7,7 @@
         "Discord Rich Presence now displays SaladBind version",
         "Fixed dupe folder mechanism on macOS/Linux",
         "Improved setup process",
+        "Several improvements to the UI",
         "Minor bug fixes"
     ]
 }
