@@ -3,6 +3,8 @@
     "changelog": [
         "Added changelogs to update message and menu screen",
         "Added support for more algorithms to lolMiner",
+        "Added automatic region selection",
+        "Discord Rich Presence now displays SaladBind version",
         "Fixed dupe folder mechanism on macOS/Linux",
         "Improved setup process",
         "Minor bug fixes"

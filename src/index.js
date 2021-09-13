@@ -55,9 +55,8 @@ presence.state.on('ready', () => {
 
 
 console.clear();
-process.title = `SaladBind v${packageJson.version}`;
-
-
+const aprilfools = new Date().getMonth() == 3 && new Date().getDate() == 1;
+process.title = `${aprilfools ? "VegetableJoiner" : "SaladBind"} v${packageJson.version}`;
 
 (async() => {
 	update.updateCheck.then(() => {
@@ -75,7 +74,7 @@ async function menu(clear) {
 		console.clear();
 	}
 	presence.mainmenu();
-	console.log(chalk.bold.green(`SaladBind v${packageJson.version}`));
+	console.log(chalk.bold.green(`${aprilfools ? "VegetableJoiner" : "SaladBind"} v${packageJson.version}`));
 	const questions = [{
 		type: 'list',
 		name: 'menu',
