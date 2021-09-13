@@ -6,6 +6,7 @@
         "beamv3": 2000,
         "EQUI144_5": 2000,
         "autolykos2": 2080,
+        "octopus": 2000,
         "randomx": null
     },
     "miners": {
@@ -46,7 +47,8 @@
                 "ethash",
                 "etchash",
                 "kawpow",
-                "autolykos2"
+                "autolykos2",
+                "octopus"
             ],
             "supported_gpus": [
                 "nvidia"
@@ -75,7 +77,8 @@
                 "etchash",
                 "kawpow",
                 "beamv3",
-                "autolykos2"
+                "autolykos2",
+                "octopus"
             ],
             "supported_gpus": [
                 "nvidia",

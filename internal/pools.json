@@ -20,6 +20,9 @@
             },
             "autolykos2": {
                 "host": "stratum+tcp://autolykos.REGION.nicehash.com:3390"
+            },
+            "octopus": {
+                "host": "stratum+tcp://octopus.REGION.nicehash.com:3389"
             }
 
         }
