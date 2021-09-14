@@ -246,16 +246,17 @@ async function selectAlgo(minerData, GPUs) {
 	console.log(chalk.bold.cyan(`Configure your miner`))
 	presence.configuring("Selecting algorithm");
 	let algoList = [];
+	algoList.push({ name: "randomx", value: "randomx" });
 	const gpuSupportsAlgo = minerData.algos.filter(algo => GPUs.filter(gpu => gpu.algos.includes(algo)).length > 0)
-	const temptemp = GPUs.filter(gpu => minerData.algos.filter(algo => gpu.algos.includes(algo)).length > 0)
-	for (let i = 0; i < gpuSupportsAlgo.length; i++) { //im having a really bhig stroke
+	for (let i = 0; i < gpuSupportsAlgo.length; i++) {
+		if(gpuSupportsAlgo[i] == "randomx") continue;
 		let notSupportedByAll;
 		for (let j = 0; j < GPUs.length; j++) {
 			if (!GPUs[j].algos.includes(gpuSupportsAlgo[i])) {
 				notSupportedByAll = true;
 			}
 		}
-		if (notSupportedByAll == true) { // now. the cursed. pool selection and miner running. ok pool selection is only needed if ethash is selected
+		if (notSupportedByAll == true) {
 			algoList.push({ name: `${gpuSupportsAlgo[i]} ${chalk.yellow("(Not supported by some of your GPUs)")}`, value: gpuSupportsAlgo[i] });
 		} else {
 			algoList.push({ name: gpuSupportsAlgo[i], value: gpuSupportsAlgo[i] });
