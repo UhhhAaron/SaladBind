@@ -246,7 +246,7 @@ async function selectAlgo(minerData, GPUs) {
 	console.log(chalk.bold.cyan(`Configure your miner`))
 	presence.configuring("Selecting algorithm");
 	let algoList = [];
-	algoList.push({ name: "randomx", value: "randomx" });
+	if(minerData.algos.includes("randomx")) algoList.push({ name: "randomx", value: "randomx" });
 	const gpuSupportsAlgo = minerData.algos.filter(algo => GPUs.filter(gpu => gpu.algos.includes(algo)).length > 0)
 	for (let i = 0; i < gpuSupportsAlgo.length; i++) {
 		if(gpuSupportsAlgo[i] == "randomx") continue;
