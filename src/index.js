@@ -84,7 +84,7 @@ async function menu(clear) {
 				value: 'mining'
 			},
 			{
-				name: 'Configure SaladBind',
+				name: 'Reconfigure SaladBind',
 				value: 'config'
 			},
 			{
