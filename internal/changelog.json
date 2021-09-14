@@ -1,13 +1,6 @@
 {
-    "version": "1.4.0",
+    "version": "1.4.1",
     "changelog": [
-        "Added changelogs to update message and menu screen",
-        "Added support for more algorithms to lolMiner",
-        "Added automatic region selection",
-        "Discord Rich Presence now displays SaladBind version",
-        "Fixed dupe folder mechanism on macOS/Linux",
-        "Improved setup process",
-        "Several improvements to the UI",
-        "Minor bug fixes"
+        "Fixed a bug where XMRig would break on CPU-only machines."
     ]
 }
