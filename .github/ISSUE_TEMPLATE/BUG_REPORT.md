@@ -1,6 +1,6 @@
 ---
 name: Report a bug
-about: ''
+about: 'Report a bug in SaladBind'
 title: ''
 labels: bug
 assignees: ''

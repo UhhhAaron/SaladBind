@@ -1,6 +1,6 @@
 ---
 name: Suggestion
-about: ''
+about: 'Make a suggestion for SaladBind'
 title: ''
 labels: enhancement
 assignees: ''
