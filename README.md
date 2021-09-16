@@ -1,4 +1,4 @@
-# SaladBind
+# SaladBind [![Compilation Test](https://github.com/VukkyLtd/SaladBind/actions/workflows/compile-test.yml/badge.svg)](https://github.com/VukkyLtd/SaladBind/actions/workflows/compile-test.yml)
 
 If you want to contribute to SaladBind, please read our [contributing guide](CONTRIBUTING.md).
 
