@@ -3,8 +3,8 @@
 ## Table of Contents
 
 [Pools](#Pools) <br>
-[Miners](#Miners) <br>
 [Algorithms](#Algorithms) <br>
+[Miners](#Miners) <br>
 [Additional Commands](#Additional-Commands) <br>
 
 ## Pools
@@ -16,6 +16,16 @@ Good if you know you're going to be restarting the miner constantly instead of h
 ### Ethermine
 
 Good for longer sessions. Earnings can be unstable. Can take up to 30 minutes for earnings to start appearing on Salad.
+
+## Algorithms
+
+### Recommendations
+
+Over 4GB of VRAM: Ethash
+
+3-4GB of VRAM: KawPow
+
+2GB of VRAM: EQUI144_5 (Bitcoin Gold)
 
 ## Miners
 
@@ -66,16 +76,6 @@ lolMiner supports EQUI144_5 (Bitcoin Gold). It has a fee of 1%.
 Supported OS: Windows, Linux
 
 Supported GPUS: NVIDIA, AMD
-
-## Algorithms
-
-### Recommendations
-
-Over 4GB of VRAM: Ethash
-
-3-4GB of VRAM: KawPow
-
-2GB of VRAM: EQUI144_5 (Bitcoin Gold)
 
 ## Additional Commands
 
