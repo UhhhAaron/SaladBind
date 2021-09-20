@@ -1,8 +1,8 @@
 {
     "algos": {
         "ethash": 4445,
-        "etchash": 2758,
-        "kawpow": 3008,
+        "etchash": 2766,
+        "kawpow": 3016,
         "beamv3": 2000,
         "EQUI144_5": 2000,
         "autolykos2": 2080,
