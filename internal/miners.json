@@ -69,8 +69,8 @@
         "nbminer": {
             "miner": "NBMiner",
             "download": {
-                "win32": "https://github.com/NebuTech/NBMiner/releases/download/v39.2/NBMiner_39.2_Win.zip",
-                "linux": "https://github.com/NebuTech/NBMiner/releases/download/v39.2/NBMiner_39.2_Linux.tgz"
+                "win32": "https://github.com/NebuTech/NBMiner/releases/download/v39.3/NBMiner_39.3_Win.zip",
+                "linux": "https://github.com/NebuTech/NBMiner/releases/download/v39.3/NBMiner_39.3_Linux.tgz"
             },
             "algos": [
                 "ethash",
@@ -89,7 +89,7 @@
                 "linux"
             ],
             "fee": 2,
-            "version": "39.2",
+            "version": "39.3",
             "parameters": {
                 "fileName": "nbminer",
                 "algo": "-a",
@@ -155,8 +155,8 @@
         "lolminer": {
             "miner": "lolMiner",
             "download": {
-                "win32": "https://github.com/Lolliedieb/lolMiner-releases/releases/download/1.31/lolMiner_v1.31_Win64.zip",
-                "linux": "https://github.com/Lolliedieb/lolMiner-releases/releases/download/1.31/lolMiner_v1.31_Lin64.tar.gz"
+                "win32": "https://github.com/Lolliedieb/lolMiner-releases/releases/download/1.32/lolMiner_v1.32a_Win64.zip",
+                "linux": "https://github.com/Lolliedieb/lolMiner-releases/releases/download/1.32/lolMiner_v1.32a_Lin64.tar.gz"
             },
             "algos": [
                 "ethash",
@@ -173,7 +173,7 @@
                 "linux"
             ],
             "fee": 1,
-            "version": "1.31",
+            "version": "1.32a",
             "parameters": {
                 "fileName": "lolMiner",
                 "algo": "--algo",
