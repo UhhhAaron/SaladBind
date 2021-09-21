@@ -58,6 +58,10 @@ console.clear();
 const aprilfools = new Date().getMonth() == 3 && new Date().getDate() == 1;
 process.title = `${aprilfools ? "VegetableJoiner" : "SaladBind"} v${packageJson.version}`;
 
+// Make sure the user doesn't run SaladBind as admin or from Start menu on Windows
+if(process.platform == "win32" && (__dirname.toLowerCase().startsWith("c:\\windows\\system32") || process.cwd().toLowerCase().startsWith("c:\\windows\\system32")) ) {
+	console.log(chalk.red.bold("Warning: You are running SaladBind from the task menu or as administrator.\nPlease run SaladBind from the SaladBind exe file you downloaded in order to avoid issues."))
+}
 (async() => {
 	update.updateCheck.then(() => {
 			if (!fs.existsSync('./data/config.json')) {
