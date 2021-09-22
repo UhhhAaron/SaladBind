@@ -150,7 +150,8 @@ In order for this to work, you'll need to have the Discord desktop app installed
 			if (!fs.existsSync("./data")) {
 				fs.mkdirSync("./data");
 			}
-			fs.writeFileSync("./data/config.json", JSON.stringify({ "minerId": minerDetails.minerId, "discordPresence": isPresenceEnabled }));
+			fs.writeFileSync("./data/config.json", JSON.stringify({"id":minerDetails.id, "minerId": minerDetails.minerId, "discordPresence": isPresenceEnabled }));
+			
 			spinner.stop();
 			console.clear();
 			console.log(chalk.bold.greenBright(`That's all there is to it!`))
