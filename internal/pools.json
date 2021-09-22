@@ -48,6 +48,9 @@
             },
             "DISABLED_etchash": {
                 "host": "stratum+tcp://REGIONprohashing.com:3357"
+            },
+            "DISABLED_randomx": {
+                "host": "stratum+tcp://REGIONprohashing.com:3359"
             }
         }
     }
