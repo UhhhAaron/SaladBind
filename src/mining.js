@@ -543,6 +543,14 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 		case "NiceHash":
 			wallet = "33kJvAUL3Na2ifFDGmUPsZLTyDUBGZLhAi" // tested to work i swear
 		break;
+		case "Prohashing":
+			wallet = "unknown currently"
+			if (region == "europe") {
+				region = "eu.";
+			} else if (region == "us") {
+				region = "";
+			}
+		break;
 	}
 	let defaultArgs = {}
 	if(minerData.miner == "TeamRedMiner" && pool.name == "Ethermine") {

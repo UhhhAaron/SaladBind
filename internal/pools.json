@@ -38,5 +38,17 @@
                 "host": "ethproxy+ssl://REGION.ethermine.org:5555"
             }
         }
+    },
+    "prohashing": {
+        "name": "Prohashing",
+        "regions": ["europe", "us"],
+        "algos": {
+            "DISABLED_ethash": {
+                "host": "stratum+tcp://REGIONprohashing.com:3339"
+            },
+            "DISABLED_etchash": {
+                "host": "stratum+tcp://REGIONprohashing.com:3357"
+            }
+        }
     }
 }
