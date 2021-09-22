@@ -544,7 +544,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 			wallet = "33kJvAUL3Na2ifFDGmUPsZLTyDUBGZLhAi" // tested to work i swear
 		break;
 		case "Prohashing":
-			wallet = "unknown currently"
+			wallet = "salad" //seems to be the username atleast currently
 			if (region == "europe") {
 				region = "eu.";
 			} else if (region == "us") {
