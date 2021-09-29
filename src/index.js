@@ -1,6 +1,9 @@
 process.on("uncaughtException", err => {
 	try {
-		if(err.message.includes("Could not connect") || err.message.includes("RPC_")) return "Discord RPC Broken I guess, as always"; // no one will see this message :)
+		if(err.stack.includes("Could not connect") || err.stack.includes("RPC_") || err.stack.includes("discord-rpc")) {
+			console.log("There was a error with the Discord RPC but it has been ignored. If you see this message and SaladBind is unusable, please contact us at Discord.")
+			return "Discord RPC Broken I guess, as always"; // no one will see this message :)
+		}
 		console.clear();
 		console.log(chalk.bold.red("An unexpected error occured! Technical details:\n" + err.message));
 		if(err.message.includes("EPERM")) console.log(chalk.blueBright("This could be your antivirus."))
