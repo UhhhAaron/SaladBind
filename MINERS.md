@@ -11,7 +11,7 @@
 
 ### NiceHash
 
-Good if you know you're going to be restarting the miner constantly instead of having long mining sessions. Has more stable earnings.
+Good if you know you're going to be mining for short periods of time instead of having long mining sessions. Has more stable earnings.
 
 ### Ethermine
 
@@ -23,7 +23,9 @@ Good for longer sessions. Earnings can be unstable. Can take up to 30 minutes fo
 
 Over 4GB of VRAM: Ethash
 
-3-4GB of VRAM: KawPow
+4GB of VRAM: KawPow
+
+3GB of VRAM: Etchash
 
 2GB of VRAM: EQUI144_5 (Bitcoin Gold)
 

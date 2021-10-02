@@ -39,7 +39,7 @@ If you're not on macOS, Linux, or Windows 7, you can skip this section.
 
 #### macOS and Linux
 
-If you are on macOS or Linux, please note that these platforms are untested and you may encounter bugs.
+If you are on macOS or Linux, please note that these platforms are untested, and you may encounter bugs.
 
 For these platforms, you'll need to run SaladBind from the terminal, due to how SaladBind works. If you need help with using the terminal, don't be afraid to Google a bit - you'll have to use `cd` to be in the same folder that SaladBind is in.
 
@@ -59,7 +59,7 @@ chmod +x ./saladbind-linux # You only need to run this once
 
 **SaladBind does not, by default, support Windows 7. Only use these steps if you know what you are doing.**
 
-However, [you can make a bat file](https://www.wikihow.com/Write-a-Batch-File#Saving-the-Batch-File) with Notepad in the same location as SaladBind to allow it to run, and use it to open SaladBind instead of the exe.
+However, [you can make a bat file](https://www.wikihow.com/Write-a-Batch-File#Saving-the-Batch-File) with Notepad in the same location as SaladBind to allow it to run and use it to open SaladBind instead of the exe.
 
 ```bat
 set NODE_SKIP_PLATFORM_CHECK="1"
@@ -68,9 +68,13 @@ saladbind-win
 
 ### Configuration
 
-Once you start SaladBind for the first time, it'll prompt you to enter your mining details.
+Once you start SaladBind for the first time, it will ask you if you want to enable Discord Rich Presence. Here is what it looks like: 
 
-You can do this by letting SaladBind search your log file, enter your Salad Auth token, which grabs your Rig ID automatically, or enter your Rig ID manually.
+[![Discord Rich Presence](https://theblueburger.github.io/i/F6Jm5hS.png)](https://theblueburger.github.io/i/F6Jm5hS.png)
+
+Then, it'll prompt you to enter your mining details.
+
+You can do this by letting SaladBind search your log file, entering your Salad Auth token, or enter your Rig ID manually.
 
 #### Automatic (Read from Salad logs)
 
