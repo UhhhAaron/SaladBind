@@ -1,4 +1,4 @@
-# SaladBind [![Compilation Test](https://github.com/VukkyLtd/SaladBind/actions/workflows/compile-test.yml/badge.svg)](https://github.com/VukkyLtd/SaladBind/actions/workflows/compile-test.yml)
+# SaladBind [![Compilation Test](https://github.com/LITdevs/SaladBind/actions/workflows/compile-test.yml/badge.svg)](https://github.com/LITdevs/SaladBind/actions/workflows/compile-test.yml)
 
 If you want to contribute to SaladBind, please read our [contributing guide](CONTRIBUTING.md).
 
@@ -31,7 +31,7 @@ A video guide can be found here:
 
 [![SaladBind Video Tutorial](https://img.youtube.com/vi/OxFyikoAoco/0.jpg)](https://www.youtube.com/watch?v=OxFyikoAoco)
 
-Head to our [GitHub Releases](https://github.com/VukkyLtd/SaladBind/releases/latest) page, download the latest release for your operating system, and just run it if you're on Windows. **BUT KEEP READING TO LEARN HOW TO SET UP AND USE IT!**
+Head to our [GitHub Releases](https://github.com/LITdevs/SaladBind/releases/latest) page, download the latest release for your operating system, and just run it if you're on Windows. **BUT KEEP READING TO LEARN HOW TO SET UP AND USE IT!**
 
 ### Platform-specific prerequisites
 

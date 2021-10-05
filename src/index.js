@@ -120,7 +120,7 @@ async function menu(clear) {
 		case 'changes':
 			presence.configuring("Reading the changelog")
 			const spinner = ora('Fetching the Changelogs').start();
-			fetch('https://raw.githubusercontent.com/VukkyLtd/SaladBind/main/internal/changelog.json')
+			fetch('https://raw.githubusercontent.com/LITdevs/SaladBind/main/internal/changelog.json')
 				.then(res => res.json())
 				.then(data => {
 					console.clear();

@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/VukkyLtd/SaladBind.git"
+    "url": "git+https://github.com/LITdevs/SaladBind.git"
   },
   "author": "Vukky Limited",
   "license": "GNUv3",
   "bugs": {
-    "url": "https://github.com/VukkyLtd/SaladBind/issues"
+    "url": "https://github.com/LITdevs/SaladBind/issues"
   },
-  "homepage": "https://github.com/VukkyLtd/SaladBind#readme",
+  "homepage": "https://github.com/LITdevs/SaladBind#readme",
   "dependencies": {
     "chalk": "^4.1.2",
     "decompress": "^4.2.1",
