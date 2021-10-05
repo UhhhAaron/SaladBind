@@ -13,18 +13,7 @@ function run(clear) {
 		console.log(chalk.bold.cyan(`Configure SaladBind`))
 	}
 	if (fs.existsSync('./data/config.json')) {
-		inquirer.prompt([{
-			type: 'confirm',
-			name: 'overwrite',
-			message: chalk.yellow("An older config file was found! Are you sure you want to overwrite it?"),
-			default: false
-		}]).then(function(answers) {
-			if (answers.overwrite) {
-				continueSetup();
-			} else {
-				require("./index").menu();
-			}
-		});
+		continueSetup();
 	} else {
 		firstTime = true;
 		continueSetup(clear);
@@ -37,7 +26,7 @@ async function continueSetup(clear) {
 	}
 	if(firstTime) {
 		console.log(`${chalk.greenBright.bold("Welcome to SaladBind!")}
-This is a program that makes it easier to select miner, algorithm and pool for Salad! 
+This is a program that makes it easier to select a miner, algorithm, and pool for Salad! 
 All of the money you mine using SaladBind goes to Salad, and all Salad boosts and XP will work in SaladBind.
 		`);
 	}
@@ -123,19 +112,20 @@ In order for this to work, you'll need to have the Discord desktop app installed
 		}
 		if (!id) {
 			spinner.fail()
-			console.log(chalk.bold.red("Could not find your id for Prohashing! You can use the Automatic (Auth Token) method or manual instead."));
+			console.log(chalk.bold.red("Could not find your Prohashing ID! You can use the Automatic (Auth Token) method or manual instead."));
 			let skipProhashing = await inquirer.prompt([{
 				type: 'confirm',
 				name: 'skipProhashing',
-				message: `Continue without the id for Prohashing? ${chalk.yellow.bold("If you continue without the id for Prohashing, you cannot use the Prohashing pool which has several advantages.")}`,
+				message: `Continue without your Prohashing ID? ${chalk.yellow.bold("If you say yes, you cannot use the Prohashing pool which has several advantages.")}`,
 				default: false
 			}]).then(function(answers) {
 				if (!answers.skipProhashing) {
-					continueSetup()
 					return;
 				}
-				id = "" // I dont think this is needed but its here for my sanity.
 			});
+			if(skipProhashing.skipProhashing == false) {
+				return await continueSetup(true);
+			}
 		}
 
 		spinner.succeed();
@@ -154,7 +144,7 @@ In order for this to work, you'll need to have the Discord desktop app installed
 	} else if (promptResult.useapi == "api") {
 		console.clear();
 		//auth
-		console.log(chalk.green("We need the token to get your Wallet and Rig ID, along with the id for Prohashing automatically.\nThey will not be stored!\n\nIf you do not know how to find your sAccess Token / Salad Authentication token please read this:\nhttps://bit.ly/saladbindconfig (copy this to read it)"))
+		console.log(chalk.green("We need the token to get your Wallet, Rig, and Prohashing ID automatically.\nThey will not be stored!\n\nIf you do not know how to find your token, please read this:\nhttps://bit.ly/saladbindconfig (copy this to read it)"))
 		const auth = await inquirer.prompt([{
 			type: 'input',
 			name: 'auth',
@@ -209,11 +199,11 @@ In order for this to work, you'll need to have the Discord desktop app installed
 		}]);
 		console.clear();
 		console.log(`You need to find a line similar to this in your logs: PhoenixMiner.exe -pool stratum+tcp://prohashing.com:3339 -wal salad -pass o=${chalk.red("e1660ed0-987f-43da-b973-840364455d94")},n=e1660ed0-987f-43da-b973-840364455d94`)
-		console.log(`Copy the part shown in red from ${chalk.bold("your")} logs. \n If you do not wish to use Prohashing, you can leave this empty`)
+		console.log(`Copy the part shown in red from ${chalk.bold("your")} logs.\nIf you do not wish to use Prohashing or couldn't find it, just press Enter.`)
 		const idPrompt = await inquirer.prompt([{
 			type: 'input',
 			name: 'id',
-			message: 'What is your Salad ID for Prohashing?',
+			message: 'What is your Prohashing ID?',
 			validate: function(input) {
 				if (input.length == 0 || input == "cancel" || input.match(/[a-z0-9]{8}\-[a-z0-9]{4}\-[a-z0-9]{4}\-[a-z0-9]{4}\-[a-z0-9]{12}/)) {
 					return true;
