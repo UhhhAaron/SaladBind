@@ -9,6 +9,11 @@
 
 ## Pools
 
+### Prohashing
+
+Overall recommended if supported by your miner and algorithm. Stable earnings and quick updates.
+Currently experimental but recommended to be used over others.
+
 ### NiceHash
 
 Good if you know you're going to be mining for short periods of time instead of having long mining sessions. Has more stable earnings.
@@ -63,13 +68,6 @@ Supported OS: Windows, Linux
 
 Supported GPUS: AMD
 
-### Ethminer
-
-Ethminer supports Ethash. It has no fee.
-
-Supported OS: Windows, Linux, MacOS
-
-Supported GPUS: NVIDIA, AMD
 
 ### lolMiner
 

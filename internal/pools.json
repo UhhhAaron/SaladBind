@@ -43,13 +43,16 @@
         "name": "Prohashing",
         "regions": ["europe", "us"],
         "algos": {
-            "DISABLED_ethash": {
+            "ethash": {
                 "host": "stratum+tcp://REGIONprohashing.com:3339"
             },
-            "DISABLED_etchash": {
+            "etchash": {
                 "host": "stratum+tcp://REGIONprohashing.com:3357"
             },
-            "DISABLED_randomx": {
+            "EQUI144_5": {
+                "host": "stratum+tcp://REGIONprohashing.com:3345"
+            },
+            "randomx": {
                 "host": "stratum+tcp://REGIONprohashing.com:3359"
             }
         }

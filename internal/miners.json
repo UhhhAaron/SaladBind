@@ -34,7 +34,8 @@
                 "fileName": "PhoenixMiner",
                 "algo": "",
                 "wallet": "PHOENIX",
-                "pool": "-pool"
+                "pool": "-pool",
+                "pass": "-pass"
             }
         },
         "trex": {
@@ -63,7 +64,8 @@
                 "fileName": "t-rex",
                 "algo": "-a",
                 "wallet": "-u",
-                "pool": "-o"
+                "pool": "-o",
+                "pass": "-p"
             }
         },
         "nbminer": {
@@ -94,7 +96,8 @@
                 "fileName": "nbminer",
                 "algo": "-a",
                 "wallet": "-u",
-                "pool": "-o"
+                "pool": "-o",
+                "pass": "-p"
             }
         },
         "teamredminer": {
@@ -121,35 +124,8 @@
                 "fileName": "teamredminer",
                 "algo": "-a",
                 "wallet": "-u",
-                "pool": "-o"
-            }
-        },
-        "ethminer": {
-            "miner": "Ethminer",
-            "download": {
-                "win32": "https://github.com/ethereum-mining/ethminer/releases/download/v0.18.0/ethminer-0.18.0-cuda9.1-windows-amd64.zip",
-                "linux": "https://github.com/ethereum-mining/ethminer/releases/download/v0.18.0/ethminer-0.18.0-cuda-9-linux-x86_64.tar.gz",
-                "darwin": "https://github.com/ethereum-mining/ethminer/releases/download/v0.18.0/ethminer-0.18.0-cuda-9-darwin-x86_64.tar.gz"
-            },
-            "algos": [
-                "ethash"
-            ],
-            "supported_gpus": [
-                "nvidia",
-                "amd"
-            ],
-            "supported_os": [
-                "win32",
-                "linux",
-                "darwin"
-            ],
-            "fee": 0,
-            "version": "0.18.0",
-            "parameters": {
-                "fileName": "ethminer",
-                "algo": "",
-                "wallet": "",
-                "pool": "-P"
+                "pool": "-o",
+                "pass": "-p"
             }
         },
         "lolminer": {
@@ -178,7 +154,8 @@
                 "fileName": "lolMiner",
                 "algo": "--algo",
                 "wallet": "--user",
-                "pool": "--pool"
+                "pool": "--pool",
+                "pass": "--pass"
             }
         },
         "xmrig": {
@@ -204,7 +181,8 @@
                 "fileName": "xmrig",
                 "algo": "-a",
                 "wallet": "-u",
-                "pool": "-o"
+                "pool": "-o",
+                "pass": "-p"
             }
         }
     }
