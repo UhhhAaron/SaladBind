@@ -134,7 +134,7 @@ const downloadFile = async function(url, location, name) {
 
 
 const installNew = async function(location) {
-	spinner = ora(`Installing SaladBind v${version}. Please Wait`).start();
+	spinner = ora(`Installing SaladBind v${version}. Please wait`).start();
 	fs.copyFile(`.${path}${filename}`, `./${filename}`, function() {
 		fs.unlink(`.${path}${filename}`, function() {
 			setTimeout(function() {

@@ -1,11 +1,11 @@
 process.on("uncaughtException", err => {
 	try {
 		if(err.stack.includes("Could not connect") || err.stack.includes("RPC_") || err.stack.includes("discord-rpc")) {
-			console.log("There was a error with the Discord RPC but it has been ignored. If you see this message and SaladBind is unusable, please contact us at Discord.")
+			console.log("There was an error with the Discord RPC but it has been ignored. If you see this message and SaladBind is unusable, please contact us on Discord.")
 			return "Discord RPC Broken I guess, as always"; // no one will see this message :)
 		}
 		console.clear();
-		console.log(chalk.bold.red("An unexpected error occured! Technical details:\n" + err.message));
+		console.log(chalk.bold.red("An unexpected error occurred! Technical details:\n" + err.message));
 		if(err.message.includes("EPERM")) console.log(chalk.blueBright("This could be your antivirus."))
 		inquirer.prompt({
 			name: "exit",
@@ -27,7 +27,7 @@ process.on("uncaughtException", err => {
 		}).then(out => {
 			if (out.exit == "exit" || out.exit == "") process.exit(1)
 			else if (out.exit == "write_log") {
-				fs.writeFileSync("saladbind_error.txt", `An error occured.\nError: ${err}\n\nStacktrace: ${err.stack}`);
+				fs.writeFileSync("saladbind_error.txt", `An error occurred.\nError: ${err}\n\nStacktrace: ${err.stack}`);
 				process.exit(1);
 			}
 		})

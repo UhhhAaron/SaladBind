@@ -86,7 +86,7 @@ In order for this to work, you'll need to have the Discord desktop app installed
 			try {
 				logFileContent = fs.readFileSync(logPath).toString();
 			} catch (err) {
-				console.log(chalk.bold.red(`A error occured while reading the log file ${filename}, make sure that you have ran Salad and that SaladBind has permission to access it.`))
+				console.log(chalk.bold.red(`An error occurred while reading the log file ${filename}, make sure that you have ran Salad and that SaladBind has permission to access it.`))
 				return;
 			}
 			const rigIDRegex = /^NiceHash rig ID: [a-z0-9]{15}$/m;

@@ -300,7 +300,7 @@ async function selectPool(minerData, algo) {
 			}
 			var pool;
 			if (poolList.length > 1) {
-				console.log(`Don't know which one to pick? Read ${chalk.bold(`MINERS.md`)} on github!`)
+				console.log(`Don't know which one to pick? Read ${chalk.bold(`MINERS.md`)} on the GitHub!`)
 				pool = await inquirer.prompt({
 					type: "list",
 					name: "pool",
@@ -386,7 +386,7 @@ async function selectPool(minerData, algo) {
 					} else if(!silent) {
 						console.log(pings)
 						spinner.stop();
-						console.log("It seems like no regions are available right now.\nTry a different configuration, or try again later.");
+						console.log("It seems like no regions are available right now.\nTry using a different configuration, or try again later.");
 						setTimeout(() => {
 							require("./index").menu();
 						}, 3500);
