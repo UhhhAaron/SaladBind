@@ -6,14 +6,24 @@ We greatly appreciate anything you send, although you don't have to do this! The
 
 ## Vukky
 
-Salad referral code: EYGTQ4
+### Salad
+
+Use code EYGTQ4.
+
+### Cryptocurrencies
+
+* ETH: `0x3634EDb07fC834Bef6203Ab207992c179f9111a8`
 
 ## Skelly
 
-Salad referral code: MOGUS
+### Salad
 
-Bitcoin Wallet: `bc1qrqrpyugqdzy4942yf9vcc6dng93s5tegr0psl5`
+Use code MOGUS.
+
+### Cryptocurrencies
+
+* BTC: `bc1qrqrpyugqdzy4942yf9vcc6dng93s5tegr0psl5`
 
 ## Alfur
 
-You may not donate to Alfur.
+You may not donate to Alfur. Alfur prefers to not be greedy.
