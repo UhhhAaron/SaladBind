@@ -535,7 +535,7 @@ async function prepStart(minerData, algo, pool, region, advancedCommands) {
 async function startMiner(minerData, algo, pool, region, advancedCommands) {
 	console.clear();
 	console.log(`${chalk.bold.greenBright(`Starting ${minerData.miner}!`)}\nThe miner might take a few seconds to start, so please wait.\nPress CTRL+C to stop the miner and return to the main menu at any time.\n`);
-	console.log(`Miner version: ${minerData.version}\nAlgorithm: ${algo}\nPool: ${pool.name} (${region})\nFacts: You are cool!\n`);
+	console.log(`Miner version: ${minerData.version}\nAlgorithm: ${algo}\nPool: ${pool.name} (${region})\nFacts: You are ${(process.env.USERNAME ?? process.env.USER) == "blueburger" ? "lazy" : "cool"}!\n`);
 	let temp = await si.osInfo();
 	let temp2 = await si.graphics();
 	let hasAMD = false;
