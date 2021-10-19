@@ -27,7 +27,22 @@ process.on("uncaughtException", err => {
 		}).then(out => {
 			if (out.exit == "exit" || out.exit == "") process.exit(1)
 			else if (out.exit == "write_log") {
-				fs.writeFileSync("saladbind_error.txt", `An error occurred.\nError: ${err}\n\nStacktrace: ${err.stack}`);
+				try {
+
+					fs.writeFileSync("saladbind_error.txt", `An error occurred.\nError: ${err}\n\nStacktrace: ${err.stack}\n\nDebug: ${JSON.stringify(getDebugData(), null, " ")}`);
+					process.exit(1);
+				} catch {
+					try {
+						console.log("Could not get data/write to file, heres some debug data that can help you")
+						console.log(err.stack)
+						console.log(JSON.stringify(getDebugData()));
+						setInterval(() => {
+							// literally do nothing, make sure the user sees the error and it doesnt close instantly
+						}, 10000);
+					} catch {
+
+					}
+				}
 				process.exit(1);
 			}
 		})
@@ -51,6 +66,37 @@ const si = require("systeminformation");
 const update = require("./update.js")
 const presence = require("./presence.js");
 
+function getDebugData() {
+	let configTest;
+	if(fs.existsSync("./data/config.json")) {
+		try {
+			configTest = JSON.parse(fs.readFileSync("./data/config.json").toString());
+		} catch {
+			configTest = "Error while reading/parsing"
+		}
+	} else {
+		configTest = "None"
+	}
+	let miners;
+	try {
+		miners = fs.readdirSync("./data/miners").join(", ")
+	} catch {
+		miners = "Error, data/miners folder might not exist or is unreachable."
+	}
+	return {
+		configured: fs.existsSync("data/config.json"),
+		__dirname: __dirname,
+		cwd: process.cwd(),
+		version: packageJson.version,
+		config: config,
+		discordRPC: {
+			connected: typeof presence?.state?.user?.username != "undefined",
+			user: presence?.state?.user?.username
+		},
+		platform: process.platform,
+		miners: miners
+	}
+}
 presence.state.on('ready', () => {
 	presence.enable();
 	presence.mainmenu();

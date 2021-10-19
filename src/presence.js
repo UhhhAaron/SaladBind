@@ -1,5 +1,5 @@
 const RPC = require('discord-rpc');
-client = new RPC.Client({ transport: 'ipc' })
+let client = new RPC.Client({ transport: 'ipc' })
 const fs = require("fs");
 var presenceEnabled = false;
 let tempest = "./data/config.json";
