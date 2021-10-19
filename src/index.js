@@ -109,8 +109,20 @@ presence.state.on('ready', () => {
 	presence.mainmenu();
 })
 
-
 console.clear();
+if(process.argv[process.argv.length-1] == "-d") {
+	try {
+		fs.writeFileSync("saladbind-debug.txt", JSON.stringify(getDebugData(), null, " "));
+		console.log(`Wrote to "${process.cwd()}/saladbind-debug.txt" successfully`)
+	} catch (err) {
+		console.log("Could not write debug (no permissions?). Heres some debug data:");
+		console.log({
+			err: err.stack,
+			debug: getDebugData()
+		})
+	}
+	process.exit();
+}
 const aprilfools = new Date().getMonth() == 3 && new Date().getDate() == 1;
 process.title = `${aprilfools ? "VegetableJoiner" : "SaladBind"} v${packageJson.version}`;
 
