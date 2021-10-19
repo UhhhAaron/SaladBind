@@ -20,6 +20,7 @@ const presence = require('./presence');
 const cache = require("./getMachine.js") // wtf how is this cache haha
 let spinner;
 let isDev = config.dev != undefined && config.dev == true;
+let lastMiner = {}
 
 function moveDupeFolder(folderName) {
 	let folderData = fs.readdirSync(`./data/temp/${folderName}`)
@@ -133,7 +134,7 @@ async function continueMiner() {
 					}
 				}
 				if (compatibleAlgos.length > 0) {
-					if(!temp2.controllers[i].vendor.includes("Intel")) {
+					if (!temp2.controllers[i].vendor.includes("Intel")) {
 						GPUs.push({ "algos": compatibleAlgos, "vendor": temp2.controllers[i].vendor.toLowerCase() });
 					}
 				} else {
@@ -142,7 +143,7 @@ async function continueMiner() {
 					}
 				}
 			}
-			if(config.bypassGPUChecks) {
+			if (config.bypassGPUChecks) {
 				GPUs.push({
 					"algos": Object.keys(data.algos),
 					"vendor": "BYPASS"
@@ -195,6 +196,7 @@ async function continueMiner() {
 					menu(true);
 					return;
 				}
+				lastMiner.data = miner.miner;
 				if (fs.existsSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`)) {
 					let minerFolder = fs.readdirSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`);
 					if (minerFolder.filter(file => file.startsWith(miner.miner.parameters.fileName)).length == 0) {
@@ -246,10 +248,10 @@ async function selectAlgo(minerData, GPUs) {
 	console.log(chalk.bold.cyan(`Configure your miner`))
 	presence.configuring("Selecting algorithm");
 	let algoList = [];
-	if(minerData.algos.includes("randomx")) algoList.push({ name: "randomx", value: "randomx" });
+	if (minerData.algos.includes("randomx")) algoList.push({ name: "randomx", value: "randomx" });
 	const gpuSupportsAlgo = minerData.algos.filter(algo => GPUs.filter(gpu => gpu.algos.includes(algo)).length > 0)
 	for (let i = 0; i < gpuSupportsAlgo.length; i++) {
-		if(gpuSupportsAlgo[i] == "randomx") continue;
+		if (gpuSupportsAlgo[i] == "randomx") continue;
 		let notSupportedByAll;
 		for (let j = 0; j < GPUs.length; j++) {
 			if (!GPUs[j].algos.includes(gpuSupportsAlgo[i])) {
@@ -275,6 +277,8 @@ async function selectAlgo(minerData, GPUs) {
 		console.clear();
 		return run();
 	}
+	lastMiner.algo = algo.algo
+
 	selectPool(minerData, algo.algo);
 }
 
@@ -286,21 +290,21 @@ async function selectPool(minerData, algo) {
 	fetch(`https://raw.githubusercontent.com/LITdevs/SaladBind/${isDev ? "dev" : "main"}/internal/pools.json`)
 		.then(res => res.json())
 		.then(async poolData => {
-			spinner.stop();
-			const poolList = [];
-			for (let i = 0; i < Object.keys(poolData).length; i++) {
-				let pooly = poolData[Object.keys(poolData)[i]];
-				if (Object.keys(pooly.algos).includes(algo)) {
-					if(pooly.name != "Prohashing") {		
-						poolList.push({ name: pooly.name, value: pooly });
-					} else if(config.id && config.id.length > 1) {
-						poolList.push({ name: pooly.name, value: pooly });
+				spinner.stop();
+				const poolList = [];
+				for (let i = 0; i < Object.keys(poolData).length; i++) {
+					let pooly = poolData[Object.keys(poolData)[i]];
+					if (Object.keys(pooly.algos).includes(algo)) {
+						if (pooly.name != "Prohashing") {
+							poolList.push({ name: pooly.name, value: pooly });
+						} else if (config.id && config.id.length > 1) {
+							poolList.push({ name: pooly.name, value: pooly });
+						}
 					}
 				}
-			}
-			var pool;
-			if (poolList.length > 1) {
-				console.log(`Don't know which one to pick? Read ${chalk.bold(`MINERS.md`)} on the GitHub!`)
+				var pool;
+				if (poolList.length > 1) {
+					console.log(`Don't know which one to pick? Read ${chalk.bold(`MINERS.md`)} on the GitHub!`)
 				pool = await inquirer.prompt({
 					type: "list",
 					name: "pool",
@@ -317,6 +321,7 @@ async function selectPool(minerData, algo) {
 				regionList.push({ name: poolsy.regions[i], value: poolsy.regions[i] });
 			}
 			var region
+			lastMiner.pool = poolsy
 			if(poolsy.name == "NiceHash") {
 				region = await inquirer.prompt({
 					type: "list",
@@ -394,12 +399,14 @@ async function selectPool(minerData, algo) {
 				}
 				if(fs.existsSync("./data/autoregion-cache.json") && autoRegionCacheData[poolsy.name]) {
 					region.region = autoRegionCacheData[poolsy.name];
+					lastMiner.region = region.region
 					calculateBestRegion(true);
 				} else {
 					await calculateBestRegion();
 				}
 				prepStart(minerData, algo, poolsy, region.region);
 			} else {
+				lastMiner.region = region.region
 				prepStart(minerData, algo, poolsy, region.region);
 			}
 		}).catch(err => {
@@ -411,7 +418,7 @@ async function selectPool(minerData, algo) {
 		});
 }
 
-async function prepStart(minerData, algo, pool, region, advancedCommands) {
+async function prepStart(minerData, algo, pool, region, advancedCommands, quick=false) {
 	if (advancedCommands == undefined) advancedCommands = ""
 	console.clear();
 	console.log(chalk.bold.cyan(`Configure your miner`))
@@ -440,6 +447,10 @@ async function prepStart(minerData, algo, pool, region, advancedCommands) {
 	});
 	switch (startNow.startNow) {
 		case "y":
+			if(!quick) saveLast({
+				...lastMiner,
+				"advancedCommands": advancedCommands
+			});
 			presence.mine(minerData.miner, algo, pool.name)
 			startMiner(minerData, algo, pool, region, advancedCommands);
 			break;
@@ -691,6 +702,43 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 	}
 } 
 
+function saveLast(args){
+fs.writeFileSync("./data/last.json", JSON.stringify({
+		algo: args.algo,
+		pool: args.pool,
+		region: args.region,
+		data: args.data,
+		advancedCommands: args.advancedCommands
+	}));
+};
+
+async function quick(){
+	let details = fs.readFileSync("./data/last.json");
+	try{
+		details = JSON.parse(details)
+		presence.mine(details.data.miner, details.algo, details.pool)
+		prepStart(details.data, details.algo, details.pool, details.region, details.advancedCommands);
+	} catch {
+		console.log(chalk.red("Error while reading/parsing last.json"));
+		await inquirer.prompt([{
+			type: 'confirm',
+			name: 'delete',
+			message: chalk.yellow("Delete the corrupt file?"),
+			default: false
+		}]).then(function(answers) {
+			if (answers.delete) {
+				fs.unlinkSync("./data/last.json")
+				console.log(chalk.red("File deleted"));
+			}
+		});
+		console.log("Returning to menu in 3 seconds")
+		setTimeout(function(){
+			require("./index").menu(true)
+		},3000)
+	}
+
+}
 module.exports = { 
-	run
+	run,
+	quick
 };

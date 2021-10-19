@@ -67,36 +67,43 @@ const update = require("./update.js")
 const presence = require("./presence.js");
 
 function getDebugData() {
-	let configTest;
-	if(fs.existsSync("./data/config.json")) {
-		try {
-			configTest = JSON.parse(fs.readFileSync("./data/config.json").toString());
-		} catch {
-			configTest = "Error while reading/parsing"
+	function safelyReadAndParseFile(name) {
+		let data;
+		if(fs.existsSync(name)) {
+			try {
+				data = JSON.parse(fs.readFileSync(name).toString());
+			} catch {
+				data = "Error while reading/parsing"
+			}
+		} else {
+			data = "None"
 		}
-	} else {
-		configTest = "None"
+		return data
 	}
+	let configData = safelyReadAndParseFile("./data/config.json")
 	let miners;
 	try {
 		miners = fs.readdirSync("./data/miners").join(", ")
 	} catch {
 		miners = "Error, data/miners folder might not exist or is unreachable."
 	}
+	let last = safelyReadAndParseFile("./data/last.json");
 	return {
 		configured: fs.existsSync("data/config.json"),
 		__dirname: __dirname,
 		cwd: process.cwd(),
 		version: packageJson.version,
-		config: config,
+		config: configData,
 		discordRPC: {
 			connected: typeof presence?.state?.user?.username != "undefined",
 			user: presence?.state?.user?.username
 		},
 		platform: process.platform,
-		miners: miners
+		miners: miners,
+		last: last
 	}
 }
+
 presence.state.on('ready', () => {
 	presence.enable();
 	presence.mainmenu();
@@ -132,34 +139,44 @@ async function menu(clear) {
 	}
 	presence.mainmenu();
 	console.log(chalk.bold.green(`${aprilfools ? "VegetableJoiner" : "SaladBind"} v${packageJson.version}`));
+	let choices = [{
+		name: 'Start mining',
+		value: 'mining'
+	},
+	{
+		name: 'Reconfigure SaladBind',
+		value: 'config'
+	},
+	{
+		name: 'Join the SaladBind Discord',
+		value: 'discord'
+	},
+	{
+		name: 'What\'s new?',
+		value: 'changes'
+	},
+	{
+		name: 'Exit SaladBind',
+		value: 'exit'
+	}
+]
+if(fs.existsSync("./data/last.json")){
+	choices.unshift({
+		name: 'Quick Start',
+		value: 'quick'
+	})
+}
 	const questions = [{
 		type: 'list',
 		name: 'menu',
 		message: 'What would you like to do?',
-		choices: [{
-				name: 'Start mining',
-				value: 'mining'
-			},
-			{
-				name: 'Reconfigure SaladBind',
-				value: 'config'
-			},
-			{
-				name: 'Join the SaladBind Discord',
-				value: 'discord'
-			},
-			{
-				name: 'What\'s new?',
-				value: 'changes'
-			},
-			{
-				name: 'Exit SaladBind',
-				value: 'exit'
-			}
-		]
+		choices: choices
 	}];
 	const answers = await inquirer.prompt(questions);
 	switch (answers.menu) {
+		case 'quick':
+			require("./mining").quick();
+			break;
 		case 'mining':
 			require("./mining").run();
 			break;
