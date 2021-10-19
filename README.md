@@ -30,7 +30,7 @@ Click here to join our [Discord server](https://discord.gg/zpsN7swhfD).
 
 A video guide can be found here:
 
-[![SaladBind Video Tutorial](https://img.youtube.com/vi/OxFyikoAoco/0.jpg)](https://www.youtube.com/watch?v=OxFyikoAoco)
+[![SaladBind Video Tutorial](https://img.youtube.com/vi/Cwe-VZwEcr4/0.jpg)](https://www.youtube.com/watch?v=Cwe-VZwEcr4)
 
 Head to our [GitHub Releases](https://github.com/LITdevs/SaladBind/releases/latest) page, download the latest release for your operating system, and just run it if you're on Windows. **BUT KEEP READING TO LEARN HOW TO SET UP AND USE IT!**
 
