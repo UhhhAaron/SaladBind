@@ -1,12 +1,13 @@
 process.on("uncaughtException", err => {
 	try {
 		if(err.stack.includes("Could not connect") || err.stack.includes("RPC_") || err.stack.includes("discord-rpc")) {
-			console.log("There was an error with the Discord RPC but it has been ignored. If you see this message and SaladBind is unusable, please contact us on Discord.")
+			console.log("There was an error with the Discord RPC but it has been ignored. If you see this message and SaladBind is unusable, please contact us on Discord.");
 			return "Discord RPC Broken I guess, as always"; // no one will see this message :)
 		}
 		console.clear();
-		console.log(chalk.bold.red("An unexpected error occurred! Technical details:\n" + err.message));
-		if(err.message.includes("EPERM")) console.log(chalk.blueBright("This could be your antivirus."))
+		console.log(`${chalk.bold.red("Oh noes! A scary error!")}\nTechnical details: ${err.message}`);
+		if(err.message.includes("EPERM")) console.log(chalk.blueBright("This *could* be your antivirus."))
+		console.log("\nPlease join our Discord server (https://discord.gg/HfBAtQ2afz) and send us your log file.\nIt'll be created where you downloaded SaladBind, as 'saladbind_error.txt'.");	
 		inquirer.prompt({
 			name: "exit",
 			message: "What do you want to do?",
@@ -28,12 +29,11 @@ process.on("uncaughtException", err => {
 			if (out.exit == "exit" || out.exit == "") process.exit(1)
 			else if (out.exit == "write_log") {
 				try {
-
-					fs.writeFileSync("saladbind_error.txt", `An error occurred.\nError: ${err}\n\nStacktrace: ${err.stack}\n\nDebug: ${JSON.stringify(getDebugData(), null, " ")}`);
+					fs.writeFileSync("saladbind_error.txt", `Hi! I'm a SaladBind Error Log. Please send me to my creators at https://discord.gg/HfBAtQ2afz\nI'm now going to puke everything I know at you. I hope you don't mind (it's very technical :D)\n\nThe error was ${err}\n\nHere's the stacktrace, so we can figure out where the error is coming from:\n${err.stack}\n\nAnd finally, some cool debug information I made just for you!\nIt helps us find out if the person sitting in front of the screen is the problem.\n${JSON.stringify(getDebugData(), null, " ")}`);
 					process.exit(1);
 				} catch {
 					try {
-						console.log("Could not get data/write to file, heres some debug data that can help you")
+						console.log("Uh... While we tried to log the error, another error arrived!\nPlease screenshot the following data and send it to us in our Discord.");
 						console.log(err.stack)
 						console.log(JSON.stringify(getDebugData()));
 						setInterval(() => {
@@ -88,7 +88,9 @@ function getDebugData() {
 		miners = "Error, data/miners folder might not exist or is unreachable."
 	}
 	let last = safelyReadAndParseFile("./data/last.json");
+	let cache = safelyReadAndParseFile("./data/cache.json");
 	return {
+		timestamp: new Date().getTime(),
 		configured: fs.existsSync("data/config.json"),
 		__dirname: __dirname,
 		cwd: process.cwd(),
@@ -98,7 +100,8 @@ function getDebugData() {
 			connected: typeof presence?.state?.user?.username != "undefined",
 			user: presence?.state?.user?.username
 		},
-		platform: process.platform,
+		platform: `${cache.os.platform} (${cache.os.distro} ${cache.os.release})`,
+		system: `${cache.system.manufacturer} ${cache.system.version} ${cache.system.model}`,
 		miners: miners,
 		last: last
 	}
@@ -144,7 +147,6 @@ function startMenuCheck() {
 			}
 	})
 })();
-
 async function menu(clear) {
 	if (clear == undefined || clear == true) {
 		console.clear();
