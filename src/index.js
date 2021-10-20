@@ -100,8 +100,8 @@ function getDebugData() {
 			connected: typeof presence?.state?.user?.username != "undefined",
 			user: presence?.state?.user?.username
 		},
-		platform: `${cache.os.platform} (${cache.os.distro} ${cache.os.release})`,
-		system: `${cache.system.manufacturer} ${cache.system.version} ${cache.system.model}`,
+		platform: `${cache?.os?.platform} (${cache?.os?.distro} ${cache?.os?.release})`,
+		system: `${cache?.system?.manufacturer} ${cache?.system?.version} ${cache?.system?.model}`,
 		miners: miners,
 		last: last
 	}
