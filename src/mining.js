@@ -717,7 +717,7 @@ async function quick(){
 	try{
 		details = JSON.parse(details)
 		presence.mine(details.data.miner, details.algo, details.pool)
-		prepStart(details.data, details.algo, details.pool, details.region, details.advancedCommands);
+		prepStart(details.data, details.algo, details.pool, details.region, details.advancedCommands, true);
 	} catch {
 		console.log(chalk.red("Error while reading/parsing last.json"));
 		await inquirer.prompt([{
