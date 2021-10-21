@@ -181,7 +181,7 @@ async function menu(clear) {
 ]
 if(fs.existsSync("./data/last.json")){
 	choices.unshift({
-		name: 'Quick Start',
+		name: 'Start latest miner',
 		value: 'quick'
 	})
 }
