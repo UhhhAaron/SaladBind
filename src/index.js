@@ -5,6 +5,11 @@ process.on("uncaughtException", err => {
 			return "Discord RPC Broken I guess, as always"; // no one will see this message :)
 		}
 		console.clear();
+		try {
+			startMenuCheck();
+		} catch {
+
+		}
 		console.log(chalk.bold.red("An unexpected error occurred! Technical details:\n" + err.message));
 		if(err.message.includes("EPERM")) console.log(chalk.blueBright("This could be your antivirus."))
 		inquirer.prompt({

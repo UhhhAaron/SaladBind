@@ -118,11 +118,7 @@ In order for this to work, you'll need to have the Discord desktop app installed
 				name: 'skipProhashing',
 				message: `Continue without your Prohashing ID? ${chalk.yellow.bold("If you say yes, you cannot use the Prohashing pool which has several advantages.")}`,
 				default: false
-			}]).then(function(answers) {
-				if (!answers.skipProhashing) {
-					return;
-				}
-			});
+			}])
 			if(skipProhashing.skipProhashing == false) {
 				return await continueSetup(true);
 			}
@@ -177,7 +173,11 @@ In order for this to work, you'll need to have the Discord desktop app installed
 		} catch (e) {
 			spinner.fail();
 			console.log(e);
-			console.log(chalk.bold.red("Failed to get your Rig ID! Please contact support on our Discord server (https://discord.gg/HfBAtQ2afz) and attach an image of the data above."));
+			console.log(chalk.bold.red("Failed to get your Rig ID! This is most likely your auth code being expired, try refreshing app.salad.io in your browser and getting the token again.\nIf that does not work, please contact us at https://discord.gg/HfBAtQ2afz."));
+			console.log("Going back in 20 seconds");
+			setTimeout(() => {
+				continueSetup(true);
+			}, 20000);
 		}
 	} else {
 		console.clear();
