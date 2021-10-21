@@ -13,6 +13,7 @@ Use code EYGTQ4.
 ### Cryptocurrencies
 
 * ETH: `0x3634EDb07fC834Bef6203Ab207992c179f9111a8`
+* BTC: `bc1q5sf8ewk33a82zpnfdprqf4ft45vdk58hnh6vps`
 
 ## Skelly
 
