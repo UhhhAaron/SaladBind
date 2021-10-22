@@ -103,8 +103,8 @@
         "teamredminer": {
             "miner": "TeamRedMiner",
             "download": {
-                "win32": "https://github.com/todxx/teamredminer/releases/download/v0.8.5/teamredminer-v0.8.5-win.zip",
-                "linux": "https://github.com/todxx/teamredminer/releases/download/v0.8.5/teamredminer-v0.8.5-linux.tgz"
+                "win32": "https://github.com/todxx/teamredminer/releases/download/v0.8.6.2/teamredminer-v0.8.6.2-win.zip",
+                "linux": "https://github.com/todxx/teamredminer/releases/download/v0.8.6.2/teamredminer-v0.8.6.2-linux.tgz"
             },
             "algos": [
                 "ethash",
@@ -119,7 +119,7 @@
                 "linux"
             ],
             "fee": 2,
-            "version": "v0.8.5",
+            "version": "v0.8.6.2",
             "parameters": {
                 "fileName": "teamredminer",
                 "algo": "-a",
