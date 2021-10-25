@@ -2,7 +2,3 @@ changelog:
   exclude:
     authors:
       - dependabot
-  categories:
-    - title: What's Changed
-      labels:
-        - "*"
