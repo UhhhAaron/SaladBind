@@ -15,12 +15,15 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Generate changelog
-        id: changelog
         run: |
-          changelog=$(gh api repos/LITdevs/SaladBind/releases/generate-notes -f tag_name="${GITHUB_REF#refs/tags/}" -f target_commitish=main -q .body)
-          echo "::set-output name=changelog::$changelog"
+          gh api repos/LITdevs/SaladBind/releases/generate-notes -f tag_name="${GITHUB_REF#refs/tags/}" -f target_commitish=main -q .body > CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
+      - name: Read changelog
+        id: changelog
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: ./CHANGELOG.md
       - name: Install node
         uses: actions/setup-node@v2.4.1
         with:
@@ -33,7 +36,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          body: ${{ steps.changelog.outputs.changelog }}
+          body: ${{ steps.changelog.outputs.content }}
           token: ${{ secrets.BEEPBOOP_TOKEN }}
           files: |
             bin/saladbind-win.exe
