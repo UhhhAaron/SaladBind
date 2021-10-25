@@ -14,6 +14,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: Generate changelog
+        id: changelog
+        run: |
+          changelog=$(gh api repos/$GITHUB_REPOSITORY/releases/generate-notes -f tag_name="${GITHUB_REF#refs/tags/}" -f target_commitish=trunk -q .body)
+          echo "::set-output name=changelog::$changelog"
+        env:
+          GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       - name: Install node
         uses: actions/setup-node@v2.4.1
         with:
@@ -26,7 +33,7 @@ jobs:
       - name: Release
         uses: softprops/action-gh-release@v1
         with:
-          body: "# [INSTALLATION INSTRUCTIONS HERE!!!](https://github.com/LITdevs/SaladBind#Installation)"
+          body: ${{ steps.changelog.outputs.changelog }}
           token: ${{ secrets.BEEPBOOP_TOKEN }}
           files: |
             bin/saladbind-win.exe
