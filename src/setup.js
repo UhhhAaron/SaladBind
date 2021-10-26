@@ -100,8 +100,8 @@ In order for this to work, you'll need to have the Discord desktop app installed
 		}
 		let spinner = ora("Searching...").start();
 		let idJSON = getIDFromLogs("main.log") ?? getIDFromLogs("main.old.log")
-		let rigID = idJSON.rigID;
-		let id = idJSON.id;
+		let rigID = idJSON?.rigID;
+		let id = idJSON?.id;
 		if (!rigID) {
 			spinner.fail()
 			console.log(chalk.bold.red("Could not find your Rig ID! Please make sure that you have mined for at least 5 minutes using Salad's official application after restarting it."));
