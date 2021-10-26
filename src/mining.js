@@ -643,7 +643,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 	function stopped() {
 		let currentTime = Date.now();
 		if((timeStarted + 10000) > currentTime) { // miner stopped within 10 seconds of starting
-			console.log(chalk.blueBright.bold("If you did not stop the miner, it might be your AntiVirus. Please whitelist the data folder located at the same location as SaladBind.\n"))
+			console.log(chalk.blueBright.bold(`If you did not stop the miner, it ${chalk.bold("MIGHT")} be your AntiVirus. Please whitelist the data folder located at the same location as SaladBind.\n`))
 		}
 	}
 	if(advancedCommands.length > 0) { // didnt workkkk
@@ -713,9 +713,9 @@ fs.writeFileSync("./data/last.json", JSON.stringify({
 };
 
 async function quick(){
-	let details = fs.readFileSync("./data/last.json");
+	let details;
 	try{
-		details = JSON.parse(details)
+		details = JSON.parse(fs.readFileSync("./data/last.json"))
 		presence.mine(details.data.miner, details.algo, details.pool)
 		prepStart(details.data, details.algo, details.pool, details.region, details.advancedCommands, true);
 	} catch {
@@ -727,8 +727,12 @@ async function quick(){
 			default: false
 		}]).then(function(answers) {
 			if (answers.delete) {
-				fs.unlinkSync("./data/last.json")
-				console.log(chalk.red("File deleted"));
+				try {
+					fs.unlinkSync("./data/last.json");
+					console.log(chalk.red("File deleted"));
+				} catch {
+					console.log("Could not delete the file, you may delete 'last.json' manually from the 'data' folder (if it exists).")
+				}
 			}
 		});
 		console.log("Returning to menu in 3 seconds")
