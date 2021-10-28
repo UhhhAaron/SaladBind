@@ -71,8 +71,8 @@
         "nbminer": {
             "miner": "NBMiner",
             "download": {
-                "win32": "https://github.com/NebuTech/NBMiner/releases/download/v39.5/NBMiner_39.5_Win.zip",
-                "linux": "https://github.com/NebuTech/NBMiner/releases/download/v39.5/NBMiner_39.5_Linux.tgz"
+                "win32": "https://github.com/NebuTech/NBMiner/releases/download/v39.6/NBMiner_39.6_Win.zip",
+                "linux": "https://github.com/NebuTech/NBMiner/releases/download/v39.6/NBMiner_39.6_Linux.tgz"
             },
             "algos": [
                 "ethash",
