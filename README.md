@@ -102,7 +102,7 @@ To get your access token follow these steps:
 3. Find your Salad logs. A guide can be found [here](https://support.salad.com/hc/en-us/articles/360042215512-How-To-Find-Your-Salad-Log-Files)
 4. Search for "rig ID" in the main.log file and copy it. Both the Ethermine worker ID and NiceHash rig ID are supported
 5. Paste the Rig ID into the terminal (on Windows, right-click in the SaladBind window to paste)
-6. Next, look for a line in the logs that looks like <br>`PhoenixMiner.exe -rmode 0 -rvram 1 -log 0 -pool stratum+tcp://prohashing.com:3339 -pool2 stratum+tcp://eu.prohashing.com:3339 -wal salad -pass o="006a68e5-c33c-40f0-9531-fb216829612f,n="006a68e5-c33c-40f0-9531-fb216829612f` <br>
+6. Next, look for a line in the logs that looks like <br>`PhoenixMiner.exe -rmode 0 -rvram 1 -log 0 -pool stratum+tcp://prohashing.com:3339 -pool2 stratum+tcp://eu.prohashing.com:3339 -wal salad -pass o=006a68e5-c33c-40f0-9531-fb216829612f,n=006a68e5-c33c-40f0-9531-fb216829612f` <br>
 Copy the part after `o=` until the `,n=` as demonstrated here: `006a68e5-c33c-40f0-9531-fb216829612f`
 7. Paste the Prohashing id into the terminal (on Windows, right-click in the SaladBind window to paste)
 
