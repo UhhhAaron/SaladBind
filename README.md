@@ -86,13 +86,22 @@ SaladBind will search your Salad's log file for your Rig ID and save it automati
 
 #### Automatic (Get with Salad Auth token)
 
-You will be prompted to enter your access token. It is recommended to use a Chromium-based browser like Google Chrome or the new Microsoft Edge.
-To get your access token follow these steps:
+You will be prompted to enter your access token.
+To get your access token, log in to [https://app.salad.io/](https://app.salad.io) and follow these steps depending on your browser:
 
-1. Log in to [https://app.salad.io/](https://app.salad.io)
-2. Click the lock symbol in the address bar
-3. Open `Cookies` and uncollapse `app-api.salad.io`
-4. Look for `sAccessToken` and copy it (right click and click `Select all` as it is very long)
+##### Chromium and derivatives
+
+1. Click the lock symbol in the address bar
+2. Open `Cookies` and uncollapse `app-api.salad.io`
+3. Look for `sAccessToken` and copy it (right click and click `Select all` as it is very long)
+4. Paste the token into the terminal (on Windows, right-click in the SaladBind window to paste)
+
+##### Firefox
+
+1. Go to [app-api.salad.io](https://app-api.salad.io)
+2. Open the devtools by pressing F12
+3. Click on `Storage` and make sure that `Cookies` is uncollapsed
+4. Double click the value box next to `sAccessToken` and copy it
 5. Paste the token into the terminal (on Windows, right-click in the SaladBind window to paste)
 
 #### Manual
