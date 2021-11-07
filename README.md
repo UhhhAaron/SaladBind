@@ -81,7 +81,7 @@ You can do this by letting SaladBind search your log file, entering your Salad A
 
 SaladBind will search your Salad's log file for your Rig ID and save it automatically.
 
-1. Make sure that "Override GPU Compatability Detection" is enabled in your Salad settings. If this is disabled, Salad might not log your Prohashing details.
+1. Make sure that "Override GPU Compatibility Detection" is enabled in your Salad settings. If this is disabled, Salad might not log your Prohashing details.
 2. Start mining with the Salad app normally for 5-15 minutes (the "Chopping" stage)
 3. Choose Automatic on SaladBind (Read from Salad logs)
 
