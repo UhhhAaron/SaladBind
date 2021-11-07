@@ -8,6 +8,7 @@
     "next_version": "1.6.0",
     "next_changelog": [
         "New settings menu",
-        "Quickly start mining with last settings"
+        "Quickly start mining with last settings",
+        "Big improvements to the error handler"
     ]
 }
