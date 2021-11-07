@@ -90,7 +90,7 @@ async function miner(){
 		]
 	}]);
 	if (promptResult.useapi == "back") {
-		run();
+		return run();
 	}
 	if (promptResult.useapi == "auto") {
 		console.clear();
