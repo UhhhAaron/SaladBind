@@ -14,7 +14,6 @@ const { menu } = require('./index');
 let tempest = "./data/config.json"; // im temper than you
 let rawdata = fs.readFileSync(tempest);
 const config = JSON.parse(rawdata);
-const { win32 } = require('path'); //sidenote: i have no clue why this is here but im too scared to remove it hahahah
 const { spawn } = require("child_process");
 const presence = require('./presence');
 const cache = require("./getMachine.js") // wtf how is this cache haha
@@ -72,7 +71,7 @@ async function extractFile(location, folderName, fileExtension) {
 const downloadFile = async function(url, location, name) {
 	return new Promise(async(resolve, reject) => {
 		const stream = fs.createWriteStream(location);
-		const request = https.get(url, function(response) {
+		https.get(url, function(response) {
 			if (parseInt(response.statusCode) >= 200 && parseInt(response.statusCode) < 300) {
 				response.pipe(stream);
 				stream.on('finish', function() {
