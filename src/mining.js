@@ -117,7 +117,15 @@ async function continueMiner() {
 		.then(res => res.json())
 		.then(async data => {
 			spinner.text = "Checking your specs";
-			var systemCache = JSON.parse(fs.readFileSync("./data/cache.json"))
+			try {
+				var systemCache = JSON.parse(fs.readFileSync("./data/cache.json"))
+			} catch {
+				console.log(chalk.bold.red("\nFailed to load cache! Trying to recover. Please allow up to 30 seconds.\n"))
+				systemCache = {};
+				fs.rmSync("./data/cache.json");
+				spinner.stop();
+				return await run(); // Restart from the beginning if cache is corrupted.
+			}
 			cache.updateCache()
 			let minerList = [];
 			let temp = systemCache.os
