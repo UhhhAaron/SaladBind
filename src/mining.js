@@ -726,6 +726,7 @@ async function quick(){
 	let details;
 	try{
 		details = JSON.parse(fs.readFileSync("./data/last.json"))
+		lastMiner = details;
 		presence.mine(details.data.miner, details.algo, details.pool)
 		prepStart(details.data, details.algo, details.pool, details.region, details.advancedCommands, true);
 	} catch {
