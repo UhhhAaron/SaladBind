@@ -14,7 +14,7 @@ const { menu } = require('./index');
 let tempest = "./data/config.json"; // im temper than you
 let rawdata = fs.readFileSync(tempest);
 const config = JSON.parse(rawdata);
-const { spawn } = require("child_process");
+const { spawn, execSync } = require("child_process");
 const presence = require('./presence');
 const cache = require("./getMachine.js") // wtf how is this cache haha
 let spinner;
