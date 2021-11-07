@@ -130,6 +130,7 @@ async function continueMiner() {
 			let temp = systemCache.os
 			let temp2 = systemCache.graphics
 			let userPlatform = temp.platform;
+			if(userPlatform == "Windows") userPlatform = "win32";
 			let GPUs = [];
 			for (let i = 0; i < temp2.controllers.length; i++) {
 				let compatibleAlgos = []
@@ -180,6 +181,7 @@ async function continueMiner() {
 						});
 					}
 				}
+				
 			}
 			spinner.stop();
 			if (minerList.length == 0 && temp2.controllers.length != 0) {
