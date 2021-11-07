@@ -96,6 +96,9 @@ async function startUpdate() {
 	path = `/data/`
 	temp = await si.osInfo()
 	platform = temp.platform
+	if(platform == "Windows"){
+		platform = "win32"
+	}
 	if (platform == "win32") {
 		filename = files.win32.name
 		downloadFile(files.win32.file, `./${path}${filename}`, `SaladBind v${version}`)
