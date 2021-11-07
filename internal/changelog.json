@@ -5,8 +5,9 @@
         "Fixed a bug and some spelling mistakes",
         "PLEASE RECONFIGURE YOUR SALADBIND AFTER UPDATING TO USE PROHASHING!!!"
     ],
-    "next_version": "1.5.0",
+    "next_version": "1.6.0",
     "next_changelog": [
-        "Added support for the Prohashing pool"
+        "New settings menu",
+        "Quickly start mining with last settings"
     ]
 }
