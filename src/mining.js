@@ -364,7 +364,7 @@ async function selectPool(minerData, algo) {
 						var failedAttempts = 0;
 						for(let i=0;i<5;i++){
 							let domain = poolsy.algos[algo].host.split("://")[1].split(":")[0].replace("REGION", regionToTest.value);
-							if(!silent) spinner.text = `Pinging ${domain}`
+							if(!silent) spinner.text = `Pinging ${domain} (${i+1}/5)`
 							let timeStarted = Date.now();
 							try {
 								await fetch("http://" + domain);
@@ -411,9 +411,10 @@ async function selectPool(minerData, algo) {
 				} else {
 					await calculateBestRegion();
 				}
+				lastMiner.region = region.region;
 				prepStart(minerData, algo, poolsy, region.region);
 			} else {
-				lastMiner.region = region.region
+				lastMiner.region = region.region;
 				prepStart(minerData, algo, poolsy, region.region);
 			}
 		}).catch(err => {
