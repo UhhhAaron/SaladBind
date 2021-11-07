@@ -431,6 +431,28 @@ async function selectPool(minerData, algo) {
 async function prepStart(minerData, algo, pool, region, advancedCommands, quick=false) {
 	if (advancedCommands == undefined) advancedCommands = ""
 	console.clear();
+	let saladMining = new Promise((resolve, reject) => {
+		if (process.platform == "win32") {
+			try {
+
+				let processes = execSync("tasklist").toString();
+				const saladMiners = [
+					"xmrig",
+					"t-rex",
+					"ccminer",
+					"PhoenixMiner",
+					"miner.exe"
+				];
+				resolve(saladMiners.some(saladMiner => {
+					if (processes.includes(saladMiner)) {
+						return true;
+					} return false;
+				}));
+			} catch {
+				resolve(false);
+			}
+
+	}});
 	console.log(chalk.bold.cyan(`Configure your miner`))
 	presence.configuring("About to start!");
 	if (advancedCommands.length > 0) {
@@ -462,6 +484,16 @@ async function prepStart(minerData, algo, pool, region, advancedCommands, quick=
 				"advancedCommands": advancedCommands
 			});
 			presence.mine(minerData.miner, algo, pool.name)
+			// Check if miner is already running in salad using child processes to run "tasklist" if on windows.
+			if(await saladMining) {
+				console.log(chalk.bold.red(`It seems like you are mining using Salad already! It is not recommended to mine using both Salad and SaladBind. Please stop mining in Salad.`));
+				await inquirer.prompt({
+					type: "input",
+					name: "done",
+					message: "Press enter when you have stopped mining in Salad."
+				});
+			}
+
 			startMiner(minerData, algo, pool, region, advancedCommands);
 			break;
 		case "n":
