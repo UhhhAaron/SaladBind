@@ -94,6 +94,9 @@ function getDebugData() {
 	}
 	let last = safelyReadAndParseFile("./data/last.json");
 	let cache = safelyReadAndParseFile("./data/cache.json");
+	if(typeof cache !== "object") {
+		console.log("\nWARNING: It does not seem like you've entered the miner selection screen before, some data may be missing from the debug.\n")
+	}
 	return {
 		timestamp: new Date().getTime(),
 		configured: fs.existsSync("data/config.json"),
@@ -118,11 +121,10 @@ presence.state.on('ready', () => {
 	presence.mainmenu();
 })
 
-console.clear();
 if(process.argv[process.argv.length-1] == "-d") {
 	try {
 		fs.writeFileSync("saladbind-debug.txt", JSON.stringify(getDebugData(), null, " "));
-		console.log(`Wrote to "${process.cwd()}/saladbind-debug.txt" successfully`)
+		console.log(`\nWrote to "${process.cwd()}/saladbind-debug.txt" successfully\n`)
 	} catch (err) {
 		console.log("Could not write debug (no permissions?). Heres some debug data:");
 		console.log({
@@ -132,6 +134,8 @@ if(process.argv[process.argv.length-1] == "-d") {
 	}
 	process.exit();
 }
+console.clear();
+
 const aprilfools = new Date().getMonth() == 3 && new Date().getDate() == 1;
 process.title = `${aprilfools ? "VegetableJoiner" : "SaladBind"} v${packageJson.version}`;
 
