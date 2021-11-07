@@ -120,7 +120,6 @@ presence.state.on('ready', () => {
 	presence.enable();
 	presence.mainmenu();
 })
-
 if(process.argv[process.argv.length-1] == "-d") {
 	try {
 		fs.writeFileSync("saladbind-debug.txt", JSON.stringify(getDebugData(), null, " "));
