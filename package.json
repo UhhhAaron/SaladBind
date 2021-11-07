@@ -29,11 +29,11 @@
     "inquirer": "^8.2.0",
     "mv": "^2.1.1",
     "node-fetch": "^2.6.2",
-    "open": "^8.3.0",
+    "open": "^8.4.0",
     "ora": "^5.4.1",
     "systeminformation": "^5.9.9"
   },
   "devDependencies": {
-    "pkg": "^5.3.3"
+    "pkg": "^5.4.1"
   }
 }
