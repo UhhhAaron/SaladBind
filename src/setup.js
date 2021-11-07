@@ -3,8 +3,6 @@ const chalk = require('chalk');
 const inquirer = require('inquirer');
 const fs = require('fs');
 const path = require('path');
-const presence = require("./presence.js");
-var isPresenceEnabled = false;
 var firstTime = false;
 
 async function run(clear = false) {
@@ -53,33 +51,21 @@ All of the money you mine using SaladBind goes to Salad, and all Salad boosts an
 		}
 	} 
 	if (prompt.settings == "discord") {
-		discord()
+		await toggleDiscord()
+		return await run();
 	} else if (prompt.settings == "miner") {
 		miner()
 	}
 }
 
-async function discord(){
-	console.log(`Discord Rich Presence means that your Discord friends and people in Discord servers will see that you use SaladBind. 
-	They will see your SaladBind version, miner, algorithm, and pool on your Discord profile.
-	In order for this to work, you'll need to have the Discord desktop app installed.
-		`);
-		var prompt = await inquirer.prompt([{
-			type: 'confirm',
-			name: 'presence',
-			message: chalk.yellow("Enable Discord Rich Presence? (may require app restart)"),
-			default: false
-		}])
-		let isPresenceEnabled
-		if (prompt.presence) {
-			isPresenceEnabled = true;
-		} else {
-			presence.disconnect();
-			isPresenceEnabled = false;
-		}
-		await save("discordPresence", isPresenceEnabled)
-		console.clear()
-		run(true)
+async function toggleDiscord() {
+	let discordPresence;
+	try {
+		discordPresence = await JSON.parse(fs.readFileSync("./data/config.json")).discordPresence;
+	} catch {
+		discordPresence = false;
+	}
+	await save("discordPresence", !discordPresence);
 }
 
 async function miner(){
@@ -97,9 +83,15 @@ async function miner(){
 			}, {
 				name: `Manual ${chalk.yellow("(Input worker ID manually)")}`,
 				value: "manual"
+			}, {
+				name: `${chalk.redBright("Go Back")}`,
+				value: "back"
 			}
 		]
 	}]);
+	if (promptResult.useapi == "back") {
+		run();
+	}
 	if (promptResult.useapi == "auto") {
 		console.clear();
 		function getIDFromLogs(filename) {
