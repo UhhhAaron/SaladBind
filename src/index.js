@@ -108,7 +108,8 @@ function getDebugData() {
 		platform: `${cache?.os?.platform} (${cache?.os?.distro} ${cache?.os?.release})`,
 		system: `${cache?.system?.manufacturer} ${cache?.system?.version} ${cache?.system?.model}`,
 		miners: miners,
-		last: last
+		last: last,
+		gpus: cache?.graphics?.controllers,
 	}
 }
 
