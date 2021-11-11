@@ -1,9 +1,10 @@
 {
-    "version": "1.5.1",
+    "version": "1.6.0",
     "changelog": [
-        "Added support for the Prohashing pool",
-        "Fixed a bug and some spelling mistakes",
-        "PLEASE RECONFIGURE YOUR SALADBIND AFTER UPDATING TO USE PROHASHING!!!"
+        "New settings menu",
+        "Quickly start mining with last settings",
+        "Big improvements to the error handler",
+        "Checking if Salad is already running before starting the miner"
     ],
     "next_version": "1.6.0",
     "next_changelog": [
