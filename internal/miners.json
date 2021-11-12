@@ -5,7 +5,7 @@
         "kawpow": 3094,
         "beamv3": 2000,
         "EQUI144_5": 2000,
-        "autolykos2": 2086,
+        "autolykos2": 2087,
         "octopus": 4720,
         "randomx": null
     },
@@ -42,7 +42,7 @@
             "miner": "T-Rex",
             "download": {
                 "win32": "https://github.com/trexminer/T-Rex/releases/download/0.24.6/t-rex-0.24.6-win.zip",
-                "linux": "https://github.com/trexminer/T-Rex/releases/download/0.24.&/t-rex-0.24.6-linux.tar.gz"
+                "linux": "https://github.com/trexminer/T-Rex/releases/download/0.24.6/t-rex-0.24.6-linux.tar.gz"
             },
             "algos": [
                 "ethash",
