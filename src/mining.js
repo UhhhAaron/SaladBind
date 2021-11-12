@@ -452,6 +452,8 @@ async function prepStart(minerData, algo, pool, region, advancedCommands, quick=
 				resolve(false);
 			}
 
+	} else {
+		resolve(false);
 	}});
 	console.log(chalk.bold.cyan(`Configure your miner`))
 	presence.configuring("About to start!");
