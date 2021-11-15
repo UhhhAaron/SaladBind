@@ -4,21 +4,29 @@ Although SaladBind does not require funding to operate, you can send the develop
 
 We greatly appreciate anything you send, although you don't have to do this! The only reason this page exists is because people have asked for it - SaladBind is still not a for-profit application, and it never will be. More donation options coming soon.
 
-## LIT Devs
+## Cryptocurrency
 
-### Cryptocurrencies
+We accept the following cryptocurrencies, please send any donations to the following addresses:
 
-Dogecoin: D5honayTpr1VbPuayBqFTY1nh8Gj6ZkAfN
+- BNB (BSC) `0x7DBc369Ca89A706edCeD47207A806139fb7462e4`
+- DOGE `D5honayTpr1VbPuayBqFTY1nh8Gj6ZkAfN`
+- LTC `LfQDfFuYoqJN44mFQjtcfRjjmSAGhy68rH`
+- XMR `47GFy7GvwK6eisoDpP2hDZQ1mSh9mSU6Y3rkwSKGHn2VTF6yAtNuTWVUUuNJdU3UhzHn3vd5FFSYFQEs167gFCKrBgYSfXb`
+- RVN `RSEWKvswFjzvofZuaRqBPRQes3dr4eNTfT`
+- BTC `bc1qal45r9y9r56hm3fh0c2dx7zyrqye5cstmp6x8t`
+- ETH `0x7DBc369Ca89A706edCeD47207A806139fb7462e4`
 
-Litecoin: LfQDfFuYoqJN44mFQjtcfRjjmSAGhy68rH
+## Vukky
 
-Monero: 47GFy7GvwK6eisoDpP2hDZQ1mSh9mSU6Y3rkwSKGHn2VTF6yAtNuTWVUUuNJdU3UhzHn3vd5FFSYFQEs167gFCKrBgYSfXb
+### Salad
 
-Ravencoin: RSEWKvswFjzvofZuaRqBPRQes3dr4eNTfT
+Use code EYGTQ4.
 
-Bitcoin: bc1qal45r9y9r56hm3fh0c2dx7zyrqye5cstmp6x8t
+## Skelly
 
-Ethereum/Binance Coin (BSC): 0x7DBc369Ca89A706edCeD47207A806139fb7462e4
+### Salad
+
+Use code MOGUS.
 
 ## Alfur
 
