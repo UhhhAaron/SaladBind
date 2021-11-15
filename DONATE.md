@@ -4,25 +4,21 @@ Although SaladBind does not require funding to operate, you can send the develop
 
 We greatly appreciate anything you send, although you don't have to do this! The only reason this page exists is because people have asked for it - SaladBind is still not a for-profit application, and it never will be. More donation options coming soon.
 
-## Vukky
-
-### Salad
-
-Use code EYGTQ4.
+## LIT Devs
 
 ### Cryptocurrencies
 
-You can find my cryptocurrency wallets on https://sus.omg.lol, at the bottom.
+Dogecoin: D5honayTpr1VbPuayBqFTY1nh8Gj6ZkAfN
 
-## Skelly
+Litecoin: LfQDfFuYoqJN44mFQjtcfRjjmSAGhy68rH
 
-### Salad
+Monero: 47GFy7GvwK6eisoDpP2hDZQ1mSh9mSU6Y3rkwSKGHn2VTF6yAtNuTWVUUuNJdU3UhzHn3vd5FFSYFQEs167gFCKrBgYSfXb
 
-Use code MOGUS.
+Ravencoin: RSEWKvswFjzvofZuaRqBPRQes3dr4eNTfT
 
-### Cryptocurrencies
+Bitcoin: bc1qal45r9y9r56hm3fh0c2dx7zyrqye5cstmp6x8t
 
-* BTC: `bc1qrqrpyugqdzy4942yf9vcc6dng93s5tegr0psl5`
+Ethereum/Binance Coin (BSC): 0x7DBc369Ca89A706edCeD47207A806139fb7462e4
 
 ## Alfur
 
