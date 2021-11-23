@@ -2,13 +2,13 @@ const RPC = require('discord-rpc');
 let client = new RPC.Client({ transport: 'ipc' })
 const fs = require("fs");
 var presenceEnabled = false;
-let tempest = "./data/config.json";
+const { configFile } = require("./setup");
 const pjson = require('../package.json');
 
-if (!fs.existsSync(tempest)) {
+if (!fs.existsSync(configFile)) {
 	config = { presenceEnabled: false }
 } else {
-	let rawdata = fs.readFileSync(tempest);
+	let rawdata = fs.readFileSync(configFile);
 	config = JSON.parse(rawdata)
 }
 

@@ -34,7 +34,7 @@ process.on("uncaughtException", err => {
 			if (out.exit == "exit" || out.exit == "") process.exit(1)
 			else if (out.exit == "write_log") {
 				try {
-					fs.writeFileSync("saladbind_error.txt", `Hi! I'm a SaladBind Error Log. Please send me to my creators at https://discord.gg/HfBAtQ2afz\nI'm now going to puke everything I know at you. I hope you don't mind (it's very technical :D)\n\nThe error was ${err}\n\nHere's the stacktrace, so we can figure out where the error is coming from:\n${err.stack}\n\nAnd finally, some cool debug information I made just for you!\nIt helps us find out if the person sitting in front of the screen is the problem.\n${JSON.stringify(getDebugData(), null, " ")}`);
+					fs.writeFileSync(`${saladbind_directory}/saladbind_error.txt`, `Hi! I'm a SaladBind Error Log. Please send me to my creators at https://discord.gg/HfBAtQ2afz\nI'm now going to puke everything I know at you. I hope you don't mind (it's very technical :D)\n\nThe error was ${err}\n\nHere's the stacktrace, so we can figure out where the error is coming from:\n${err.stack}\n\nAnd finally, some cool debug information I made just for you!\nIt helps us find out if the person sitting in front of the screen is the problem.\n${JSON.stringify(getDebugData(), null, " ")}`);
 					process.exit(1);
 				} catch {
 					try {
@@ -70,6 +70,7 @@ const open = require("open");
 const si = require("systeminformation");
 const update = require("./update.js")
 const presence = require("./presence.js");
+const { configFile, dataDirectory, saladbind_directory, run} = require("./setup");
 
 function getDebugData() {
 	function safelyReadAndParseFile(name) {
@@ -85,21 +86,21 @@ function getDebugData() {
 		}
 		return data
 	}
-	let configData = safelyReadAndParseFile("./data/config.json")
+	let configData = safelyReadAndParseFile(configFile)
 	let miners;
 	try {
-		miners = fs.readdirSync("./data/miners").join(", ")
+		miners = fs.readdirSync(`${dataDirectory}/miners`).join(", ")
 	} catch {
 		miners = "Error, data/miners folder might not exist or is unreachable."
 	}
-	let last = safelyReadAndParseFile("./data/last.json");
-	let cache = safelyReadAndParseFile("./data/cache.json");
+	let last = safelyReadAndParseFile(`${dataDirectory}/last.json`);
+	let cache = safelyReadAndParseFile(`${dataDirectory}/cache.json`);
 	if(typeof cache !== "object") {
 		console.log("\nWARNING: It does not seem like you've entered the miner selection screen before, some data may be missing from the debug.\n")
 	}
 	return {
 		timestamp: new Date().getTime(),
-		configured: fs.existsSync("data/config.json"),
+		configured: fs.existsSync(configFile),
 		__dirname: __dirname,
 		cwd: process.cwd(),
 		version: packageJson.version,
@@ -138,20 +139,13 @@ console.clear();
 const aprilfools = new Date().getMonth() == 3 && new Date().getDate() == 1;
 process.title = `${aprilfools ? "VegetableJoiner" : "SaladBind"} v${packageJson.version}`;
 
-// Make sure the user doesn't run SaladBind as admin or from Start menu on Windows
-function startMenuCheck() {
-	if(process.platform == "win32" && (__dirname.toLowerCase().startsWith("c:\\windows\\system32") || process.cwd().toLowerCase().startsWith("c:\\windows\\system32")) ) {
-		console.log(chalk.red.bold("Warning: You are running SaladBind from the task menu or as administrator.\nPlease run SaladBind from the SaladBind exe file you downloaded in order to avoid issues."))
-	}
-}
 (async() => {
 	update.updateCheck.then(() => {
-			if (!fs.existsSync('./data/config.json')) {
-				require("./setup").run(false);
+			if (!fs.existsSync(configFile)) {
+				run(false);
 			} else {
 				console.log(chalk.bold.green(`SaladBind v${packageJson.version}`));
 				console.clear();
-				startMenuCheck();
 				menu(false);
 			}
 	})
@@ -183,7 +177,7 @@ async function menu(clear) {
 		value: 'exit'
 	}
 ]
-if(fs.existsSync("./data/last.json")){
+if (fs.existsSync(`${dataDirectory}/last.json`)){
 	choices.unshift({
 		name: 'Start latest miner',
 		value: 'quick'

@@ -5,6 +5,7 @@ const fs = require("fs")
 const si = require("systeminformation");
 const fetch = require("node-fetch");
 const chalk = require('chalk');
+const { dataDirectory } = require("./setup");
 async function getInfo(sAccessToken) {
 	var temp = await si.osInfo()
 	const systemInfo = {
@@ -50,7 +51,7 @@ async function updateCache() {
 		platform: temp.platform,
 		uuid: await si.uuid()
 	}
-	fs.writeFileSync("./data/cache.json", JSON.stringify({ "uuid": systemInfo.uuid, "os": systemInfo.os, "platform": systemInfo.platform, "version": systemInfo.version, "system": systemInfo.system, "cpu": systemInfo.cpu, "graphics": systemInfo.graphics, "memLayout": systemInfo.memLayout }))
+	fs.writeFileSync(`${dataDirectory}/cache.json`, JSON.stringify({ "uuid": systemInfo.uuid, "os": systemInfo.os, "platform": systemInfo.platform, "version": systemInfo.version, "system": systemInfo.system, "cpu": systemInfo.cpu, "graphics": systemInfo.graphics, "memLayout": systemInfo.memLayout }))
 
 }
 

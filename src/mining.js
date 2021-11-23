@@ -11,20 +11,20 @@ const decompressTargz = require('decompress-targz');
 const decompressUnzip = require('decompress-unzip');
 const mv = require('mv'); // bukky 
 const { menu } = require('./index');
-let tempest = "./data/config.json"; // im temper than you
-let rawdata = fs.readFileSync(tempest);
+const { configFile, dataDirectory} = require("./setup");
+let rawdata = fs.readFileSync(configFile);
 const config = JSON.parse(rawdata);
 const { spawn, execSync } = require("child_process");
 const presence = require('./presence');
-const cache = require("./getMachine.js") // wtf how is this cache haha
+const cache = require("./getMachine.js"); // wtf how is this cache haha
 let spinner;
 let isDev = config.dev != undefined && config.dev == true;
 let lastMiner = {}
 
 function moveDupeFolder(folderName) {
-	let folderData = fs.readdirSync(`./data/temp/${folderName}`)
+	let folderData = fs.readdirSync(`${dataDirectory}/temp/${folderName}`)
 	if (folderData.length == 1) {
-		mv(`./data/temp/${folderName}/${folderData[0]}`, `./data/miners/${folderName}`, { clobber: false }, function(err) { //oh okers
+		mv(`${dataDirectory}/temp/${folderName}/${folderData[0]}`, `${dataDirectory}/miners/${folderName}`, { clobber: false }, function(err) { //oh okers
 			// done. it tried fs.rename first, and then falls ba	ck to
 			// piping the source file to the dest file and then unlinking
 			// the source file. (docs lol) lol
@@ -34,7 +34,7 @@ function moveDupeFolder(folderName) {
 			}
 		});
 	} else {
-		mv(`./data/temp/${folderName}/`, `./data/miners/${folderName}`, { clobber: false }, function(err) { //oh okers
+		mv(`${dataDirectory}/temp/${folderName}/`, `${dataDirectory}/miners/${folderName}`, { clobber: false }, function(err) { //oh okers
 			if (err) {
 				console.log(chalk.bold.red(err));
 				spinner.fail();
@@ -44,13 +44,13 @@ function moveDupeFolder(folderName) {
 }
 
 async function extractFile(location, folderName, fileExtension) {
-	if (!fs.existsSync(`./data/temp/${folderName}`)) {
-		fs.mkdirSync(`./data/temp/${folderName}`); // me too
+	if (!fs.existsSync(`${dataDirectory}/temp/${folderName}`)) {
+		fs.mkdirSync(`${dataDirectory}/temp/${folderName}`); // me too
 	}
-	if (!fs.existsSync(`./data/miners/`)) {
-		fs.mkdirSync(`./data/miners/`); // me too
+	if (!fs.existsSync(`${dataDirectory}/miners/`)) {
+		fs.mkdirSync(`${dataDirectory}/miners/`); // me too
 	}
-	await decompress(location, `./data/temp/${folderName}`, {
+	await decompress(location, `${dataDirectory}/temp/${folderName}`, {
 		plugins: [
 			decompressTargz(),
 			decompressUnzip()
@@ -91,10 +91,10 @@ const downloadFile = async function(url, location, name) {
 
 async function run() {
 	spinner = ora("Checking system specs...").start();
-	if (!fs.existsSync("./data/temp")) {
-		fs.mkdirSync("./data/temp");
+	if (!fs.existsSync(`${dataDirectory}/temp`)) {
+		fs.mkdirSync(`${dataDirectory}/temp`);
 	}
-	if (!fs.existsSync("./data/cache.json")) {
+	if (!fs.existsSync(`${dataDirectory}/cache.json`)) {
 		spinner.text = "Saving system specs...";
 		cache.updateCache().then(() => {
 			spinner.succeed(chalk.green.bold("System specs saved!"))
@@ -117,11 +117,11 @@ async function continueMiner() {
 		.then(async data => {
 			spinner.text = "Checking your specs";
 			try {
-				var systemCache = JSON.parse(fs.readFileSync("./data/cache.json"))
+				var systemCache = JSON.parse(fs.readFileSync(`${dataDirectory}/cache.json`))
 			} catch {
 				console.log(chalk.bold.red("\nFailed to load cache! Trying to recover. Please allow up to 30 seconds.\n"))
 				systemCache = {};
-				fs.rmSync("./data/cache.json");
+				fs.rmSync(`${dataDirectory}/cache.json`);
 				spinner.stop();
 				return await run(); // Restart from the beginning if cache is corrupted.
 			}
@@ -206,23 +206,23 @@ async function continueMiner() {
 					return;
 				}
 				lastMiner.data = miner.miner;
-				if (fs.existsSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`)) {
-					let minerFolder = fs.readdirSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`);
+				if (fs.existsSync(`${dataDirectory}/miners/${miner.miner.miner}-${miner.miner.version}`)) {
+					let minerFolder = fs.readdirSync(`${dataDirectory}/miners/${miner.miner.miner}-${miner.miner.version}`);
 					if (minerFolder.filter(file => file.startsWith(miner.miner.parameters.fileName)).length == 0) {
-						fs.rmSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`, { recursive: true });
+						fs.rmSync(`${dataDirectory}/miners/${miner.miner.miner}-${miner.miner.version}`, { recursive: true });
 					}
 				}
-				if (!fs.existsSync(`./data/miners/${miner.miner.miner}-${miner.miner.version}`)) {
+				if (!fs.existsSync(`${dataDirectory}/miners/${miner.miner.miner}-${miner.miner.version}`)) {
 					let miners = null;
-					if (fs.existsSync("./data/miners")) {
-						miners = fs.readdirSync("./data/miners");
+					if (fs.existsSync(`${dataDirectory}/miners`)) {
+						miners = fs.readdirSync(`${dataDirectory}/miners`);
 					} else {
 						miners = []
 					}
 					let oldMiners = miners.filter(minery => minery.startsWith(miner.miner.miner));
 					if (oldMiners.length > 0) { //woo! time for pools.json (and more fucking tokens) oh piss
 						console.log(chalk.yellow(`Updating ${miner.miner.miner} to ${miner.miner.version}...`));
-						oldMiners.forEach(miner => fs.rmSync(`./data/miners/${miner}`, { recursive: true }));
+						oldMiners.forEach(miner => fs.rmSync(`${dataDirectory}/miners/${miner}`, { recursive: true }));
 					}
 					spinner = ora(`Downloading ${miner.miner.miner}-${miner.miner.version}`).start();
 					var downloadURL = miner.miner.download[userPlatform];
@@ -231,7 +231,7 @@ async function continueMiner() {
 						fileExtension = ".tar.gz"
 					}
 					const fileName = `${miner.miner.miner}-${miner.miner.version}`
-					const fileLocation = `./data/temp/${fileName}${fileExtension}`;
+					const fileLocation = `${dataDirectory}/temp/${fileName}${fileExtension}`;
 					downloadFile(downloadURL, fileLocation, fileName).then(async() => {
 						spinner = ora(`Extracting ${miner.miner.miner}-${miner.miner.version}`).start();
 						await extractFile(fileLocation, fileName, fileExtension)
@@ -352,9 +352,9 @@ async function selectPool(minerData, algo) {
 			if(region.region == "automatic") {
 				let autoRegionCacheData;
 				try {
-					autoRegionCacheData = JSON.parse(fs.readFileSync("./data/autoregion-cache.json"));
+					autoRegionCacheData = JSON.parse(fs.readFileSync(`${dataDirectory}/autoregion-cache.json`));
 				} catch {
-					fs.writeFileSync("./data/autoregion-cache.json", JSON.stringify({}));
+					fs.writeFileSync(`${dataDirectory}/autoregion-cache.json`, JSON.stringify({}));
 					autoRegionCacheData = {};
 				}
 				async function calculateBestRegion(silent = false) {
@@ -392,7 +392,7 @@ async function selectPool(minerData, algo) {
 					if(pings.length != 0) {
 						region.region = pings.sort((a, b) => a.ping - b.ping)[0].region;
 						if(!silent) spinner.succeed("Using " + region.region + " (" + pings.sort((a, b) => a.ping - b.ping)[0].ping + "ms)");
-						fs.writeFileSync("./data/autoregion-cache.json", JSON.stringify({
+						fs.writeFileSync(`${dataDirectory}/autoregion-cache.json`, JSON.stringify({
 							...autoRegionCacheData,
 							[poolsy.name]: region.region
 						}));
@@ -406,7 +406,7 @@ async function selectPool(minerData, algo) {
 						}, 3500);
 					}
 				}
-				if(fs.existsSync("./data/autoregion-cache.json") && autoRegionCacheData[poolsy.name]) {
+				if(fs.existsSync(`${dataDirectory}/autoregion-cache.json`) && autoRegionCacheData[poolsy.name]) {
 					region.region = autoRegionCacheData[poolsy.name];
 					lastMiner.region = region.region
 					calculateBestRegion(true);
@@ -536,7 +536,7 @@ async function prepStart(minerData, algo, pool, region, advancedCommands, quick=
 						}
 						await askName();
 
-						if (name.name != "") fs.writeFileSync("data/saved-args.json", JSON.stringify({
+						if (name.name != "") fs.writeFileSync(`${dataDirectory}/saved-args.json`, JSON.stringify({
 							...data,
 							[name.name]: {
 								data: advancedCommandsy.advancedCommands
@@ -546,10 +546,10 @@ async function prepStart(minerData, algo, pool, region, advancedCommands, quick=
 					args = advancedCommandsy.advancedCommands;
 				} else args = "";
 			}
-			if (!fs.existsSync("data/saved-args.json")) fs.writeFileSync("data/saved-args.json", JSON.stringify({}));
+			if (!fs.existsSync(`/saved-args.json`)) fs.writeFileSync(`${dataDirectory}/saved-args.json`, JSON.stringify({}));
 			let data;
 			try {
-				data = JSON.parse(fs.readFileSync("data/saved-args.json"))
+				data = JSON.parse(fs.readFileSync(`${dataDirectory}/saved-args.json`))
 			} catch (err) {
 				let resetArgs = await inquirer.prompt({
 					type: "confirm",
@@ -558,9 +558,9 @@ async function prepStart(minerData, algo, pool, region, advancedCommands, quick=
 					default: "y"
 				});
 				if (resetArgs.resetSavedArgs) {
-					fs.writeFileSync("data/saved-args.json", JSON.stringify({}));
+					fs.writeFileSync(`${dataDirectory}/saved-args.json`, JSON.stringify({}));
 					console.log(chalk.bold.green("Successfully reset!"));
-					data = JSON.parse(fs.readFileSync("data/saved-args.json"))
+					data = JSON.parse(fs.readFileSync(`${dataDirectory}/saved-args.json`))
 				}
 			}
 			if (Object.keys(data).length != 0) {
@@ -712,7 +712,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 		//}); time for a hacky fix!
 
 		finalArguments.push(advancedCommands)
-		let miner = spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${userPlatform == "linux" || userPlatform == "darwin" ? "./" : ""}${minerData.parameters.fileName}`, finalArguments, {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }}) //its an array dumbass
+		let miner = spawn(`cd ${dataDirectory}/miners/${minerData.miner}-${minerData.version} && ${userPlatform == "linux" || userPlatform == "darwin" ? "./" : ""}${minerData.parameters.fileName}`, finalArguments, {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }}) //its an array dumbass
 		miner.on('close', (code) => {
 			console.log(`\nMiner stopped!\n`);
 			stopped();
@@ -727,7 +727,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 			console.log(chalk.yellow("Returning to SaladBind menu..."));
 		});
 	} else {
-		let miner = spawn(`cd data/miners/${minerData.miner}-${minerData.version} && ${userPlatform == "linux" || userPlatform == "darwin" ? "./" : ""}${minerData.parameters.fileName}`, [defaultArgs.pool, defaultArgs.algo, defaultArgs.wallet, defaultArgs.pass], {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }})
+		let miner = spawn(`cd ${dataDirectory}/miners/${minerData.miner}-${minerData.version} && ${userPlatform == "linux" || userPlatform == "darwin" ? "./" : ""}${minerData.parameters.fileName}`, [defaultArgs.pool, defaultArgs.algo, defaultArgs.wallet, defaultArgs.pass], {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }})
 		miner.on('close', (code) => {
 			console.log(`\nMiner stopped!\n`);
 			stopped();
@@ -747,7 +747,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 } 
 
 function saveLast(args){
-fs.writeFileSync("./data/last.json", JSON.stringify({
+fs.writeFileSync(`${dataDirectory}/last.json`, JSON.stringify({
 		algo: args.algo,
 		pool: args.pool,
 		region: args.region,
@@ -759,7 +759,7 @@ fs.writeFileSync("./data/last.json", JSON.stringify({
 async function quick(){
 	let details;
 	try{
-		details = JSON.parse(fs.readFileSync("./data/last.json"))
+		details = JSON.parse(fs.readFileSync(`${dataDirectory}/last.json`))
 		lastMiner = details;
 		presence.mine(details.data.miner, details.algo, details.pool)
 		prepStart(details.data, details.algo, details.pool, details.region, details.advancedCommands, true);
@@ -773,7 +773,7 @@ async function quick(){
 		}]).then(function(answers) {
 			if (answers.delete) {
 				try {
-					fs.unlinkSync("./data/last.json");
+					fs.unlinkSync(`${dataDirectory}/last.json`);
 					console.log(chalk.red("File deleted"));
 				} catch {
 					console.log("Could not delete the file, you may delete 'last.json' manually from the 'data' folder (if it exists).")

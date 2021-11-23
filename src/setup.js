@@ -4,14 +4,17 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const path = require('path');
 var firstTime = false;
+const saladbind_directory = (__dirname.startsWith("/snapshot") || __dirname.startsWith("C:\\snapshot")) ? process.execPath.substring(0, process.execPath.lastIndexOf(path.sep)) : __dirname;
+const dataDirectory = `${saladbind_directory}/data`;
+const configFile = `${dataDirectory}/config.json`;
 
 async function run(clear = false) {
 	let configData;
 	if (clear) console.clear();
-	if (!fs.existsSync('./data/config.json')){
+	if (!fs.existsSync(configFile)){
 		firstTime = true;
 	} else{
-		configData = await JSON.parse(fs.readFileSync("./data/config.json"))
+		configData = await JSON.parse(fs.readFileSync(configFile))
 	}
 	main(configData);
 }
@@ -68,7 +71,7 @@ All of the money you mine using SaladBind goes to Salad, and all Salad boosts an
 async function toggleDiscord() {
 	let discordPresence;
 	try {
-		discordPresence = await JSON.parse(fs.readFileSync("./data/config.json")).discordPresence;
+		discordPresence = await JSON.parse(fs.readFileSync(configFile)).discordPresence;
 	} catch {
 		discordPresence = false;
 	}
@@ -240,21 +243,22 @@ async function miner(){
 }
 
 async function save(setting, value){
-		if (!fs.existsSync("./data")) {
-			fs.mkdirSync("./data");
+		if (!fs.existsSync(dataDirectory)) {
+			fs.mkdirSync(dataDirectory);
 		}
 		let config = {}
-		if (fs.existsSync("./data/config.json")){
+		if (fs.existsSync(configFile)){
 			try{
-				config = await JSON.parse(fs.readFileSync("./data/config.json"))
+				config = await JSON.parse(fs.readFileSync(configFile))
 			} catch{
 				config = {}
 			}
 		}
 		config[setting] = value;
-		fs.writeFileSync("./data/config.json",JSON.stringify(config));
+		fs.writeFileSync(configFile,JSON.stringify(config));
 }
 
 module.exports = {
+	saladbind_directory, dataDirectory, configFile,
 	run
 }
