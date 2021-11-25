@@ -12,7 +12,8 @@ If you want to contribute to SaladBind, please read our [contributing guide](CON
 
 **This application is not affiliated with Salad Technologies.** It is made by LIT Devs, for the entire Salad community.
 
-Click here to join our [Discord server](https://discord.gg/zpsN7swhfD).
+We have a [Discord server](https://discord.gg/zpsN7swhfD) if you want to talk to us!
+
 ## Features
 
 - Switch between miners, pools, and algorithms
