@@ -1,6 +1,6 @@
 # SaladBind [![Compilation Test](https://github.com/LITdevs/SaladBind/actions/workflows/compile-test.yml/badge.svg)](https://github.com/LITdevs/SaladBind/actions/workflows/compile-test.yml)
 
-If you want to contribute to SaladBind, please read our [contributing guide](CONTRIBUTING.md).
+If you want to contribute to SaladBind, please read our [contributing guide](CONTRIBUTING.md). Do **NOT** make your own SaladBind version unless you have a good reason to! We welcome any contributions!
 
 ## Table of Contents
 
