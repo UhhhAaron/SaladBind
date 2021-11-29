@@ -756,13 +756,14 @@ fs.writeFileSync(`${dataDirectory}/last.json`, JSON.stringify({
 	}));
 };
 
-async function quick(){
+async function quick(cli=false){
 	let details;
 	try{
 		details = JSON.parse(fs.readFileSync(`${dataDirectory}/last.json`))
 		lastMiner = details;
 		presence.mine(details.data.miner, details.algo, details.pool)
-		prepStart(details.data, details.algo, details.pool, details.region, details.advancedCommands, true);
+		if(!cli) prepStart(details.data, details.algo, details.pool, details.region, details.advancedCommands, true);
+		if(cli) startMiner(details.data, details.algo, details.pool, details.region, details.advancedCommands);
 	} catch {
 		console.log(chalk.red("Error while reading/parsing last.json"));
 		await inquirer.prompt([{

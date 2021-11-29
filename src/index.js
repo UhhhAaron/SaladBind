@@ -134,6 +134,12 @@ if(process.argv[process.argv.length-1] == "-d") {
 	}
 	process.exit();
 }
+let dontStart = false
+if(process.argv[process.argv.length-1] == "-l") {
+	dontStart=true
+	require("./mining").quick(true);
+	
+}
 console.clear();
 
 const aprilfools = new Date().getMonth() == 3 && new Date().getDate() == 1;
@@ -142,11 +148,11 @@ process.title = `${aprilfools ? "VegetableJoiner" : "SaladBind"} v${packageJson.
 (async() => {
 	update.updateCheck.then(() => {
 			if (!fs.existsSync(configFile)) {
-				run(false);
+				if(!dontStart) run(false);
 			} else {
 				console.log(chalk.bold.green(`SaladBind v${packageJson.version}`));
 				console.clear();
-				menu(false);
+				if(!dontStart) menu(false);
 			}
 	})
 })();
