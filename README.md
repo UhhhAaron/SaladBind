@@ -26,6 +26,7 @@ We have a [Discord server](https://discord.gg/zpsN7swhfD) if you want to talk to
 - No extra programs needed
 - Set advanced miner arguments
 - Save your advanced miner arguments
+- Immediately restart mining with old settings using a command line argument.
 
 ## Installation
 
@@ -126,6 +127,13 @@ You are now ready to go!
 ### Miner Setup Guide
 
 If you don't know what miner, algorithm or pool to pick, we have a [handy guide](MINERS.md).
+
+## Command line arguments
+
+SaladBind offers some command line arguments.
+
+- `-d` for dumping debug data
+- `-l` for starting mining with the latest settings
 
 ## Compiling
 
