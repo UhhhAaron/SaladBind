@@ -7,7 +7,7 @@ process.on("uncaughtException", err => {
 		console.clear();
 		console.log(`${chalk.bold.red("Oh noes! A scary error!")}\nTechnical details: ${err.message}`);
 		if(err.message.includes("EPERM")) console.log(chalk.blueBright("This *could* be your antivirus."))
-		console.log("\nPlease join our Discord server (https://discord.gg/HfBAtQ2afz) and send us your log file.\nIt'll be created where you downloaded SaladBind, as 'saladbind_error.txt'.");	
+		console.log("\nPlease join our Discord server (https://discord.gg/HfBAtQ2afz) and send us your log file.\n'But where is it?' The file path will be logged.");	
 		inquirer.prompt({
 			name: "exit",
 			message: "What do you want to do?",
