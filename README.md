@@ -30,17 +30,13 @@ We have a [Discord server](https://discord.gg/zpsN7swhfD) if you want to talk to
 
 ## Installation
 
-A video guide can be found here:
+If you're on Windows, you can take a look at this video guide:
 
 [![SaladBind Video Tutorial](https://img.youtube.com/vi/u_dOOn75_mA/0.jpg)](https://www.youtube.com/watch?v=u_dOOn75_mA)
 
 Head to our [GitHub Releases](https://github.com/LITdevs/SaladBind/releases/latest) page, download the latest release for your operating system, and just run it if you're on Windows. **BUT KEEP READING TO LEARN HOW TO SET UP AND USE IT!**
 
-### Platform-specific prerequisites
-
-If you're not on macOS, Linux, or Windows 7, you can skip this section.
-
-#### macOS and Linux
+### macOS and Linux
 
 For these platforms, you'll need to run SaladBind from the terminal, due to how SaladBind works. If you need help with using the terminal, don't be afraid to Google a bit - you'll have to use `cd` to be in the same folder that SaladBind is in.
 
@@ -54,17 +50,6 @@ chmod +x ./saladbind-macos # You only need to run this once
 ```bash
 chmod +x ./saladbind-linux # You only need to run this once
 ./saladbind-linux
-```
-
-#### Windows 7
-
-**SaladBind does not, by default, support Windows 7. Only use these steps if you know what you are doing.**
-
-However, [you can make a bat file](https://www.wikihow.com/Write-a-Batch-File#Saving-the-Batch-File) with Notepad in the same location as SaladBind to allow it to run and use it to open SaladBind instead of the exe.
-
-```bat
-set NODE_SKIP_PLATFORM_CHECK="1"
-saladbind-win
 ```
 
 ### Configuration
