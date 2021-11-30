@@ -30,7 +30,7 @@ We have a [Discord server](https://discord.gg/zpsN7swhfD) if you want to talk to
 
 ## Installation
 
-A video guide can be found here:
+If you're on Windows, you can take a look at this video guide:
 
 [![SaladBind Video Tutorial](https://img.youtube.com/vi/u_dOOn75_mA/0.jpg)](https://www.youtube.com/watch?v=u_dOOn75_mA)
 
