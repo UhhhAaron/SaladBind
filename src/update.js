@@ -10,12 +10,8 @@ const si = require("systeminformation");
 const { dataDirectory, saladbind_directory} = require("./setup");
 const path = require("path");
 
-if (process.platform == "win32" && !fs.existsSync(dataDirectory.slice(0, -5))) {
-	fs.mkdirSync(dataDirectory.slice(0, -5));
-}
-
 if (!fs.existsSync(dataDirectory)) {
-	fs.mkdirSync(dataDirectory);
+	fs.mkdirSync(dataDirectory, { recursive: true });
 }
 
 const updateCheck = new Promise((resolve, reject) => {

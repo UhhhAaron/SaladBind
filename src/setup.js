@@ -9,12 +9,8 @@ const saladbind_directory = (__dirname.startsWith("/snapshot") || __dirname.star
 const dataDirectory = envPaths('SaladBind', { suffix: "" }).data;
 const configFile = `${envPaths('SaladBind', { suffix: "" }).config}/config.json`;
 
-if (process.platform == "win32" && !fs.existsSync(envPaths('SaladBind', { suffix: "" }).config.slice(0, -7))) {
-	fs.mkdirSync(envPaths('SaladBind', { suffix: "" }).config.slice(0, -7));
-}
-
 if (!fs.existsSync(envPaths('SaladBind', { suffix: "" }).config)) {
-	fs.mkdirSync(envPaths('SaladBind', { suffix: "" }).config);
+	fs.mkdirSync(envPaths('SaladBind', { suffix: "" }).config, { recursive: true });
 }
 
 async function run(clear = false) {
