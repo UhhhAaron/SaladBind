@@ -4,9 +4,18 @@ const inquirer = require('inquirer');
 const fs = require('fs');
 const path = require('path');
 var firstTime = false;
+const envPaths = require('env-paths');
 const saladbind_directory = (__dirname.startsWith("/snapshot") || __dirname.startsWith("C:\\snapshot")) ? process.execPath.substring(0, process.execPath.lastIndexOf(path.sep)) : __dirname;
-const dataDirectory = `${saladbind_directory}/data`;
-const configFile = `${dataDirectory}/config.json`;
+const dataDirectory = envPaths('SaladBind', { suffix: "" }).data;
+const configFile = `${envPaths('SaladBind', { suffix: "" }).config}/config.json`;
+
+if (process.platform == "win32" && !fs.existsSync(envPaths('SaladBind', { suffix: "" }).config.slice(0, -7))) {
+	fs.mkdirSync(envPaths('SaladBind', { suffix: "" }).config.slice(0, -7));
+}
+
+if (!fs.existsSync(envPaths('SaladBind', { suffix: "" }).config)) {
+	fs.mkdirSync(envPaths('SaladBind', { suffix: "" }).config);
+}
 
 async function run(clear = false) {
 	let configData;
@@ -32,12 +41,12 @@ All of the money you mine using SaladBind goes to Salad, and all Salad boosts an
 		name: "settings",
 		message: chalk.bold.cyan(`Configure SaladBind`),
 		choices: [{
-				name: `Discord RPC ${configData.discordPresence ? chalk.green("(Enabled)") : chalk.redBright("(Disabled)")}`,
-				value: "discord"
+				name: `Update Miner Details ${configData.id != undefined || configData.minerId != undefined ? "" : chalk.bold.red("(Must be configured)")}`,
+				value: "miner"
 			},
 			{
-				name: `Update Miner Details ${configData.id != undefined || configData.minerId != undefined ? "" : chalk.bold.red("(Attention needed!!!)")}`,
-				value: "miner"
+				name: `Discord RPC ${configData.discordPresence ? chalk.green("(Enabled)") : chalk.redBright("(Disabled)")}`,
+				value: "discord"
 			},
 			{
 				name: `Bypass GPU Checks ${configData.bypassGPUChecks ? chalk.green("(Enabled)") : chalk.redBright("(Disabled)")}`,
