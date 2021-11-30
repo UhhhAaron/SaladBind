@@ -42,8 +42,6 @@ If you're not on macOS, Linux, or Windows 7, you can skip this section.
 
 #### macOS and Linux
 
-If you are on macOS or Linux, please note that these platforms are untested, and you may encounter bugs.
-
 For these platforms, you'll need to run SaladBind from the terminal, due to how SaladBind works. If you need help with using the terminal, don't be afraid to Google a bit - you'll have to use `cd` to be in the same folder that SaladBind is in.
 
 Use these commands to start SaladBind, for macOS or Linux respectively:
