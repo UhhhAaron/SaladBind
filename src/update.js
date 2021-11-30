@@ -15,6 +15,7 @@ if (!fs.existsSync(dataDirectory)) {
 }
 
 const updateCheck = new Promise((resolve, reject) => {
+		if(process.platform != "win32" && process.platform != "darwin") resolve(); // update checking like this is not particularly expected on linux
 		let dirContent = fs.readdirSync(saladbind_directory);
 		let instances = []
 		var i = 0;
@@ -103,9 +104,6 @@ async function startUpdate() {
 	if (platform == "win32") {
 		filename = files.win32.name
 		downloadFile(files.win32.file, `${dataDirectory}/${filename}`, `SaladBind v${version}`)
-	} else if (platform == "linux") {
-		filename = files.linux.name
-		downloadFile(files.linux.file, `${dataDirectory}/${filename}`, `SaladBind v${version}`)
 	} else if (platform == "darwin") {
 		filename = files.macos.name
 		downloadFile(files.macos.file, `${dataDirectory}/${filename}`, `SaladBind v${version}`)
