@@ -15,7 +15,7 @@ if (!fs.existsSync(dataDirectory)) {
 }
 
 const updateCheck = new Promise((resolve, reject) => {
-		if(process.platform != "win32" && process.platform != "darwin") resolve(); // update checking like this is not particularly expected on linux
+		if(process.platform != "win32" && process.platform != "darwin") return resolve(); // update checking like this is not particularly expected on linux
 		let dirContent = fs.readdirSync(saladbind_directory);
 		let instances = []
 		var i = 0;
