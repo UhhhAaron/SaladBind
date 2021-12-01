@@ -29,14 +29,15 @@ process.on("uncaughtException", err => {
 			if (out.exit == "exit" || out.exit == "") process.exit(1)
 			else if (out.exit == "write_log") {
 				try {
-					fs.writeFileSync(`${envPaths('SaladBind', { suffix: "" }).log}/saladbind_error.txt`, `Hi! I'm a SaladBind Error Log. Please send me to my creators at https://discord.gg/HfBAtQ2afz\nI'm now going to puke everything I know at you. I hope you don't mind (it's very technical :D)\n\nThe error was ${err}\n\nHere's the stacktrace, so we can figure out where the error is coming from:\n${err.stack}\n\nAnd finally, some cool debug information I made just for you!\nIt helps us find out if the person sitting in front of the screen is the problem.\n${JSON.stringify(getDebugData(), null, " ")}`);
-					console.log(`\nWrote to "${envPaths('SaladBind', { suffix: "" }).log}/saladbind-error.txt" successfully\n`);
+					fs.writeFileSync(`${envPaths('SaladBind', { suffix: "" }).data}/saladbind_error.txt`, `Hi! I'm a SaladBind Error Log. Please send me to my creators at https://discord.gg/HfBAtQ2afz\nI'm now going to puke everything I know at you. I hope you don't mind (it's very technical :D)\n\nThe error was ${err}\n\nHere's the stacktrace, so we can figure out where the error is coming from:\n${err.stack}\n\nAnd finally, some cool debug information I made just for you!\nIt helps us find out if the person sitting in front of the screen is the problem.\n${JSON.stringify(getDebugData(), null, " ")}`);
+					console.log(`\nWrote to "${envPaths('SaladBind', { suffix: "" }).data}/saladbind-error.txt" successfully\n`);
 					process.exit(1);
-				} catch {
+				} catch(newErr) {
 					try {
 						console.log("Uh... While we tried to log the error, another error arrived!\nPlease screenshot the following data and send it to us in our Discord.");
-						console.log(err.stack)
-						console.log(JSON.stringify(getDebugData()));
+						console.log("NEW ERROR:", newErr);
+						console.log("OLD ERROR:", err);
+						console.log("DEBUG:", JSON.stringify(getDebugData()));
 						setInterval(() => {
 							// literally do nothing, make sure the user sees the error and it doesnt close instantly
 						}, 10000);
