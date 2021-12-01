@@ -88,7 +88,7 @@ async function toggleDiscord() {
 async function toggleBypassGpu() {
 	let bypassGPUChecks;
 	try {
-		bypassGPUChecks = await JSON.parse(fs.readFileSync("./data/config.json")).bypassGPUChecks;
+		bypassGPUChecks = await JSON.parse(fs.readFileSync(configFile)).bypassGPUChecks;
 	} catch {
 		bypassGPUChecks = false;
 	}
