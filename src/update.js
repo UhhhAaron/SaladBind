@@ -25,10 +25,12 @@ const updateCheck = new Promise((resolve, reject) => {
 				instances.push(dirContent[i])
 			}
 		}
-		if (instances.length > 1) {
+		if (instances.length > 1 && process.argv[process.argv.indexOf("-u")] != undefined) {
 			setTimeout(function() {
 				for (i = 0; i < instances.length; i++) {
-					fs.unlink(`${saladbind_directory}/${instances[i]}`, function() {})
+					if (process.argv[process.argv.indexOf("-u") + 1] != instances[i]) {
+						fs.unlink(`${saladbind_directory}/${instances[i]}`, function() {})
+					}
 				}
 			}, 5000)
 		}
@@ -143,7 +145,7 @@ const installNew = async function(location) {
 				if (platform == "win32") {
 					spinner.succeed(chalk.bold.green(`${filename} has been downloaded! Opening in 5 seconds.`));
 					setTimeout(function() {
-						let command_arguments = [path.join(saladbind_directory, filename)]
+						let command_arguments = [path.join(saladbind_directory, filename), `-u ${filename}`]
 						execFile('start', command_arguments)
 						console.log(chalk.bold.red("Closing this window. Please do not touch anything until instructed."))
 						setTimeout(function() { process.exit(0) }, 5000)
