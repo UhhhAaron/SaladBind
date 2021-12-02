@@ -30,15 +30,21 @@ We have a [Discord server](https://discord.gg/zpsN7swhfD) if you want to talk to
 
 ## Installation
 
-If you're on Windows, you can take a look at this video guide:
+### Windows
 
-[![SaladBind Video Tutorial](https://img.youtube.com/vi/u_dOOn75_mA/0.jpg)](https://www.youtube.com/watch?v=u_dOOn75_mA)
+Download the file from [GitHub Releases](https://github.com/LITdevs/SaladBind/releases/latest).
 
-Head to our [GitHub Releases](https://github.com/LITdevs/SaladBind/releases/latest) page, download the latest release for your operating system, and just run it if you're on Windows. **BUT KEEP READING TO LEARN HOW TO SET UP AND USE IT!**
+There's a video tutorial, which you can find [here](https://www.youtube.com/watch?v=u_dOOn75_mA).
 
-### macOS and Linux
+### Arch-based Linux distros
 
-For these platforms, you'll need to run SaladBind from the terminal, due to how SaladBind works. If you need help with using the terminal, don't be afraid to Google a bit - you'll have to use `cd` to be in the same folder that SaladBind is in.
+SaladBind is available on the AUR! Install the `saladbind` package through the AUR manager of your choice.
+
+Is Arch not your favorite distro? That's unfortunate! You can try packaging SaladBind yourself, contacting us, or downloading the binary manually as explained below.
+
+### macOS and other Linux distros
+
+Download the file from [GitHub Releases](https://github.com/LITdevs/SaladBind/releases/latest). For these platforms, you'll need to run SaladBind from the terminal, due to how SaladBind works. If you need help with using the terminal, don't be afraid to Google a bit - you'll have to use `cd` to be in the same folder that SaladBind is in.
 
 Use these commands to start SaladBind, for macOS or Linux respectively:
 
