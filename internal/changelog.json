@@ -1,8 +1,9 @@
 {
-    "version": "1.7.0",
+    "version": "1.7.1",
     "changelog": [
         "SaladBind now uses proper system folders",
-        "RECONFIGURING IS REQUIRED!"
+        "RECONFIGURING IS REQUIRED!",
+        "1.7.1: Fixed windows multiple drives bug"
     ],
     "next_version": "1.6.0",
     "next_changelog": [
