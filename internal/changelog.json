@@ -1,7 +1,7 @@
 {
     "version": "1.7.2",
     "changelog": [
-        "SaladBind now uses proper system folders",
+        "1.7.0: SaladBind now uses proper system folders",
         "RECONFIGURING IS REQUIRED!",
         "1.7.1: Fixed nothing LOL... :(",
         "1.7.2: Fixed the patch of 1.7.1 :), Windows machines can now find the miner again."
