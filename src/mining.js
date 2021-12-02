@@ -600,6 +600,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 		}
 	}
 	let userPlatform = temp.platform;
+	if (userPlatform = "Windows") userPlatform = "win32";
 	let wallet
 	switch(pool.name) {
 		case "Ethermine":
@@ -727,6 +728,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 			console.log(chalk.yellow("Returning to SaladBind menu..."));
 		});
 	} else {
+		
 		let miner = spawn(`cd ${userPlatform == "win32" ? "/D " : ""}"${dataDirectory}/miners/${minerData.miner}-${minerData.version}" && ${userPlatform == "linux" || userPlatform == "darwin" ? "./" : ""}${minerData.parameters.fileName}`, [defaultArgs.pool, defaultArgs.algo, defaultArgs.wallet, defaultArgs.pass], {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }})
 		miner.on('close', (code) => {
 			console.log(`\nMiner stopped!\n`);
