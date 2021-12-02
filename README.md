@@ -36,9 +36,11 @@ Download the file from [GitHub Releases](https://github.com/LITdevs/SaladBind/re
 
 There's a video tutorial, which you can find [here](https://www.youtube.com/watch?v=u_dOOn75_mA).
 
-### Arch Linux
+### Arch-based Linux distros
 
 SaladBind is available on the AUR! Install the `saladbind` package through the AUR manager of your choice.
+
+Is Arch not your favorite distro? That's unfortunate! You can try packaging SaladBind yourself, or contacting us.
 
 ### macOS and other Linux distros
 
