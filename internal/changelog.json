@@ -1,11 +1,8 @@
 {
-    "version": "1.6.2",
+    "version": "1.7.0",
     "changelog": [
-        "New settings menu",
-        "Quickly start mining with last settings",
-        "Big improvements to the error handler",
-        "Checking if Salad is already running before starting the miner",
-        "-l argument for starting with last settings from the command line"
+        "SaladBind now uses proper system folders",
+        "RECONFIGURING IS REQUIRED!"
     ],
     "next_version": "1.6.0",
     "next_changelog": [
