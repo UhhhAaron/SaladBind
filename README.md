@@ -40,7 +40,7 @@ There's a video tutorial, which you can find [here](https://www.youtube.com/watc
 
 SaladBind is available on the AUR! Install the `saladbind` package through the AUR manager of your choice.
 
-Is Arch not your favorite distro? That's unfortunate! You can try packaging SaladBind yourself, or contacting us.
+Is Arch not your favorite distro? That's unfortunate! You can try packaging SaladBind yourself, contacting us, or downloading the binary manually as explained below.
 
 ### macOS and other Linux distros
 
