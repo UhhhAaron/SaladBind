@@ -4,7 +4,8 @@
         "1.7.0: SaladBind now uses proper system folders",
         "RECONFIGURING IS REQUIRED!",
         "1.7.1: Fixed nothing LOL... :(",
-        "1.7.2: Fixed the patch of 1.7.1 :), Windows machines can now find the miner again."
+        "1.7.2: Fixed the patch of 1.7.1 :), Windows machines can now find the miner again.",
+        "1.7.3: Fixed a bug caused by 1.7.2 making it work ONLY on Windows machines."
     ],
     "next_version": "1.6.0",
     "next_changelog": [
