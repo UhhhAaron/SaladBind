@@ -600,7 +600,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 		}
 	}
 	let userPlatform = temp.platform;
-	if (userPlatform = "Windows") userPlatform = "win32";
+	if (userPlatform == "Windows") userPlatform = "win32";
 	let wallet
 	switch(pool.name) {
 		case "Ethermine":
