@@ -13,8 +13,10 @@ We accept the following cryptocurrencies, please send any donations to the follo
 - LTC `LfQDfFuYoqJN44mFQjtcfRjjmSAGhy68rH`
 - XMR `47GFy7GvwK6eisoDpP2hDZQ1mSh9mSU6Y3rkwSKGHn2VTF6yAtNuTWVUUuNJdU3UhzHn3vd5FFSYFQEs167gFCKrBgYSfXb`
 - RVN `RSEWKvswFjzvofZuaRqBPRQes3dr4eNTfT`
+- - You can mine RVN to us in exchange for Vukkybux, the currency of Vukkybox! See the [Vukkybox website](https://vukkybox.com/balance) for more details.
 - BTC `bc1qal45r9y9r56hm3fh0c2dx7zyrqye5cstmp6x8t`
 - ETH `0x7DBc369Ca89A706edCeD47207A806139fb7462e4`
+- - You can mine ETH to us in exchange for Vukkybux, the currency of Vukkybox! See the [Vukkybox website](https://vukkybox.com/balance) for more details.
 
 ## Vukky
 
