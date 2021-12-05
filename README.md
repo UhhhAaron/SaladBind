@@ -40,7 +40,7 @@ We have a [Discord server](https://discord.gg/zpsN7swhfD) if you want to talk to
 
 Download the file from [GitHub Releases](https://github.com/LITdevs/SaladBind/releases/latest).
 
-There's a video tutorial, which you can find [here](https://www.youtube.com/watch?v=u_dOOn75_mA).
+There's a video tutorial, which you can find [here](https://www.youtube.com/watch?v=u_dOOn75_mA), if you prefer digesting information via video rather than text.
 
 ### Arch-based Linux distros
 
