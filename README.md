@@ -1,4 +1,6 @@
-# SaladBind [![Compilation Test](https://github.com/LITdevs/SaladBind/actions/workflows/compile-test.yml/badge.svg)](https://github.com/LITdevs/SaladBind/actions/workflows/compile-test.yml)
+# SaladBind
+
+<img align="right" width="100" height="100" src="https://raw.githubusercontent.com/Vukkyy/vukmoji/master/emojis/static/vukkyminer.png">
 
 If you want to contribute to SaladBind, please read our [contributing guide](CONTRIBUTING.md). Do **NOT** make your own SaladBind version unless you have a good reason to! We welcome any contributions!
 
@@ -16,6 +18,8 @@ We have a [Discord server](https://discord.gg/zpsN7swhfD) if you want to talk to
 
 ## Features
 
+<img align="right" width="100" height="100" src="https://raw.githubusercontent.com/Vukkyy/vukmoji/master/emojis/static/vukkywoah.png">
+
 - Switch between miners, pools, and algorithms
 - Shows only miners and algorithms that are supported by your GPU
 - Easy to use interface
@@ -29,6 +33,8 @@ We have a [Discord server](https://discord.gg/zpsN7swhfD) if you want to talk to
 - Immediately restart mining with old settings using a command line argument.
 
 ## Installation
+
+<img align="right" width="100" height="100" src="https://raw.githubusercontent.com/Vukkyy/vukmoji/master/emojis/static/vukkyhappy.png">
 
 ### Windows
 
@@ -58,7 +64,9 @@ chmod +x ./saladbind-linux # You only need to run this once
 ./saladbind-linux
 ```
 
-### Configuration
+## Configuration
+
+<img align="right" width="100" height="100" src="https://raw.githubusercontent.com/Vukkyy/vukmoji/master/emojis/static/vukkythink.png">
 
 Once you start SaladBind for the first time, it will ask you if you want to enable Discord Rich Presence. Here is what it looks like: 
 
@@ -68,7 +76,7 @@ Then, it'll prompt you to enter your mining details.
 
 You can do this by letting SaladBind search your log file, entering your Salad Auth token, or enter your Rig ID manually.
 
-#### Automatic (Read from Salad logs)
+### Automatic (Read from Salad logs)
 
 SaladBind will search your Salad's log file for your Rig ID and save it automatically.
 
@@ -76,19 +84,19 @@ SaladBind will search your Salad's log file for your Rig ID and save it automati
 2. Start mining with the Salad app normally for 5-15 minutes (the "Chopping" stage)
 3. Choose Automatic on SaladBind (Read from Salad logs)
 
-#### Automatic (Get with Salad Auth token)
+### Automatic (Get with Salad Auth token)
 
 You will be prompted to enter your access token.
 To get your access token, log in to [https://app.salad.io/](https://app.salad.io) and follow these steps depending on your browser:
 
-##### Chromium and derivatives
+#### Chromium and derivatives
 
 1. Click the lock symbol in the address bar
 2. Open `Cookies` and uncollapse `app-api.salad.io`
 3. Look for `sAccessToken` and copy it (right click and click `Select all` as it is very long)
 4. Paste the token into the terminal (on Windows, right-click in the SaladBind window to paste)
 
-##### Firefox
+#### Firefox
 
 1. Go to [app-api.salad.io](https://app-api.salad.io)
 2. Open the devtools by pressing F12
@@ -96,7 +104,7 @@ To get your access token, log in to [https://app.salad.io/](https://app.salad.io
 4. Double click the value box next to `sAccessToken` and copy it
 5. Paste the token into the terminal (on Windows, right-click in the SaladBind window to paste)
 
-#### Manual
+### Manual
 
 1. Start mining with the Salad app normally, if you have already been mining for over ~3h you need to restart Salad 
 2. Mine for around 5-15 minutes (the "Chopping" stage)
