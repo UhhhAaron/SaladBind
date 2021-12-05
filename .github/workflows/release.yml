@@ -16,7 +16,9 @@ jobs:
         uses: actions/checkout@v2
       - name: Generate changelog
         run: |
-          gh api repos/LITdevs/SaladBind/releases/generate-notes -f tag_name="${GITHUB_REF#refs/tags/}" -f target_commitish=main -q .body > CHANGELOG.md
+          echo $'![SaladBind logo](https://raw.githubusercontent.com/Vukkyy/vukmoji/master/emojis/static/vukkyminer.png)\n' >> CHANGELOG.md
+          gh api repos/LITdevs/SaladBind/releases/generate-notes -f tag_name="${GITHUB_REF#refs/tags/}" -f target_commitish=main -q .body >> CHANGELOG.md
+          echo $'\n\n![SaladBind logo](https://raw.githubusercontent.com/Vukkyy/vukmoji/master/emojis/static/vukkyminer.png)' >> CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{secrets.GITHUB_TOKEN}}
       - name: Read changelog
