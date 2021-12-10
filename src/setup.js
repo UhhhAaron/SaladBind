@@ -48,8 +48,8 @@ All of the money you mine using SaladBind goes to Salad, and all Salad boosts an
 				value: "discord"
 			},
 			{
-				name: `Bypass GPU Checks ${configData.bypassGPUChecks ? chalk.green("(Enabled)") : chalk.redBright("(Disabled)")}`,
-				value: "bypass"
+				name: `Debug Settings`,
+				value: "debug"
 			},
 			{
 				name: `${firstTime ? chalk.greenBright("Finish") : chalk.redBright("Go Back")}`,
@@ -68,9 +68,8 @@ All of the money you mine using SaladBind goes to Salad, and all Salad boosts an
 	if (prompt.settings == "discord") {
 		await toggleDiscord()
 		return await run();
-	} else if (prompt.settings == "bypass") {
-		await toggleBypassGpu()
-		return await run();
+	} else if (prompt.settings == "debug") {
+		debugMenu()
 	} else if (prompt.settings == "miner") {
 		miner()
 	}
@@ -248,6 +247,60 @@ async function miner(){
 		await save("minerId",worker.id)
 		run(true)
 	}
+}
+
+async function debugMenu(){
+	config = await JSON.parse(fs.readFileSync(configFile))
+	if(config.debugWarning != true){
+		await inquirer.prompt([
+			{
+			  name: "confirm",
+			  type: "input",
+			  message: chalk.green(`Editing debug settings can cause some unwanted behaviour. It is not recommended to change these settings if you don't know what you're doing. To continue please type \"These are advanced settings and I might break SaladBind"\n`),
+			  validate: function(input) {
+				  if (input.toLowerCase() != "these are advanced settings and i might break saladbind"){
+						return `Please type "these are advanced settings and I might break Saladbind"`
+		
+				  }else{
+					return true
+				  }
+			  } 
+			  },
+		  ])
+  .then(async function(answers){
+	  if(answers.confirm.toLowerCase() == "these are advanced settings and i might break saladbind"){
+		console.clear()
+		save("debugWarning", true)
+
+	} else{
+		console.clear()
+		return debugMenu()
+	}
+    })
+	}
+	configData = await JSON.parse(fs.readFileSync(configFile))
+	const prompt = await inquirer.prompt([{
+		type: 'list',
+		name: "settings",
+		message: chalk.bold.cyan(`Debug Settings`),
+		choices: [{
+				name: `Bypass GPU Checks ${configData.bypassGPUChecks ? chalk.green("(Enabled)") : chalk.redBright("(Disabled)")}`,
+				value: "bypass"
+			},
+			{
+				name: `${firstTime ? chalk.greenBright("Finish") : chalk.redBright("Go Back")}`,
+				value: "back"
+			}
+		]
+	}]);
+	if (prompt.settings == "back") {
+		run(true)
+		} else if(prompt.settings == "bypass"){
+			await toggleBypassGpu()
+			console.clear()
+			return debugMenu()
+		}
+
 }
 
 async function save(setting, value){
