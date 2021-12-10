@@ -151,7 +151,7 @@ async function continueMiner() {
 					}
 				}
 			}
-			if (config.bypassGPUChecks) {
+			if (JSON.parse(fs.readFileSync(configFile)).bypassGPUChecks == true) {
 				GPUs.push({
 					"algos": Object.keys(data.algos),
 					"vendor": "BYPASS"
