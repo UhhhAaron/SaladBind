@@ -186,7 +186,7 @@ async function continueMiner() {
 			spinner.stop();
 			if (minerList.length == 0 && temp2.controllers.length != 0) {
 				spinner.stop();
-				console.log(chalk.bold.red("No miners are available for your machine D:\nIf you think this is a mistake, talk to us on our Discord server.\nYou can also set " + chalk.bold.red("bypassGPUChecks") + " to true in data/config.json if you are sure your GPU supports mining."));
+				console.log(chalk.bold.red("No miners are available for your machine D:\nIf you think this is a mistake, talk to us on our Discord server.\nYou can also enable bypassing GPU checks if you are sure your GPU supports mining."));
 				setTimeout(() => {
 					require("./index").menu();
 				}, 6000);
@@ -688,7 +688,7 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 	function stopped() {
 		let currentTime = Date.now();
 		if((timeStarted + 10000) > currentTime) { // miner stopped within 10 seconds of starting
-			console.log(chalk.blueBright.bold(`If you did not stop the miner, it ${chalk.bold("MIGHT")} be your AntiVirus. Please whitelist the data folder located at the same location as SaladBind.\n`))
+			console.log(chalk.blueBright.bold(`If you did not stop the miner, it ${chalk.bold("MIGHT")} be your AntiVirus. Please whitelist the data folder located in ${dataDirectory}.\n`))
 		}
 	}
 	if(advancedCommands.length > 0) { // didnt workkkk
