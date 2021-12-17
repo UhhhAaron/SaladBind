@@ -98,7 +98,7 @@ To get your access token, log in to [https://app.salad.io/](https://app.salad.io
 
 #### Firefox
 
-1. Go to [app-api.salad.io](https://app-api.salad.io)
+1. Go to [app-api.salad.io/api/v1/profile/referral-code](https://app-api.salad.io/api/v1/profile/referral-code)
 2. Open the devtools by pressing F12
 3. Click on `Storage` and make sure that `Cookies` is uncollapsed
 4. Double click the value box next to `sAccessToken` and copy it
