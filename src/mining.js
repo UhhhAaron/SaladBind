@@ -546,7 +546,7 @@ async function prepStart(minerData, algo, pool, region, advancedCommands, quick=
 					args = advancedCommandsy.advancedCommands;
 				} else args = "";
 			}
-			if (!fs.existsSync(`/saved-args.json`)) fs.writeFileSync(`${dataDirectory}/saved-args.json`, JSON.stringify({}));
+			if (!fs.existsSync(`${dataDirectory}/saved-args.json`)) fs.writeFileSync(`${dataDirectory}/saved-args.json`, JSON.stringify({}));
 			let data;
 			try {
 				data = JSON.parse(fs.readFileSync(`${dataDirectory}/saved-args.json`))
