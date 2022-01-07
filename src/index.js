@@ -30,7 +30,7 @@ process.on("uncaughtException", err => {
 			else if (out.exit == "write_log") {
 				try {
 					fs.writeFileSync(`${envPaths('SaladBind', { suffix: "" }).data}/saladbind_error.txt`, `Hi! I'm a SaladBind Error Log. Please send me to my creators at https://discord.gg/HfBAtQ2afz\nI'm now going to puke everything I know at you. I hope you don't mind (it's very technical :D)\n\nThe error was ${err}\n\nHere's the stacktrace, so we can figure out where the error is coming from:\n${err.stack}\n\nAnd finally, some cool debug information I made just for you!\nIt helps us find out if the person sitting in front of the screen is the problem.\n${JSON.stringify(getDebugData(), null, " ")}`);
-					console.log(`\nWrote to "${envPaths('SaladBind', { suffix: "" }).data}/saladbind-error.txt" successfully\n`);
+					console.log(`\nWrote to "${envPaths('SaladBind', { suffix: "" }).data}/saladbind_error.txt" successfully\n`);
 					process.exit(1);
 				} catch(newErr) {
 					try {
