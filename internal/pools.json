@@ -54,6 +54,9 @@
             },
             "randomx": {
                 "host": "stratum+tcp://REGIONprohashing.com:3359"
+            },
+            "kawpow": {
+                "host": "stratum+tcp://REGIONprohashing.com:3361"
             }
         }
     }
