@@ -1,11 +1,11 @@
 {
     "algos": {
-        "ethash": 4672,
+        "ethash": 4680,
         "etchash": 2883,
         "kawpow": 3219,
         "beamv3": 2000,
         "EQUI144_5": 2000,
-        "autolykos2": 2208,
+        "autolykos2": 2210,
         "octopus": 4720,
         "randomx": null
     },
