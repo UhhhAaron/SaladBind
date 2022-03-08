@@ -14,7 +14,7 @@ If you want to contribute to SaladBind, please read our [contributing guide](CON
 
 **This application is not affiliated with Salad Technologies.** It is made by LIT Devs, for the entire Salad community.
 
-We have a [Discord server](https://discord.gg/zpsN7swhfD) if you want to talk to us!
+We have a [Discord server](https://discord.gg/zpsN7swhfD) if you want to talk to us! There is also a [SaladBind FAQ](https://wiki.litdevs.org/wiki/SaladBind/FAQ) available.
 
 ## Features
 
