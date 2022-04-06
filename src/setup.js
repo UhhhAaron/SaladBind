@@ -30,6 +30,7 @@ async function main(configData = {}) {
 		console.log(`${chalk.greenBright.bold("Welcome to SaladBind!")}
 This is a program that makes it easier to select a miner, algorithm, and pool for Salad! 
 All of the money you mine using SaladBind goes to Salad, and all Salad boosts and XP will work in SaladBind.
+\nFor support see https://wiki.litdevs.org/wiki/SaladBind/FAQ
 		`);
 		firstTime = false
 		await miner()
