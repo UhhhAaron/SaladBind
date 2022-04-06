@@ -159,7 +159,7 @@ async function menu(clear) {
 		console.clear();
 	}
 	presence.mainmenu();
-	console.log(chalk.bold.green(`${aprilfools ? "VegetableJoiner" : "SaladBind"} v${packageJson.version}`));
+	console.log(chalk.bold.green(`${aprilfools ? "VegetableJoiner" : "SaladBind"} v${packageJson.version}\nFor support see https://wiki.litdevs.org/wiki/SaladBind/FAQ`));
 	let choices = [{
 		name: 'Start mining',
 		value: 'mining'
