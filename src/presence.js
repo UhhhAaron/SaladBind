@@ -38,7 +38,7 @@ function presence(details, state, time, large_image, large_text, small_image, sm
 				},
 				buttons: [
 					{ label: "Download SaladBind", url: "https://bit.ly/saladbind" },
-					{ label: "Join the SaladBind Discord", url: "https://discord.gg/HfBAtQ2afz" }
+					{ label: "Try other LIT Devs projects", url: "https://litdevs.org/home.html" }
 				]
 			}
 		}
