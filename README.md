@@ -1,4 +1,4 @@
-# SaladBind [![Discord](https://img.shields.io/discord/868937321402204220?color=5865f2&label=chat&logo=discord&logoColor=7289da)](https://discord.gg/litdevs)
+# SaladBind
 
 <img align="right" width="100" height="100" src="https://raw.githubusercontent.com/Vukkyy/vukmoji/master/emojis/static/vukkyminer.png">
 
@@ -14,7 +14,8 @@ If you want to contribute to SaladBind, please read our [contributing guide](CON
 
 **This application is not affiliated with Salad Technologies.** It is made by LIT Devs, for the entire Salad community.
 
-We have a [Discord server](https://discord.gg/zpsN7swhfD) if you want to talk to us! There is also a [SaladBind FAQ](https://wiki.litdevs.org/wiki/SaladBind/FAQ) available.
+We have a [Discord server](https://discord.gg/zpsN7swhfD) if you want to talk to us, **however there is no support for SaladBind there**.
+If you need support you're looking for the [SaladBind FAQ](https://wiki.litdevs.org/wiki/SaladBind/FAQ).
 
 ## Features
 
@@ -39,8 +40,6 @@ We have a [Discord server](https://discord.gg/zpsN7swhfD) if you want to talk to
 ### Windows
 
 Download the file from [GitHub Releases](https://github.com/LITdevs/SaladBind/releases/latest).
-
-There's a video tutorial, which you can find [here](https://www.youtube.com/watch?v=u_dOOn75_mA), if you prefer digesting information via video rather than text.
 
 ### Arch-based Linux distros
 
