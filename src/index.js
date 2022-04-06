@@ -169,10 +169,6 @@ async function menu(clear) {
 		value: 'config'
 	},
 	{
-		name: 'Join the SaladBind Discord',
-		value: 'discord'
-	},
-	{
 		name: 'What\'s new?',
 		value: 'changes'
 	},
@@ -225,18 +221,6 @@ if (fs.existsSync(`${dataDirectory}/last.json`)){
 						menu();
 					});
 				})
-			break;
-		case 'discord':
-			let temp = await si.osInfo()
-			if (temp.platform == "linux") {
-				console.log("\nhttps://discord.gg/HfBAtQ2afz");
-			} else {
-				open("https://discord.gg/HfBAtQ2afz");
-				console.log("\nOpened the invite in your browser!");
-			}
-			setTimeout(() => {
-				menu();
-			}, 3500);
 			break;
 		case 'exit':
 			console.clear();
