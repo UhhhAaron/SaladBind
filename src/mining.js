@@ -714,33 +714,39 @@ async function startMiner(minerData, algo, pool, region, advancedCommands) {
 
 		finalArguments.push(advancedCommands)
 		let miner = spawn(`cd ${userPlatform == "win32" ? "/D " : ""}"${dataDirectory}/miners/${minerData.miner}-${minerData.version}" && ${userPlatform == "linux" || userPlatform == "darwin" ? "./" : ""}${minerData.parameters.fileName}`, finalArguments, {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }}) //its an array dumbass
-		miner.on('close', (code) => {
+		miner.once('close', (code) => {
 			console.log(`\nMiner stopped!\n`);
 			stopped();
+			// this is here to prevent a shit ton of listeners being added
+			// which in turn would cause a memory leak (sort of)
+			miner.removeAllListeners() 
 			require("./index").menu(false);
 		});
-		miner.on('SIGINT', () => {
+		miner.once('SIGINT', () => {
 			console.log(`\nMiner stopped!\n`);
 			stopped();
+			miner.removeAllListeners()
 			require("./index").menu(false);
 		});
-		process.on('SIGINT', () => {
+		process.once('SIGINT', () => {
 			console.log(chalk.yellow("Returning to SaladBind menu..."));
 		});
 	} else {
 		
 		let miner = spawn(`cd ${userPlatform == "win32" ? "/D " : ""}"${dataDirectory}/miners/${minerData.miner}-${minerData.version}" && ${userPlatform == "linux" || userPlatform == "darwin" ? "./" : ""}${minerData.parameters.fileName}`, [defaultArgs.pool, defaultArgs.algo, defaultArgs.wallet, defaultArgs.pass], {stdio: 'inherit', shell: true, env : { FORCE_COLOR: true }})
-		miner.on('close', (code) => {
+		miner.once('close', (code) => {
 			console.log(`\nMiner stopped!\n`);
 			stopped();
+			miner.removeAllListeners()
 			require("./index").menu(false);
 		});
-		miner.on('SIGINT', () => { // Bukky be Stupid
+		miner.once('SIGINT', () => { // Bukky be Stupid
 			console.log(`\nMiner stopped!\n`);
 			stopped();
+			miner.removeAllListeners()
 			require("./index").menu(false);
 		});// nvm
-		process.on('SIGINT', () => {
+		process.once('SIGINT', () => {
 			console.log(chalk.yellow("Returning to SaladBind menu...")); // hadnt saved lol
 			
 		}) 
