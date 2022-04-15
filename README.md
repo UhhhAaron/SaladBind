@@ -39,7 +39,7 @@ If you need support you're looking for the [SaladBind FAQ](https://wiki.litdevs.
 
 ### Windows
 
-Download the file from [GitHub Releases](https://github.com/LITdevs/SaladBind/releases/latest).
+Download the `saladbind-win.exe from [GitHub Releases](https://github.com/LITdevs/SaladBind/releases/latest).
 
 ### Arch-based Linux distros
 
