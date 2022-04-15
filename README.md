@@ -49,7 +49,7 @@ Is Arch not your favorite distro? That's unfortunate! You can try contacting us,
 
 ### macOS and other Linux distros
 
-Download the `saladbind-macos file from [GitHub Releases](https://github.com/LITdevs/SaladBind/releases/latest). For these platforms, you'll need to run SaladBind from the terminal, due to how SaladBind works. If you need help with using the terminal, don't be afraid to Google a bit - you'll have to use `cd` to be in the same folder that SaladBind is in.
+Download the `saladbind-macos`/`saladbind-linux` file from [GitHub Releases](https://github.com/LITdevs/SaladBind/releases/latest). For these platforms, you'll need to run SaladBind from the terminal, due to how SaladBind works. If you need help with using the terminal, don't be afraid to Google a bit - you'll have to use `cd` to be in the same folder that SaladBind is in.
 
 Use these commands to start SaladBind, for macOS or Linux respectively:
 
