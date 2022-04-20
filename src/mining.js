@@ -186,7 +186,7 @@ async function continueMiner() {
 			spinner.stop();
 			if (minerList.length == 0 && temp2.controllers.length != 0) {
 				spinner.stop();
-				console.log(chalk.bold.red("No miners are available for your machine D:\nIf you think this is a mistake, talk to us on our Discord server.\nYou can also enable bypassing GPU checks if you are sure your GPU supports mining."));
+				console.log(chalk.bold.red("No miners are available for your machine D:\nYou can also enable bypassing GPU checks if you are sure your GPU supports mining. (youre probably wrong)"));
 				setTimeout(() => {
 					require("./index").menu();
 				}, 6000);
@@ -228,7 +228,7 @@ async function continueMiner() {
 					var downloadURL = miner.miner.download[userPlatform];
 					var fileExtension = path.extname(downloadURL); //time for a really hacky solution. this 
 					if (fileExtension == ".gz") {
-						fileExtension = ".tar.gz"
+						fileExtension = ".tar.gz" //wow lazy solution
 					}
 					const fileName = `${miner.miner.miner}-${miner.miner.version}`
 					const fileLocation = `${dataDirectory}/temp/${fileName}${fileExtension}`;
@@ -323,7 +323,7 @@ async function selectPool(minerData, algo) {
 			} else {
 				console.log(chalk.green(`Only one pool available with these settings, using ${poolList[0].name}`))
 			}
-			presence.configuring("Selecting pool region");
+			presence.configuring("Selecting pool region (just pick the closest one)");
 			const regionList = [];
 			const poolsy = poolList.length > 1 ? pool.pool : poolList[0].value;
 			for (let i = 0; i < poolsy.regions.length; i++) {
@@ -488,11 +488,11 @@ async function prepStart(minerData, algo, pool, region, advancedCommands, quick=
 			presence.mine(minerData.miner, algo, pool.name)
 			// Check if miner is already running in salad using child processes to run "tasklist" if on windows.
 			if(await saladMining) {
-				console.log(chalk.bold.red(`It seems like you are mining using Salad already! It is not recommended to mine using both Salad and SaladBind. Please stop mining in Salad.`));
+				console.log(chalk.bold.red(`It seems like you are mining using a miner already! It is not recommended to use 2 miners at once.`));
 				await inquirer.prompt({
 					type: "input",
 					name: "done",
-					message: "Press enter when you have stopped mining in Salad."
+					message: "Press enter when you have stopped mining in another miner, or if you just want to proceed."
 				});
 			}
 

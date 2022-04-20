@@ -1,9 +1,8 @@
 # SaladBind
 
-<img align="right" width="100" height="100" src="https://raw.githubusercontent.com/Vukkyy/vukmoji/master/emojis/static/vukkyminer.png">
+If you want to contribute to SaladBind, please read our [contributing guide](CONTRIBUTING.md). Do **NOT** make your own SaladBind version unless you have a good reason to!
 
-If you want to contribute to SaladBind, please read our [contributing guide](CONTRIBUTING.md). Do **NOT** make your own SaladBind version unless you have a good reason to! We welcome any contributions!
-
+SaladBind is pretty much abandoned, nobody really works on it.
 ## Table of Contents
 
 [Features](#Features) <br>
@@ -12,14 +11,13 @@ If you want to contribute to SaladBind, please read our [contributing guide](CON
 [Miner Setup Guide](#Miner-Setup-Guide) <br>
 [Compiling](#Compiling)
 
-**This application is not affiliated with Salad Technologies.** It is made by LIT Devs, for the entire Salad community.
+**This application is not affiliated with Salad Technologies.** 
 
-We have a [Discord server](https://discord.gg/zpsN7swhfD) if you want to talk to us, **however there is no support for SaladBind there**.
+SaladBind is no longer made by LIT Devs, or associated with LIT Devs. Please stop bothering them about it.
+
 If you need support you're looking for the [SaladBind FAQ](https://wiki.litdevs.org/wiki/SaladBind/FAQ).
 
 ## Features
-
-<img align="right" width="100" height="100" src="https://raw.githubusercontent.com/Vukkyy/vukmoji/master/emojis/static/vukkywoah.png">
 
 - Switch between miners, pools, and algorithms
 - Shows only miners and algorithms that are supported by your GPU
@@ -35,21 +33,13 @@ If you need support you're looking for the [SaladBind FAQ](https://wiki.litdevs.
 
 ## Installation
 
-<img align="right" width="100" height="100" src="https://raw.githubusercontent.com/Vukkyy/vukmoji/master/emojis/static/vukkyhappy.png">
-
 ### Windows
 
-Download the `saladbind-win.exe` from [GitHub Releases](https://github.com/LITdevs/SaladBind/releases/latest).
+Download the `saladbind-win.exe` from [GitHub Releases](https://github.com/vtheskeleton/SaladBind/releases/latest).
 
-### Arch-based Linux distros
+### macOS and Linux
 
-SaladBind is available on the AUR! Install the `saladbind` package through the AUR manager of your choice.
-
-Is Arch not your favorite distro? That's unfortunate! You can try contacting us, or downloading the binary manually as explained below.
-
-### macOS and other Linux distros
-
-Download the `saladbind-macos`/`saladbind-linux` file from [GitHub Releases](https://github.com/LITdevs/SaladBind/releases/latest). For these platforms, you'll need to run SaladBind from the terminal, due to how SaladBind works. If you need help with using the terminal, don't be afraid to Google a bit - you'll have to use `cd` to be in the same folder that SaladBind is in.
+Download the `saladbind-macos`/`saladbind-linux` file from [GitHub Releases](https://github.com/vtheskeleton/SaladBind/releases/latest). For these platforms, you'll need to run SaladBind from the terminal, due to how SaladBind works. If you need help with using the terminal, don't be afraid to Google a bit - you'll have to use `cd` to be in the same folder that SaladBind is in.
 
 Use these commands to start SaladBind, for macOS or Linux respectively:
 

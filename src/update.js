@@ -58,19 +58,21 @@ const updateCheck = new Promise((resolve, reject) => {
 						console.log(`- ${item}`)
 					});
 					console.log();
+					let c = [{
+						name: "Automatically install update",
+						value: "auto"
+					}]
+					if (!data?.force) {
+						c.push({
+							name: "Remind me later",
+							value: "remindlater"
+						})
+					}
 					inquirer.prompt({
 						name: "updatePrompt",
 						message: "What do you want to do?",
 						type: "list",
-						choices: [{
-								name: "Remind me later",
-								value: "remindlater"
-							},
-							{
-								name: "Automatically install update",
-								value: "auto"
-							}
-						]
+						choices: c
 					}).then(out => {
 						if (out.updatePrompt == "remindlater") resolve();
 						else if (out.updatePrompt == "auto") {
