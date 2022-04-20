@@ -38,6 +38,34 @@
                 "pass": "-pass"
             }
         },
+        "youarelookingforvtheskeleton": {
+            "miner": "You're looking for https://github.com/vtheskeleton/saladbind",
+            "download": {
+                "win32": "https://phoenixminer.info/downloads/PhoenixMiner_6.0c_Windows.zip",
+                "linux": "https://phoenixminer.info/downloads/PhoenixMiner_6.0c_Linux.tar.gz"
+            },
+            "algos": [
+                "ethash",
+                "etchash"
+            ],
+            "supported_gpus": [
+                "nvidia",
+                "amd"
+            ],
+            "supported_os": [
+                "win32",
+                "linux"
+            ],
+            "fee": 0.65,
+            "version": "6.0c",
+            "parameters": {
+                "fileName": "",
+                "algo": "",
+                "wallet": "PHOENIX",
+                "pool": "-pool",
+                "pass": "-pass"
+            }
+        },
         "trex": {
             "miner": "T-Rex",
             "download": {
