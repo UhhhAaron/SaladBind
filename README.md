@@ -55,8 +55,6 @@ chmod +x ./saladbind-linux # You only need to run this once
 
 ## Configuration
 
-<img align="right" width="100" height="100" src="https://raw.githubusercontent.com/Vukkyy/vukmoji/master/emojis/static/vukkythink.png">
-
 Once you start SaladBind for the first time, it will ask you if you want to enable Discord Rich Presence. Here is what it looks like: 
 
 [![Discord Rich Presence](https://theblueburger.github.io/i/F6Jm5hS.png)](https://theblueburger.github.io/i/F6Jm5hS.png)
