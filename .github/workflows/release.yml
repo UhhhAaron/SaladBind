@@ -37,7 +37,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           body: ${{ steps.changelog.outputs.content }}
-          token: ${{ secrets.BEEPBOOP_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN}}
           files: |
             bin/saladbind-win.exe
             bin/saladbind-macos
