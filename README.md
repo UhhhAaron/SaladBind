@@ -1,3 +1,8 @@
+
+**This application is not affiliated with Salad Technologies.** 
+
+Nobody will help you if you fail to read the instructions
+
 # SaladBind
 
 If you want to contribute to SaladBind, please read our [contributing guide](CONTRIBUTING.md). Do **NOT** make your own SaladBind version unless you have a good reason to!
@@ -10,8 +15,6 @@ SaladBind is pretty much abandoned, nobody really works on it.
 [Configuration](#Configuration) <br>
 [Miner Setup Guide](#Miner-Setup-Guide) <br>
 [Compiling](#Compiling)
-
-**This application is not affiliated with Salad Technologies.** 
 
 SaladBind is no longer made by LIT Devs, or associated with LIT Devs. Please stop bothering them about it.
 
