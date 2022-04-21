@@ -1,5 +1,5 @@
 {
-    "version": "1.7.6",
+    "version": "1.7.7",
     "changelog": [
         "1.7.0: SaladBind now uses proper system folders",
         "RECONFIGURING IS REQUIRED!",
@@ -9,8 +9,10 @@
 	    "1.7.4: Updated messages to reflect file locations being changed",
         "1.7.5: Updated references to our discord to reflect that we do not provide support for this application.",
         "If you want help you are free to see the wiki https://wiki.litdevs.org/wiki/SaladBind/FAQ",
-"1.7.6: revive it"
+        "1.7.6: revive it",
+        "1.7.7: fixed the updater on 1.7.6"
     ],
+    "force": true,
     "next_version": "1.6.0",
     "next_changelog": [
         "New settings menu",
