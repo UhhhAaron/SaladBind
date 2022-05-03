@@ -13,7 +13,7 @@
         "phoenixminer": {
             "miner": "PhoenixMiner",
             "download": {
-                 x "win32": "https://phoenixminer.info/downloads/PhoenixMiner_6.1b_Windows.zip",
+                "win32": "https://phoenixminer.info/downloads/PhoenixMiner_6.1b_Windows.zip",
                 "linux": "https://phoenixminer.info/downloads/PhoenixMiner_6.1b_Linux.tar.gz"
             },
             "algos": [
