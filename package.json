@@ -1,6 +1,6 @@
 {
   "name": "saladbind",
-  "version": "1.7.7",
+  "version": "1.7.8",
   "description": "BIND-ing the good features from other projects together (and fucking nuking the bad ones)",
   "main": "src/index.js",
   "scripts": {
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/vtheskeleton/SaladBind.git"
+    "url": "git+https://github.com/SonGorLick/SaladBind.git"
   },
   "author": "honestly? nobody really",
   "license": "GNUv3",
   "bugs": {
-    "url": "https://github.com/vtheskeleton/SaladBind/issues"
+    "url": "https://github.com/SonGorLick/SaladBind/issues"
   },
-  "homepage": "https://github.com/vtheskeleton/SaladBind#readme",
+  "homepage": "https://github.com/SonGorLick/SaladBind#readme",
   "dependencies": {
     "chalk": "^4.1.2",
     "decompress": "^4.2.1",
