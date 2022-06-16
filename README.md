@@ -1,11 +1,14 @@
 
-**This application is not affiliated with Salad Technologies.** 
+**This application is retired and not affiliated with Salad Technologies.** 
 
-Nobody will help you if you fail to read the instructions
+Support for this software is virtually nonexistant at this point. You can use '-d' as a command line argument to debug independently.
+\internal\miners.json is manually updated. You need to update the miner download URLs yourself every once and a while to run up-to-date miners.
+The little support there is can be found at an [archive of the wiki FAQ.](https://web.archive.org/web/20220518225746/https://wiki.litdevs.org/wiki/SaladBind/FAQ).
+LIT Devs would still greatly appreciate voluntary donations for their project. See [donation directions](DONATE.md).
 
 # SaladBind
 
-If you want to contribute to SaladBind, please read our [contributing guide](CONTRIBUTING.md). Do **NOT** make your own SaladBind version unless you have a good reason to!
+If you want to contribute to SaladBind, please read the [contributing guide](CONTRIBUTING.md). Do **NOT** make your own SaladBind version unless you have a good reason to!
 
 SaladBind is pretty much abandoned, nobody really works on it.
 ## Table of Contents
@@ -16,9 +19,9 @@ SaladBind is pretty much abandoned, nobody really works on it.
 [Miner Setup Guide](#Miner-Setup-Guide) <br>
 [Compiling](#Compiling)
 
-SaladBind is no longer made by LIT Devs, or associated with LIT Devs. Please stop bothering them about it.
+SaladBind is no longer made by LIT Devs, or associated with LIT Devs. Don't bother them about it.
 
-If you need support you're looking for the [SaladBind FAQ](https://wiki.litdevs.org/wiki/SaladBind/FAQ).
+If you need support, see the [SaladBind FAQ](https://web.archive.org/web/20220518225746/https://wiki.litdevs.org/wiki/SaladBind/FAQ).
 
 ## Features
 
@@ -35,14 +38,15 @@ If you need support you're looking for the [SaladBind FAQ](https://wiki.litdevs.
 - Immediately restart mining with old settings using a command line argument.
 
 ## Installation
-
+If my pre-compiled exe's don't work for whatever reason, compile the repo yourself.
+If they do work, you should probably compile it yourself anyway.
 ### Windows
 
-Download the `saladbind-win.exe` from [GitHub Releases](https://github.com/vtheskeleton/SaladBind/releases/latest).
+Download the `saladbind-win.exe` from [GitHub Releases](https://github.com/UhhhAaron/SaladBind/releases/latest).
 
 ### macOS and Linux
 
-Download the `saladbind-macos`/`saladbind-linux` file from [GitHub Releases](https://github.com/vtheskeleton/SaladBind/releases/latest). For these platforms, you'll need to run SaladBind from the terminal, due to how SaladBind works. If you need help with using the terminal, don't be afraid to Google a bit - you'll have to use `cd` to be in the same folder that SaladBind is in.
+Download the `saladbind-macos`/`saladbind-linux` file from [GitHub Releases](https://github.com/UhhhAaron/SaladBind/releases/latest). For these platforms, you'll need to run SaladBind from the terminal, due to how SaladBind works. If you need help with using the terminal, don't be afraid to Google a bit - you'll have to use `cd` to be in the same folder that SaladBind is in.
 
 Use these commands to start SaladBind, for macOS or Linux respectively:
 
@@ -66,8 +70,8 @@ Then, it'll prompt you to enter your mining details.
 
 You can do this by letting SaladBind search your log file, entering your Salad Auth token, or enter your Rig ID manually.
 
-### Automatic (Read from Salad logs)
-
+### Automatic (Read from Salad logs) (Recommended)
+This method is the most convenient.
 SaladBind will search your Salad's log file for your Rig ID and save it automatically.
 
 1. Make sure that "Override GPU Compatibility Detection" is enabled in your Salad settings. If this is disabled, Salad might not log your Prohashing details.
@@ -86,8 +90,8 @@ To get your access token, log in to [https://app.salad.io/](https://app.salad.io
 3. Look for `sAccessToken` and copy it (right click and click `Select all` as it is very long)
 4. Paste the token into the terminal (on Windows, right-click in the SaladBind window to paste)
 
-#### Firefox
-
+#### Firefox (Outdated)
+This method stopped working for me, I suggest just using the log method.
 1. Go to [app-api.salad.io/api/v1/profile/referral-code](https://app-api.salad.io/api/v1/profile/referral-code)
 2. Open the devtools by pressing F12
 3. Click on `Storage` and make sure that `Cookies` is uncollapsed
@@ -95,6 +99,7 @@ To get your access token, log in to [https://app.salad.io/](https://app.salad.io
 5. Paste the token into the terminal (on Windows, right-click in the SaladBind window to paste)
 
 ### Manual
+This method is the most consistent and reliable.
 
 1. Start mining with the Salad app normally, if you have already been mining for over ~3h you need to restart Salad 
 2. Mine for around 5-15 minutes (the "Chopping" stage)
@@ -113,7 +118,7 @@ You are now ready to go!
 
 ### Miner Setup Guide
 
-If you don't know what miner, algorithm or pool to pick, we have a [handy guide](MINERS.md).
+If you don't know what miner, algorithm or pool to pick, see the [handy guide](MINERS.md).
 
 ## Command line arguments
 
@@ -124,7 +129,7 @@ SaladBind offers some command line arguments.
 
 ## Compiling
 
-If you don't want to use our pre-compiled binaries you can compile SaladBind yourself. You'll need to install [Node.js](https://nodejs.org/).
+You can and probably should compile SaladBind yourself. You'll need to install [Node.js](https://nodejs.org/).
 
 1. Clone the repository
 2. Open a terminal in the folder and run `npm install`
