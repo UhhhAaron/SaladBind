@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v3
       - name: Generate changelog
         run: |
-          gh api repos/SonGorLick/SaladBind/releases/generate-notes -f tag_name="${GITHUB_REF#refs/tags/}" -f target_commitish=main -q .body >> CHANGELOG.md
+          gh api repos/UhhhAaron/SaladBind/releases/generate-notes -f tag_name="${GITHUB_REF#refs/tags/}" -f target_commitish=main -q .body >> CHANGELOG.md
         env:
           GITHUB_TOKEN: ${{secrets.TOKEN}}
       - name: Read changelog
