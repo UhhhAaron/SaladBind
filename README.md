@@ -9,6 +9,7 @@ The little support there is can be found at an [archive of the wiki FAQ.](https:
 
 LIT Devs would still greatly appreciate voluntary donations for their project. See [donation directions](DONATE.md).
 
+*I* did **not** create this application, do not contact me for support!
 # SaladBind
 
 If you want to contribute to SaladBind, please read the [contributing guide](CONTRIBUTING.md). Do **NOT** make your own SaladBind version unless you have a good reason to!
