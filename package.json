@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/SonGorLick/SaladBind.git"
+    "url": "git+https://github.com/UhhhAaron/SaladBind.git"
   },
   "author": "honestly? nobody really",
   "license": "GNUv3",
   "bugs": {
-    "url": "https://github.com/SonGorLick/SaladBind/issues"
+    "url": "https://github.com/UhhhAaron/SaladBind/issues"
   },
-  "homepage": "https://github.com/SonGorLick/SaladBind#readme",
+  "homepage": "https://github.com/UhhhAaron/SaladBind#readme",
   "dependencies": {
     "chalk": "^4.1.2",
     "decompress": "^4.2.1",
