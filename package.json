@@ -1,6 +1,6 @@
 {
   "name": "saladbind",
-  "version": "1.7.8.1",
+  "version": "1.7.8",
   "description": "BIND-ing the good features from other projects together (and fucking nuking the bad ones)",
   "main": "src/index.js",
   "scripts": {
@@ -11,30 +11,30 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/UhhhAaron/SaladBind.git"
+    "url": "git+https://github.com/SonGorLick/SaladBind.git"
   },
   "author": "honestly? nobody really",
   "license": "GNUv3",
   "bugs": {
-    "url": "https://github.com/UhhhAaron/SaladBind/issues"
+    "url": "https://github.com/SonGorLick/SaladBind/issues"
   },
-  "homepage": "https://github.com/UhhhAaron/SaladBind#readme",
+  "homepage": "https://github.com/SonGorLick/SaladBind#readme",
   "dependencies": {
-    "chalk": "^5.0.1",
+    "chalk": "^4.1.2",
     "decompress": "^4.2.1",
     "decompress-targz": "^4.1.1",
     "decompress-unzip": "^4.0.1",
     "discord-rpc": "^4.0.1",
     "env-paths": "^2.2.1",
     "https": "^1.0.0",
-    "inquirer": "^8.2.4",
+    "inquirer": "^8.2.0",
     "mv": "^2.1.1",
     "node-fetch": "^2.6.7",
     "open": "^8.4.0",
-    "ora": "^6.1.0",
-    "systeminformation": "^5.11.20"
+    "ora": "^5.4.1",
+    "systeminformation": "^5.11.3"
   },
   "devDependencies": {
-    "pkg": "^5.7.0"
+    "pkg": "^5.5.2"
   }
 }
