@@ -1,5 +1,5 @@
 {
-    "version": "1.7.8",
+    "version": "1.7.8.1",
     "changelog": [
         "1.7.0: SaladBind now uses proper system folders",
         "RECONFIGURING IS REQUIRED!",
@@ -11,7 +11,8 @@
         "If you want help you are free to see the wiki https://wiki.litdevs.org/wiki/SaladBind/FAQ",
         "1.7.6: revive it",
         "1.7.7: fixed the updater on 1.7.6",
-        "1.7.8: Updated miners"
+        "1.7.8: Updated miners",
+	"1.7.8.1: Updated miners again"
     ],
     "force": true,
     "next_version": "1.6.0",
