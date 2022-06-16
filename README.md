@@ -1,9 +1,9 @@
 
 **This application is retired and not affiliated with Salad Technologies.** 
 
-Support for this software is virtually nonexistant at this point. You can use '-d' as a command line argument to debug independently.
+This repo will occasionally receive updates to the list of miners so they aren't too out-of-date. **You can do this yourself, too. Just go to /internal/miners.json, update the download link and variable "version" for the miner you want to update and submit a pull request. I will probably approve it within the day.**
 
-\internal\miners.json is manually updated. You need to update the miner download URLs yourself every once and a while to run up-to-date miners.
+Support for this software is virtually nonexistant at this point. You can use '-d' as a command line argument to debug independently.
 
 The little support there is can be found at an [archive of the wiki FAQ.](https://web.archive.org/web/20220518225746/https://wiki.litdevs.org/wiki/SaladBind/FAQ).
 
