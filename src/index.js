@@ -7,7 +7,7 @@ process.on("uncaughtException", err => {
 		console.clear();
 		console.log(`${chalk.bold.red("Oh noes! A scary error!")}\nTechnical details: ${err.message}`);
 		if(err.message.includes("EPERM")) console.log(chalk.blueBright("This *could* be your antivirus."))
-		console.log("\nPlease join our Discord server (https://discord.gg/HfBAtQ2afz) and send us your log file.\n'But where is it?' The file path will be logged.");	
+		console.log("\nThere is no support tough luck lol.\n'But where is the log?' The file path will be logged.");	
 		inquirer.prompt({
 			name: "exit",
 			message: "What do you want to do?",
@@ -205,7 +205,7 @@ if (fs.existsSync(`${dataDirectory}/last.json`)){
 		case 'changes':
 			presence.configuring("Reading the changelog")
 			const spinner = ora('Fetching the Changelogs').start();
-			fetch('https://raw.githubusercontent.com/SonGorLick/SaladBind/main/internal/changelog.json')
+			fetch('https://raw.githubusercontent.com/UhhhAaron/SaladBind/main/internal/changelog.json')
 				.then(res => res.json())
 				.then(data => {
 					console.clear();
