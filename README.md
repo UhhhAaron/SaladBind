@@ -2,8 +2,11 @@
 **This application is retired and not affiliated with Salad Technologies.** 
 
 Support for this software is virtually nonexistant at this point. You can use '-d' as a command line argument to debug independently.
+
 \internal\miners.json is manually updated. You need to update the miner download URLs yourself every once and a while to run up-to-date miners.
+
 The little support there is can be found at an [archive of the wiki FAQ.](https://web.archive.org/web/20220518225746/https://wiki.litdevs.org/wiki/SaladBind/FAQ).
+
 LIT Devs would still greatly appreciate voluntary donations for their project. See [donation directions](DONATE.md).
 
 # SaladBind
