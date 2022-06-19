@@ -15,6 +15,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
         with:
+          repository: UhhhAaron/SaladBind
+          ssh-strict: true
+          persist-credentials: true
+          clean: true
+          fetch-depth: 1
+          lfs: false
+          submodules: false
+          set-safe-directory: true
           token: ${{ secrets.DAG_TOKEN }}
       - name: Install node
         uses: actions/setup-node@v3.0.0
