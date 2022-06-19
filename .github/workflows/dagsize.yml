@@ -23,7 +23,7 @@ jobs:
           lfs: false
           submodules: false
           set-safe-directory: true
-          token: ${{ secrets.DAG_TOKEN }}
+          token: ${{ github.token }}
       - name: Install node
         uses: actions/setup-node@v3.0.0
         with:
