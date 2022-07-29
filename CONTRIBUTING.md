@@ -2,9 +2,9 @@
 
 ## Contributing to issues and PRs
 
-Please remember that the GitHub [Community Guidelines](https://docs.github.com/en/github/site-policy/github-community-guidelines), [Terms of Service](https://docs.github.com/en/github/site-policy/github-terms-of-service), and other relevant policies apply here and elsewhere on GitHub - we're human beings too. ~~(well not alfur)~~
+Please remember that the GitHub [Community Guidelines](https://docs.github.com/en/github/site-policy/github-community-guidelines), [Terms of Service](https://docs.github.com/en/github/site-policy/github-terms-of-service), and other relevant policies apply here and elsewhere on GitHub - we're human beings too.
 
-Violating these repeatedly may result in being blocked from contributing to LIT Devs projects and/or being banned from GitHub. Constructive contributions are important to us. Thank you!
+Violating these repeatedly may result in being blocked from contributing and/or being banned from GitHub. Constructive contributions are important to us. Thank you!
 
 ## Contributing code
 

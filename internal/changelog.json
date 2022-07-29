@@ -2,17 +2,13 @@
     "version": "1.7.8.1",
     "changelog": [
         "1.7.0: SaladBind now uses proper system folders",
-        "RECONFIGURING IS REQUIRED!",
         "1.7.1: Fixed nothing LOL... :(",
         "1.7.2: Fixed the patch of 1.7.1 :), Windows machines can now find the miner again.",
         "1.7.3: Fixed a bug caused by 1.7.2 making it work ONLY on Windows machines.",
 	    "1.7.4: Updated messages to reflect file locations being changed",
-        "1.7.5: Updated references to our discord to reflect that we do not provide support for this application.",
-        "If you want help you are free to see the wiki https://wiki.litdevs.org/wiki/SaladBind/FAQ",
-        "1.7.6: revive it",
         "1.7.7: fixed the updater on 1.7.6",
         "1.7.8: Updated miners",
-	"1.7.8.1: Updated miners again"
+	    "1.7.8.1: Forked project and updated miners again"
     ],
     "force": true,
     "next_version": "1.6.0",

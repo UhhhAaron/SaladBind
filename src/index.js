@@ -1,13 +1,13 @@
 process.on("uncaughtException", err => {
 	try {
 		if(err.stack.includes("Could not connect") || err.stack.includes("RPC_") || err.stack.includes("discord-rpc")) {
-			console.log("There was an error with the Discord RPC but it has been ignored. If you see this message and SaladBind is unusable, please contact us on Discord.");
+			console.log("There was an error with the Discord RPC but it has been ignored. If you see this message and SaladBind is unusable, cry about it.");
 			return "Discord RPC Broken I guess, as always"; // no one will see this message :)
 		}
 		console.clear();
 		console.log(`${chalk.bold.red("Oh noes! A scary error!")}\nTechnical details: ${err.message}`);
 		if(err.message.includes("EPERM")) console.log(chalk.blueBright("This *could* be your antivirus."))
-		console.log("\nThere is no support tough luck lol.\n'But where is the log?' The file path will be logged.");	
+		console.log("\nThere is no support tough luck lol.\n'But where is the log?' The file path will be shown here.");	
 		inquirer.prompt({
 			name: "exit",
 			message: "What do you want to do?",
@@ -159,8 +159,8 @@ async function menu(clear) {
 		console.clear();
 	}
 	presence.mainmenu();
-	console.log(chalk.bold.green(`${aprilfools ? "VegetableJoiner" : "SaladBind"} v${packageJson.version}\nFor support see https://wiki.litdevs.org/wiki/SaladBind/FAQ`));
-	console.log("Please note that there is absolutely no support for SaladBind.")
+	console.log(chalk.bold.green(`${aprilfools ? "VegetableJoiner" : "SaladBind"} v${packageJson.version}\n`));
+	console.log("Please note that there is absolutely no support for SaladBind from anyone, if you have a problem fix it yourself or cry.")
 	let choices = [{
 		name: 'Start mining',
 		value: 'mining'

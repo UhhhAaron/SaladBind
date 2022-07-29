@@ -5,11 +5,10 @@ This repo will occasionally receive updates to the list of miners so they aren't
 
 Support for this software is virtually nonexistant at this point. You can use '-d' as a command line argument to debug independently.
 
+*I* did **not** create this application, do not contact me for support (besides making minor tweaks)!
+
 The little support there is can be found at an [archive of the wiki FAQ.](https://web.archive.org/web/20220518225746/https://wiki.litdevs.org/wiki/SaladBind/FAQ).
 
-LIT Devs would still greatly appreciate voluntary donations for their project. See [donation directions](DONATE.md).
-
-*I* did **not** create this application, do not contact me for support (besides making minor tweaks)!
 # SaladBind
 
 If you want to contribute to SaladBind, please read the [contributing guide](CONTRIBUTING.md). Do **NOT** make your own SaladBind version unless you have a good reason to!
@@ -23,9 +22,9 @@ SaladBind is pretty much abandoned, nobody really works on it.
 [Miner Setup Guide](#Miner-Setup-Guide) <br>
 [Compiling](#Compiling)
 
-SaladBind is no longer made by LIT Devs, or associated with LIT Devs. Don't bother them about it.
+SaladBind is no longer made by LIT Devs, or associated with LIT Devs. Don't bother them about it, this is a fork by a 3rd party.
 
-If you need support, see the [SaladBind FAQ](https://web.archive.org/web/20220518225746/https://wiki.litdevs.org/wiki/SaladBind/FAQ).
+If you need support, see an archive of the [SaladBind FAQ](https://web.archive.org/web/20220518225746/https://wiki.litdevs.org/wiki/SaladBind/FAQ).
 
 ## Features
 
@@ -66,9 +65,7 @@ chmod +x ./saladbind-linux # You only need to run this once
 
 ## Configuration
 
-Once you start SaladBind for the first time, it will ask you if you want to enable Discord Rich Presence. Here is what it looks like: 
-
-[![Discord Rich Presence](https://theblueburger.github.io/i/F6Jm5hS.png)](https://theblueburger.github.io/i/F6Jm5hS.png)
+Once you start SaladBind for the first time, it will ask you if you want to enable Discord Rich Presence. 
 
 Then, it'll prompt you to enter your mining details.
 
