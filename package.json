@@ -13,7 +13,7 @@
     "type": "git",
     "url": "git+https://github.com/UhhhAaron/SaladBind.git"
   },
-  "author": "honestly? nobody really",
+  "author": "Original author: LIT Devs, Maintained by: UhhhAaron",
   "license": "GNUv3",
   "bugs": {
     "url": "https://github.com/UhhhAaron/SaladBind/issues"
@@ -35,6 +35,6 @@
     "systeminformation": "^5.11.3"
   },
   "devDependencies": {
-    "pkg": "^5.5.2"
+    "pkg": "^5.8.0"
   }
 }
