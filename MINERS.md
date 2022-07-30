@@ -1,1 +1,0 @@
-You can view the archived version of the outdated guide [here](https://web.archive.org/web/20220216041732/https://wiki.litdevs.org/wiki/SaladBind/Miner_guide)
