@@ -1,5 +1,5 @@
 {
-    "version": "1.7.8.2",
+    "version": "1.7.9",
     "changelog": [
         "1.7.0: SaladBind now uses proper system folders",
         "1.7.1: Fixed nothing LOL... :(",
@@ -9,7 +9,8 @@
         "1.7.7: fixed the updater on 1.7.6",
         "1.7.8: Updated miners",
 	"1.7.8.1: Forked project and updated miners again",
-	    "1.7.8.2: NiceHash hostnames fixed, broken links changed/removed"
+	"1.7.8.2: NiceHash hostnames fixed, broken links changed/removed",
+	   "1.7.9: lolMiner configuration improved, added FAQ/Troubleshooting guide, updated miners (TeamRed, lolM, XMR)"
     ],
     "force": true,
     "next_version": "1.6.0",
