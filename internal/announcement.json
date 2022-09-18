@@ -7,7 +7,7 @@
         "",
         "🛠️ What's new?",
         "Added announcement system, this feature like you're currently using!",
-        "Added more algorithm suppot for Prohashing Pool octopus and ghostrider!",
+        "Added support 'ghostrider' and 'octopus' algorithm!",
         "",
         "🔧 Under the hood",
         "Migrate from CodeQL v1 to CodeQL v2",
