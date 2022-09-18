@@ -166,6 +166,10 @@ async function menu(clear) {
 		value: 'mining'
 	},
 	{
+		name: `Annoucement`,
+		value: 'annoucement'
+	},
+	{
 		name: 'Settings',
 		value: 'config'
 	},
@@ -223,6 +227,27 @@ if (fs.existsSync(`${dataDirectory}/last.json`)){
 						name: 'backtomenu',
 						message: 'Press ENTER to return to the menu.'
 					}).then(function() {
+						menu();
+					});
+				})
+			break;
+		case 'annoucement':
+			presence.configuring("Reading the annoucement")
+			spinner = ora('Fetching the Annoucement').start();
+			fetch(`https://raw.githubusercontent.com/UhhhAaron/SaladBind/main/internal/announcement.json`)
+				.then(res => res.json())
+				.then(data => {
+					console.clear();
+					spinner.succeed(chalk.bold.green(`Annoucement - No.${data.number}`));
+					data.announcement.forEach(item => {
+						console.log(`- ${item}`)
+					});
+					console.log();
+					inquirer.prompt({
+						type: 'input',
+						name: 'backtomenu',
+						message: 'Press ENTER to return to the menu.'
+					}).then(async function() {
 						menu();
 					});
 				})
