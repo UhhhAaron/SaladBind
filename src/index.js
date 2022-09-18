@@ -212,7 +212,7 @@ if (fs.existsSync(`${dataDirectory}/last.json`)){
 			break;
 		case 'changes':
 			presence.configuring("Reading the changelog")
-			const spinner = ora('Fetching the Changelogs').start();
+			spinner = ora('Fetching the Changelogs').start();
 			fetch('https://raw.githubusercontent.com/UhhhAaron/SaladBind/main/internal/changelog.json')
 				.then(res => res.json())
 				.then(data => {
