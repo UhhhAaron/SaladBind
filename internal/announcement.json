@@ -7,9 +7,11 @@
         "",
         "🛠️ What's new?",
         "Added announcement system, this feature like you're currently using!",
-        "Added support 'ghostrider' and 'octopus' algorithm!",
+        "Added support 'ghostrider' algorithm!",
+        "Added Prohashing pool to Octopus algorithm",
         "",
         "🔧 Under the hood",
         "Migrate from CodeQL v1 to CodeQL v2",
+        "minerLinks.txt is now README.md (SaladBind/internal/)",
     ]
 }
