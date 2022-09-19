@@ -1,13 +1,13 @@
 {
     "number": "1",
     "announcement": [
-        "⚠️ PSA: Ethereum mining is officially dead! Please switch to other algorithm!",
+        "⚠️ PSA: Ethereum mining is officially dead! Please switch to other algorithms!",
         "",
         "🎉 1.7.10 is released to the main branch!",
         "",
         "🛠️ What's new?",
-        "Added announcement system, this feature like you're currently using!",
-        "Added support 'ghostrider' algorithm!",
+        "Added announcement system, the feature that you're currently using!",
+        "Added 'Ghostrider' algorithm",
         "Added Prohashing pool to Octopus algorithm",
         "",
         "🔧 Under the hood",
