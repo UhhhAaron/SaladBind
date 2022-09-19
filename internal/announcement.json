@@ -3,15 +3,17 @@
     "announcement": [
         "⚠️ PSA: Ethereum mining is officially dead! Please switch to other algorithms!",
         "",
+        "🔧 Under the hood",
+        "Actually disable Ethash",
+        "Add Ghostrider algorithm to XMRig in /internal/miners.json",
+        "",
+        "In case if you missed last annoucement",
+        "",
         "🎉 1.7.10 is released to the main branch!",
         "",
         "🛠️ What's new?",
         "Added announcement system, the feature that you're currently using!",
         "Added 'Ghostrider' algorithm",
-        "Added Prohashing pool to Octopus algorithm",
-        "",
-        "🔧 Under the hood",
-        "Migrate from CodeQL v1 to CodeQL v2",
-        "minerLinks.txt is now README.md (SaladBind/internal/)"
+        "Added Prohashing pool to Octopus algorithm"
     ]
 }
