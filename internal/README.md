@@ -11,10 +11,11 @@ Links to miners listed in /internal/miners.json for convenience:
 #### XMRig: https://github.com/xmrig/xmrig/releases
 
 ## miners.json (DAG)
-For algorithm that use the following
+Tip: When disabling algorithm, set the DAG value of the algorithm that you want to disable to `2147483647`, **DO NOT SET IT TO 0, -1 OR NULL** or else SaladBind will think that the algorithm is compatible because the GPU VRAM is higher than `0 or -1` or doesn't have a requirement `null`
+
 | Coin | Algorithm  | Mineable | Get dag source from |
 | ------------- | ------------- | ------------- | ------------- |
-| Ethereum  | Ethash  | ❌ (as of 15 September 2022) | ❌ Ethereum is not mineable after the ETH 2.0 merge
+| Ethereum  | Ethash  | ❌ (as of 15 September 2022) | 2147483647 (unmineable)
 | Ethereum Classic | Etchash |  ✅ | https://minerstat.com/dag-size-calculator
 | Ravencoin  | KawPow |  ✅ | https://minerstat.com/dag-size-calculator
 | Ergo  | Autolykos2 | ✅ | https://minerstat.com/dag-size-calculator
