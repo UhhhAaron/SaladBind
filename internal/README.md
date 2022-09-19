@@ -10,7 +10,7 @@ Links to miners listed in /internal/miners.json for convenience:
 #### lolMiner: https://github.com/Lolliedieb/lolMiner-releases/releases
 #### XMRig: https://github.com/xmrig/xmrig/releases
 
-## miners.json (DAG)
+## miners.json
 Tip: When disabling algorithm, set the DAG value of the algorithm that you want to disable to `2147483647`, **DO NOT SET IT TO 0, -1 OR NULL** or else SaladBind will think that the algorithm is compatible because the GPU VRAM is higher than `0 or -1` or doesn't have a requirement `null`.
 
 | Coin | Algorithm  | Mineable | Get dag source from |
