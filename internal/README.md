@@ -26,7 +26,7 @@ Algorithm  | Mineable | Get dag source from |
 | RandomX | ✅ | DAG not required
 | Ghostrider | ✅ | DAG not required
 
-*Zcash or Zelhash is not enabled in SaladBind because it hasn't been tested yet™️, to enable it, change the supported algorithm in compatible miner at miners.json if you wish to use it. (Only Nicehash pool is supported.)
+*Zcash or Zelhash is not enabled in SaladBind because it hasn't been tested yet™️, to enable it, add `"zelhash": 2000` under `algos` and change the supported algorithm in compatible miner at miners.json if you wish to use it. (Only Nicehash pool is supported.)
 
 ## Announcement.json
 If your going to make your own announcement, increment the number in "number" by 1, It not that important. :)
