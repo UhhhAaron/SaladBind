@@ -13,17 +13,18 @@ Links to miners listed in /internal/miners.json for convenience:
 ## miners.json
 Tip: When disabling algorithm, set the DAG value of the algorithm that you want to disable to `2147483647`, **DO NOT SET IT TO 0, -1 OR NULL** or else SaladBind will think that the algorithm is compatible because the GPU VRAM is higher than `0 or -1` or doesn't have a requirement `null`.
 
-| Coin | Algorithm  | Mineable | Get dag source from |
-| ------------- | ------------- | ------------- | ------------- |
-| Ethereum  | Ethash  | ❌ (as of 15 September 2022) | 2147483647 (unmineable)
-| Ethereum Classic | Etchash |  ✅ | https://minerstat.com/dag-size-calculator
-| Ravencoin  | KawPow |  ✅ | https://minerstat.com/dag-size-calculator
-| Ergo  | Autolykos2 | ✅ | https://minerstat.com/dag-size-calculator
-| BEAM | BeamV3 (EQUI150-5)| ✅ | 2gb
-| Zcash | ZHash (EQUI144-5) | ✅ | 2gb
-| Flux* | Zelhash (EQUI125-4) | ✅ | 2gb
-| Monero  | RandomX | ✅ | DAG not required
-| Raptoreum | Ghostrider | ✅ | DAG not required
+Algorithm  | Mineable | Get dag source from |
+| ------------- | ------------- | ------------- |
+| Ethash  | ❌ (as of 15 September 2022) | 2147483647 (unmineable)
+| Etchash |  ✅ | https://minerstat.com/dag-size-calculator
+| KawPow |  ✅ | https://minerstat.com/dag-size-calculator
+| Autolykos2 | ✅ | https://minerstat.com/dag-size-calculator
+| Octopus | ✅ | 7gb (estimated, this algorithm grows at least 1-1.5gb a year)
+| BeamV3 (EQUI150-5)| ✅ | 2gb
+| ZHash (EQUI144-5) | ✅ | 2gb
+| Zelhash* (EQUI125-4) | ✅ | 2gb
+| RandomX | ✅ | DAG not required
+| Ghostrider | ✅ | DAG not required
 
 *Zcash or Zelhash is not enabled in SaladBind because it hasn't been tested yet™️, to enable it, change the supported algorithm in compatible miner at miners.json if you wish to use it. (Only Nicehash pool is supported.)
 
