@@ -7,7 +7,8 @@
         "EQUI144_5": 2000,
         "autolykos2": 2545,
         "octopus": 7000,
-        "randomx": null
+        "randomx": null,
+        "ghostrider": null,
     },
     "miners": {
         "phoenixminer": {
