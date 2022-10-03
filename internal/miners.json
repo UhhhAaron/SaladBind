@@ -6,9 +6,9 @@
         "beamv3": 2000,
         "EQUI144_5": 2000,
         "autolykos2": 2548,
-        "octopus": 4720,
+        "octopus": 7000,
         "randomx": null,
-        "raptoreum": null
+        "ghostrider": null
     },
     "miners": {
         "phoenixminer": {
@@ -168,7 +168,7 @@
             },
             "algos": [
                 "randomx",
-                "raptoreum"
+                "ghostrider"
             ],
             "supports_cpu": true,
             "supported_gpus": [],
