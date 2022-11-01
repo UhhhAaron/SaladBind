@@ -1,19 +1,12 @@
 {
-    "number": "1",
+    "number": "2",
     "announcement": [
-        "⚠️ PSA: Ethereum mining is officially dead! Please switch to other algorithms!",
+        "🔧 New Prohashing pool url: https://prohashing.com/blog/prohashings-upcoming-worldwide-architecture",
         "",
-        "🔧 Under the hood",
-        "Actually disable Ethash",
-        "Add Ghostrider algorithm to XMRig in /internal/miners.json",
-        "",
-        "In case if you missed last annoucement",
-        "",
-        "🎉 1.7.10 is released to the main branch!",
-        "",
-        "🛠️ What's new?",
-        "Added announcement system, the feature that you're currently using!",
-        "Added 'Ghostrider' algorithm",
-        "Added Prohashing pool to Octopus algorithm"
+        "🎉 Miner bump",
+        "> T-Rex: 0.26.6 -> 0.26.8",
+        "> TeamRedMiner: 0.10.2 -> 0.10.5",
+        "> lolMiner: 1.55 -> 1.61",
+        "> XMRig: 6.18.0 -> 6.18.1"
     ]
 }

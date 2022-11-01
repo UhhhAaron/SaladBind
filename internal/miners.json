@@ -7,7 +7,8 @@
         "EQUI144_5": 2000,
         "autolykos2": 2589,
         "octopus": 7000,
-        "randomx": null
+        "randomx": null,
+        "ghostrider": null
     },
     "miners": {
         "phoenixminer": {
@@ -41,8 +42,8 @@
         "trex": {
             "miner": "T-Rex",
             "download": {
-                "win32": "https://github.com/trexminer/T-Rex/releases/download/0.26.5/t-rex-0.26.5-win.zip",
-                "linux": "https://github.com/trexminer/T-Rex/releases/download/0.26.5/t-rex-0.26.5-linux.tar.gz"
+                "win32": "https://github.com/trexminer/T-Rex/releases/download/0.26.8/t-rex-0.26.8-win.zip",
+                "linux": "https://github.com/trexminer/T-Rex/releases/download/0.26.8/t-rex-0.26.8-linux.tar.gz"
             },
             "algos": [
                 "ethash",
@@ -59,7 +60,7 @@
                 "linux"
             ],
             "fee": 1,
-            "version": "0.26.5",
+            "version": "0.26.8",
             "parameters": {
                 "fileName": "t-rex",
                 "algo": "-a",
@@ -103,8 +104,8 @@
         "teamredminer": {
             "miner": "TeamRedMiner",
             "download": {
-                "win32": "https://github.com/todxx/teamredminer/releases/download/v0.10.2/teamredminer-v0.10.2-win.zip",
-                "linux": "https://github.com/todxx/teamredminer/releases/download/v0.10.2/teamredminer-v0.10.2-linux.tgz"
+                "win32": "https://github.com/todxx/teamredminer/releases/download/v0.10.5.1/teamredminer-v0.10.5.1-win.zip",
+                "linux": "https://github.com/todxx/teamredminer/releases/download/v0.10.5.1/teamredminer-v0.10.5.1-linux.tgz"
             },
             "algos": [
                 "ethash",
@@ -119,7 +120,7 @@
                 "linux"
             ],
             "fee": 2,
-            "version": "v0.10.2",
+            "version": "v0.10.5.1",
             "parameters": {
                 "fileName": "teamredminer",
                 "algo": "-a",
@@ -131,8 +132,8 @@
         "lolminer": {
             "miner": "lolMiner",
             "download": {
-                "win32": "https://github.com/Lolliedieb/lolMiner-releases/releases/download/1.55/lolMiner_v1.55_Win64.zip",
-                "linux": "https://github.com/Lolliedieb/lolMiner-releases/releases/download/1.55/lolMiner_v1.55_Lin64.tar.gz"
+                "win32": "https://github.com/Lolliedieb/lolMiner-releases/releases/download/1.61/lolMiner_v1.61_Win64.zip",
+                "linux": "https://github.com/Lolliedieb/lolMiner-releases/releases/download/1.61/lolMiner_v1.61_Lin64.tar.gz"
             },
             "algos": [
                 "ethash",
@@ -149,7 +150,7 @@
                 "linux"
             ],
             "fee": 1,
-            "version": "1.55",
+            "version": "1.61",
             "parameters": {
                 "fileName": "lolMiner",
                 "algo": "--algo",
@@ -161,9 +162,9 @@
         "xmrig": {
             "miner": "XMRig",
             "download": {
-                "win32": "https://github.com/xmrig/xmrig/releases/download/v6.18.0/xmrig-6.18.0-gcc-win64.zip",
-                "linux": "https://github.com/xmrig/xmrig/releases/download/v6.18.0/xmrig-6.18.0-linux-x64.tar.gz",
-                "darwin": "https://github.com/xmrig/xmrig/releases/download/v6.18.0/xmrig-6.18.0-macos-x64.tar.gz"
+                "win32": "https://github.com/xmrig/xmrig/releases/download/v6.18.1/xmrig-6.18.1-gcc-win64.zip",
+                "linux": "https://github.com/xmrig/xmrig/releases/download/v6.18.1/xmrig-6.18.1-linux-x64.tar.gz",
+                "darwin": "https://github.com/xmrig/xmrig/releases/download/v6.18.1/xmrig-6.18.1-macos-x64.tar.gz"
             },
             "algos": [
                 "randomx",
@@ -177,7 +178,7 @@
                 "darwin"
             ],
             "fee": 1,
-            "version": "6.18.0",
+            "version": "6.18.1",
             "parameters": {
                 "fileName": "xmrig",
                 "algo": "-a",
